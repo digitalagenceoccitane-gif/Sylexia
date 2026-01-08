@@ -35,13 +35,13 @@
         .container { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; gap: 60px; }
         .text-section { flex: 1; max-width: 550px; }
         
-        .brand-logo-main { width: 120px; margin-bottom: 30px; filter: drop-shadow(0 0 15px rgba(0,102,255,0.4)); }
+        .brand-logo-main { width: 120px; margin-bottom: 30px; border-radius: 20px; filter: drop-shadow(0 0 15px rgba(0,102,255,0.4)); }
         
         h1 { font-size: clamp(2.5rem, 5vw, 3.8rem); line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 25px; font-weight: 700; background: linear-gradient(180deg, #fff 0%, #888 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .desc { font-size: 1.2rem; color: var(--grey); line-height: 1.5; margin-bottom: 40px; }
 
         .cta-group { display: flex; gap: 15px; flex-wrap: wrap; }
-        .cta-btn { background: #fff; color: #000; padding: 18px 35px; border-radius: 50px; font-weight: 600; text-decoration: none; cursor: pointer; transition: 0.4s; border: none; }
+        .cta-btn { background: #fff; color: #000; padding: 18px 35px; border-radius: 50px; font-weight: 600; text-decoration: none; cursor: pointer; transition: 0.4s; border: none; text-align: center; }
         .cta-btn.secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
         .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,198,255,0.2); }
 
@@ -54,7 +54,7 @@
         .iphone-device.unlocked { transform: rotateY(0deg) rotateX(0deg) scale(1.02); }
         .iphone-screen { position: absolute; inset: 3px; background: #000; border-radius: 49px; overflow: hidden; }
 
-        /* --- 3 PILIERS LUXE --- */
+        /* --- PILIERS --- */
         .pillars-section { padding: 100px 5%; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; background: #050505; }
         .pillar-card { background: var(--card-bg); border: 1px solid #1a1a1a; padding: 40px; border-radius: 25px; flex: 1; min-width: 300px; max-width: 350px; transition: 0.3s; }
         .pillar-card:hover { border-color: var(--blue); transform: translateY(-10px); }
@@ -62,7 +62,7 @@
         .pillar-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--white); }
         .pillar-card p { color: var(--grey); line-height: 1.6; }
 
-        /* --- TABLEAU INGENIERIE --- */
+        /* --- TABLEAU --- */
         .table-section { padding: 100px 5%; max-width: 1000px; margin: 0 auto; }
         .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 12px; }
         .luxury-table th { text-align: left; padding: 15px; color: #444; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
@@ -74,7 +74,7 @@
         .simulator-section { padding: 100px 5%; display: flex; flex-direction: column; align-items: center; }
         .simulator-card { background: var(--card-bg); width: 100%; max-width: 600px; padding: 45px; border-radius: 35px; border: 1px solid #1a1a1a; }
         .val-display { color: var(--blue); font-weight: 700; }
-        input[type=range] { width: 100%; accent-color: var(--blue); margin: 20px 0 40px; }
+        input[type=range] { width: 100%; accent-color: var(--blue); margin: 20px 0 40px; background: #222; height: 6px; border-radius: 10px; appearance: none; outline: none; }
         .result-box { background: rgba(0, 255, 136, 0.03); border: 1px solid rgba(0, 255, 136, 0.1); padding: 35px; border-radius: 25px; text-align: center; }
         .res-amount { font-size: 3.5rem; font-weight: 700; color: #00ff88; }
 
@@ -83,6 +83,8 @@
         #real-time-clock { font-size: 4rem; font-weight: 300; margin-bottom: 30px; }
         iframe { width: 100%; height: 100%; border: none; visibility: hidden; }
         .unlocked iframe { visibility: visible; }
+
+        footer { padding: 60px 20px; color: #444; font-size: 0.9em; text-align: center; }
 
         @media (max-width: 900px) {
             .container { flex-direction: column; text-align: center; }
@@ -119,6 +121,11 @@
                         <iframe id="chatframe" src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
                     </div>
                 </div>
+                <p style="text-align: center; margin-top: 20px;">
+                    <a href="#" style="color: var(--blue); text-decoration: none; font-size: 0.9rem;" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});return false;">
+                        Planifier une mise en place réelle →
+                    </a>
+                </p>
             </div>
         </div>
     </section>
@@ -142,7 +149,7 @@
     </section>
 
     <section class="table-section" id="cas-usages">
-        <h2 style="margin-bottom: 40px; font-size: 2rem;">Ingénierie de précision</h2>
+        <h2 style="margin-bottom: 40px; font-size: 2rem; text-align: center;">Ingénierie de précision</h2>
         <table class="luxury-table">
             <thead>
                 <tr>
@@ -188,10 +195,14 @@
             <div class="result-box">
                 <div id="res-mensuel" class="res-amount">-- €</div>
                 <p style="color: var(--grey); margin-top: 10px;">Gain mensuel estimé débloqué</p>
-                <a href="#" class="cta-btn" style="display:inline-block; margin-top:30px; background:var(--blue); color:#fff;" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane-gif/30min'});return false;">Demander l'accès Premium</a>
+                <a href="#" class="cta-btn" style="display:inline-block; margin-top:30px; background:var(--blue); color:#fff;" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});return false;">Demander l'accès Premium</a>
             </div>
         </div>
     </section>
+
+    <footer>
+        &copy; 2024 Digital Agence Occitanie. Tous droits réservés.
+    </footer>
 
     <script>
         function updateClock() {
@@ -214,6 +225,7 @@
             const p = parseInt(document.getElementById('prix').value);
             document.getElementById('val-temps').innerText = t + "h";
             document.getElementById('val-prix').innerText = p + "€";
+            // Formule : Temps gagné converti + Sécurisation CA
             const total = Math.round((t * 22 * 0.6) * (p / 2.5) + (2 * p));
             document.getElementById('res-mensuel').innerText = total.toLocaleString('fr-FR') + " €";
         }
