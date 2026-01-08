@@ -3,185 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sylex IA - L'Immobilier de demain</title>
+    <title>Sylex IA | L'Immobilier Réinventé</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #050505;
-            --accent: #ffffff;
-            --text-muted: #888888;
+            --bg-color: #050505;
+            --accent-color: #ffffff;
+            --iphone-shadow: 0 50px 100px rgba(0,0,0,0.8);
         }
 
         body {
-            background-color: var(--bg);
-            color: white;
+            background-color: var(--bg-color);
+            color: var(--accent-color);
+            font-family: 'Inter', sans-serif;
             margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* Navbar */
-        .navbar {
+        .container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: row;
             align-items: center;
-            padding: 20px 8%;
-            position: fixed;
-            width: 84%;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(15px);
-            border-bottom: 0.5px solid rgba(255,255,255,0.05);
+            gap: 80px;
+            max-width: 1200px;
+            padding: 40px;
         }
 
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            font-size: 18px;
+        /* --- TEXTE --- */
+        .text-section {
+            flex: 1;
         }
 
-        .nav-logo img { width: 32px; border-radius: 6px; }
-
-        .nav-links { display: flex; gap: 30px; align-items: center; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; transition: 0.3s; }
-        .nav-links a:hover { color: white; }
-
-        .btn-primary {
-            background: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 20px;
+        h1 {
+            font-size: 3.5rem;
             font-weight: 600;
-            cursor: pointer;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* Hero Layout */
-        .hero-section {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 120px 10% 50px 10%;
-            min-height: 90vh;
+        p {
+            font-size: 1.2rem;
+            color: #888;
+            max-width: 400px;
+            line-height: 1.6;
         }
 
-        .hero-text { max-width: 500px; }
-        h1 { font-size: 50px; line-height: 1.1; margin: 25px 0; font-weight: 800; }
-        .gradient-text { background: linear-gradient(to bottom, #fff 30%, #444 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-text p { color: var(--text-muted); line-height: 1.6; font-size: 18px; }
-
-        /* iPhone Display */
-        .iphone-container { position: relative; }
+        /* --- IPHONE FRAME --- */
+        .iphone-wrapper {
+            position: relative;
+            perspective: 1000px;
+        }
 
         .iphone-frame {
+            width: 340px;
+            height: 680px;
+            background: #111;
+            border: 12px solid #222;
+            border-radius: 50px;
             position: relative;
-            width: 280px;
-            height: 580px;
-            background: #000;
-            border: 8px solid #1a1a1a;
-            border-radius: 40px;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
-            overflow: hidden;
+            box-shadow: var(--iphone-shadow);
+            overflow: hidden; /* Important pour masquer le logo Dify */
         }
 
+        /* Dynamic Island */
         .dynamic-island {
             position: absolute;
-            top: 12px;
+            top: 15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 85px;
-            height: 25px;
+            width: 100px;
+            height: 30px;
             background: #000;
             border-radius: 20px;
             z-index: 10;
         }
 
-        iframe { width: 100%; height: 100%; border: none; background: white; }
+        /* Logo en filigrane derrière le chat */
+        .watermark-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            background: url('https://i.ibb.co/4n4vpP0r/IMG-5824.jpg') no-repeat center;
+            background-size: contain;
+            opacity: 0.06; /* Très discret pour ne pas gêner la lecture */
+            z-index: 1;
+            pointer-events: none;
+        }
 
-        /* Notification */
-        .ios-notification {
+        /* L'IA (Iframe ajustée pour cacher le bas) */
+        iframe {
+            width: 100%;
+            height: 108%; /* On dépasse volontairement du cadre */
+            border: none;
+            position: relative;
+            z-index: 2;
+            background: transparent;
+        }
+
+        /* --- NOTIFICATION --- */
+        .notification {
             position: absolute;
             top: -100px;
             left: 50%;
             transform: translateX(-50%);
-            width: 250px;
-            background: rgba(28, 28, 30, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 18px;
-            padding: 10px;
-            z-index: 1000;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
-            border: 0.5px solid rgba(255,255,255,0.15);
-            cursor: pointer;
+            width: 300px;
+            background: rgba(25, 25, 25, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 100;
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .ios-notification.active { top: 30px; }
+        .notification.show {
+            top: 25px;
+        }
 
-        .notif-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-        .notif-logo { width: 16px; height: 16px; border-radius: 4px; }
-        .notif-app-name { font-size: 10px; color: #8e8e93; flex-grow: 1; font-weight: 500; }
-        .notif-body { font-size: 12px; color: #fff; }
+        .notification img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+        }
 
-        @media (max-width: 968px) {
-            .hero-section { flex-direction: column; text-align: center; padding-top: 100px; gap: 40px; }
-            .nav-links { display: none; }
-            h1 { font-size: 38px; }
+        .notification-text b {
+            display: block;
+            font-size: 0.9rem;
+            color: #fff;
+        }
+
+        .notification-text span {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+            }
+            p { margin: 0 auto; }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-logo">
-            <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" alt="Sylex Logo">
-            <span>SYLEX IA</span>
-        </div>
-        <div class="nav-links">
-            <a href="#">Solutions</a>
-            <button class="btn-primary">Connexion</button>
-        </div>
-    </nav>
-
-    <main class="hero-section">
-        <div class="hero-text">
-            <h1>L'immobilier, <br><span class="gradient-text">réinventé par l'IA.</span></h1>
-            <p>Automatisez vos leads et votre gestion client avec Sylex, l'IA experte du secteur.</p>
+    <div class="container">
+        <div class="text-section">
+            <h1>L'immobilier,<br>réinventé par l'IA.</h1>
+            <p>Découvrez Sylex, votre nouvel agent virtuel disponible 24/7 pour qualifier vos leads et sublimer votre image de marque.</p>
         </div>
 
-        <div class="iphone-container">
-            <div class="ios-notification" id="pop-up">
-                <div class="notif-header">
-                    <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" class="notif-logo">
-                    <span class="notif-app-name">SYLEX IA</span>
-                    <span class="notif-time">Maintenant</span>
-                </div>
-                <div class="notif-body">
-                    <strong>Sylex IA</strong>
-                    <p>Bonjour ! Discutons de vos projets.</p>
+        <div class="iphone-wrapper">
+            <div id="notif" class="notification">
+                <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" alt="Logo Sylex">
+                <div class="notification-text">
+                    <b>Sylex IA</b>
+                    <span>"Bonjour ! Comment puis-je vous aider ?"</span>
                 </div>
             </div>
 
             <div class="iphone-frame">
                 <div class="dynamic-island"></div>
+                <div class="watermark-logo"></div>
+                
                 <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
             </div>
         </div>
-    </main>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const notification = document.getElementById('pop-up');
-            setTimeout(() => {
-                notification.classList.add('active');
-            }, 2500);
+        // Apparition de la notification après 2 secondes
+        setTimeout(() => {
+            document.getElementById('notif').classList.add('show');
+        }, 2000);
 
-            notification.addEventListener('click', () => {
-                notification.style.opacity = '0';
-                setTimeout(() => notification.remove(), 500);
-            });
-        });
+        // Optionnel : la faire disparaître après 7 secondes
+        setTimeout(() => {
+            document.getElementById('notif').classList.remove('show');
+        }, 8000);
     </script>
+
 </body>
 </html>
