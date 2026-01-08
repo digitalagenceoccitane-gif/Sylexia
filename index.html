@@ -5,257 +5,189 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sylexia - Super Agent IA</title>
     <style>
+        :root {
+            --primary: #00d2ff;
+            --secondary: #3a7bd5;
+            --bg: #050505;
+            --card-bg: #111111;
+            --text: #ffffff;
+        }
+
         body {
-            background-color: #050505;
-            color: #ffffff;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
 
-        /* --- SECTION APPEL À L'ACTION --- */
-        .cta-container {
+        /* --- DESIGN IPHONE ORIGINAL --- */
+        .iphone-container {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            background: #222;
+            border: 8px solid #333;
+            border-radius: 40px;
+            margin: 50px auto;
+            box-shadow: 0 0 50px rgba(0,210,255,0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .iphone-screen {
+            flex: 1;
+            background: #000;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: 80px 20px;
-            background: radial-gradient(circle at center, rgba(58, 123, 213, 0.1) 0%, transparent 70%);
-            border-bottom: 1px solid #1a1a1a;
         }
 
-        .cta-container h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            background: linear-gradient(to right, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .iphone-notch {
+            width: 150px;
+            height: 20px;
+            background: #333;
+            margin: 0 auto;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
         }
 
-        .cta-container p {
-            color: #aaa;
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            line-height: 1.6;
+        /* --- APPEL À L'ACTION --- */
+        .cta-section {
+            text-align: center;
+            padding: 40px 20px;
         }
 
-        .btn-simulateur {
-            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+        .cta-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            padding: 18px 45px;
-            font-size: 1.1rem;
+            padding: 15px 30px;
             border-radius: 50px;
-            cursor: pointer;
             font-weight: bold;
-            box-shadow: 0 10px 25px rgba(58, 123, 213, 0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,210,255,0.3);
             text-decoration: none;
             display: inline-block;
+            transition: 0.3s;
         }
 
-        .btn-simulateur:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(58, 123, 213, 0.6);
-        }
+        .cta-btn:hover { transform: scale(1.05); }
 
-        /* --- SECTION SIMULATEUR --- */
-        .simulator-section {
-            padding: 100px 20px;
-            background-color: #050505;
-        }
-
-        .simulator-card {
-            background: #111;
-            color: white;
-            padding: 40px;
-            border-radius: 28px;
-            max-width: 600px;
-            margin: 0 auto;
-            border: 1px solid #222;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
-        }
-
-        .simulator-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .badge {
-            background: rgba(0, 210, 255, 0.1);
-            color: #00d2ff;
-            padding: 6px 14px;
+        /* --- SIMULATEUR --- */
+        .simulator-container {
+            max-width: 500px;
+            margin: 40px auto;
+            background: var(--card-bg);
+            padding: 30px;
             border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            border: 1px solid #222;
         }
 
-        .input-group {
-            margin-bottom: 35px;
-        }
-
-        .input-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            color: #eee;
-        }
-
-        .val-display {
-            color: #00d2ff;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
+        .slider-group { margin-bottom: 25px; }
+        .slider-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; color: #888; }
+        .val-highlight { color: var(--primary); font-weight: bold; }
 
         input[type=range] {
             width: 100%;
-            height: 6px;
-            border-radius: 5px;
-            appearance: none;
-            background: #333;
-            outline: none;
+            accent-color: var(--primary);
             cursor: pointer;
         }
 
-        input[type=range]::-webkit-slider-thumb {
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            background: #00d2ff;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
-        }
-
-        /* --- RESULTATS --- */
-        .result-box {
-            background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.05) 100%);
-            border-radius: 24px;
-            padding: 35px;
+        .result-zone {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 15px;
             text-align: center;
-            border: 1px solid #333;
-            margin-top: 20px;
+            border: 1px dashed #444;
         }
 
-        .result-label {
-            font-size: 1rem;
-            color: #aaa;
-            margin-bottom: 10px;
-        }
+        .gain-mensuel { font-size: 2.5rem; font-weight: 800; color: #00ff88; margin: 10px 0; }
+        .gain-annuel { background: #00ff88; color: #000; padding: 4px 12px; border-radius: 5px; font-weight: bold; font-size: 0.8rem; }
 
-        .result-main {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: #00ff88;
-            margin: 10px 0;
-            text-shadow: 0 0 30px rgba(0,255,136,0.2);
-        }
-
-        .result-sub {
-            background: #00ff88;
-            color: #000;
-            display: inline-block;
-            padding: 6px 18px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.95rem;
-            margin-top: 10px;
-        }
-
-        .footer-note {
-            text-align: center;
-            font-size: 0.75rem;
-            color: #444;
-            margin-top: 25px;
-            line-height: 1.4;
-        }
     </style>
 </head>
 <body>
 
-    <section class="cta-container">
-        <h1>Combien de chiffre d'affaires perdez-vous ?</h1>
-        <p>Répondre aux messages et gérer les rendez-vous manuellement vous coûte plus cher qu'un loyer. Découvrez votre manque à gagner en 10 secondes.</p>
-        <button class="btn-simulateur" onclick="document.getElementById('simulateur-ia').scrollIntoView({behavior: 'smooth'})">
-            🔥 Tester mon gain potentiel avec Sylexia
+    <div class="cta-section">
+        <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Sylexia : Super Agent IA</h1>
+        <p style="color: #888; margin-bottom: 30px;">L'intelligence qui gère votre business pendant que vous travaillez.</p>
+        
+        <button class="cta-btn" onclick="document.getElementById('simulateur-ia').scrollIntoView({behavior: 'smooth'})">
+            💰 Estimer mon gain de CA
         </button>
-    </section>
+    </div>
 
-    <section class="simulator-section">
-        <div id="simulateur-ia" class="simulator-card">
-            
-            <div class="simulator-header">
-                <span class="badge">Analyse Financière IA</span>
-                <h2 style="margin-top: 15px; font-size: 1.8rem;">Simulateur Sylexia</h2>
-                <p style="color: #666;">Faites glisser les curseurs selon votre activité réelle.</p>
-            </div>
-
-            <div class="input-group">
-                <div class="input-header">
-                    <span>Temps de gestion DMs/Appels (par jour) :</span>
-                    <span id="val-temps" class="val-display">1h</span>
-                </div>
-                <input type="range" id="temps" min="0.5" max="5" step="0.5" value="1.5" oninput="calculerGain()">
-            </div>
-
-            <div class="input-group">
-                <div class="input-header">
-                    <span>Tarif moyen d'une prestation :</span>
-                    <span id="val-prix" class="val-display">100€</span>
-                </div>
-                <input type="range" id="prix" min="30" max="600" step="10" value="120" oninput="calculerGain()">
-            </div>
-
-            <div class="input-group">
-                <div class="input-header">
-                    <span>Lapins / Annulations (par mois) :</span>
-                    <span id="val-lapins" class="val-display">2</span>
-                </div>
-                <input type="range" id="lapins" min="0" max="15" step="1" value="2" oninput="calculerGain()">
-            </div>
-
-            <div class="result-box">
-                <div class="result-label">Gain mensuel potentiel avec Sylexia :</div>
-                <div id="resultat-mensuel" class="result-main">-- €</div>
-                <div style="color: #00ff88; font-weight: bold; margin-bottom: 15px;">de revenus supplémentaires</div>
-                <div id="resultat-annuel" class="result-sub">SOIT -- € / AN</div>
-            </div>
-
-            <p class="footer-note">
-                *Le calcul estime que 60% du temps gagné est réinvesti en prestations facturables et que les acomptes automatiques éliminent 100% des pertes liées aux rendez-vous non honorés.
+    <div class="iphone-container">
+        <div class="iphone-notch"></div>
+        <div class="iphone-screen">
+            <div style="color: var(--primary); font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">Sylexia</div>
+            <p style="font-size: 0.9rem; line-height: 1.4; color: #ccc;">
+                "Bonjour Laila, j'ai pris 3 rendez-vous pour toi aujourd'hui et encaissé 150€ d'acomptes."
             </p>
+            <div style="margin-top: 30px; width: 80%; height: 2px; background: #333;"></div>
+            <p style="font-size: 0.7rem; color: #555; margin-top: 15px;">Agent IA Actif • Connecté à Instagram</p>
         </div>
-    </section>
+    </div>
+
+    <div id="simulateur-ia" class="simulator-container">
+        <h2 style="text-align: center; font-size: 1.4rem; margin-bottom: 30px;">Simulateur de Gain</h2>
+        
+        <div class="slider-group">
+            <div class="slider-header">
+                <span>Gestion DMs/Appels (jour) :</span>
+                <span id="val-temps" class="val-highlight">1.5h</span>
+            </div>
+            <input type="range" id="temps" min="0.5" max="5" step="0.5" value="1.5" oninput="calculer()">
+        </div>
+
+        <div class="slider-group">
+            <div class="slider-header">
+                <span>Prix prestation moyen :</span>
+                <span id="val-prix" class="val-highlight">120€</span>
+            </div>
+            <input type="range" id="prix" min="30" max="500" step="10" value="120" oninput="calculer()">
+        </div>
+
+        <div class="slider-group">
+            <div class="slider-header">
+                <span>Lapins / Mois :</span>
+                <span id="val-lapins" class="val-highlight">2</span>
+            </div>
+            <input type="range" id="lapins" min="0" max="10" step="1" value="2" oninput="calculer()">
+        </div>
+
+        <div class="result-zone">
+            <div style="font-size: 0.9rem; color: #aaa;">Gain mensuel estimé :</div>
+            <div id="res-mensuel" class="gain-mensuel">-- €</div>
+            <div id="res-annuel" class="gain-annuel">SOIT -- € / AN</div>
+        </div>
+    </div>
 
     <script>
-        function calculerGain() {
-            // Récupération des données
-            const tempsDMs = parseFloat(document.getElementById('temps').value);
-            const tarifPresta = parseInt(document.getElementById('prix').value);
-            const nbLapins = parseInt(document.getElementById('lapins').value);
+        function calculer() {
+            const t = parseFloat(document.getElementById('temps').value);
+            const p = parseInt(document.getElementById('prix').value);
+            const l = parseInt(document.getElementById('lapins').value);
 
-            // Mise à jour visuelle des chiffres au-dessus des sliders
-            document.getElementById('val-temps').innerText = tempsDMs + "h";
-            document.getElementById('val-prix').innerText = tarifPresta + "€";
-            document.getElementById('val-lapins').innerText = nbLapins;
+            document.getElementById('val-temps').innerText = t + "h";
+            document.getElementById('val-prix').innerText = p + "€";
+            document.getElementById('val-lapins').innerText = l;
 
-            // Logique de calcul du gain
-            // 22 jours ouvrés, efficacité de conversion du temps de 60%, base 3h de travail par presta
-            const gainTemps = (tempsDMs * 22 * 0.6) * (tarifPresta / 3);
-            const gainLapins = nbLapins * tarifPresta;
-            
-            const totalMensuel = Math.round(gainTemps + gainLapins);
-            const totalAnnuel = totalMensuel * 12;
+            // Calcul : (Temps récupéré * 22j * 60% conversion) + (Lapins évités)
+            const gainTemps = (t * 22 * 0.6) * (p / 3);
+            const gainLapins = l * p;
+            const total = Math.round(gainTemps + gainLapins);
 
-            // Affichage avec formatage français
-            document.getElementById('resultat-mensuel').innerText = totalMensuel.toLocaleString('fr-FR') + " €";
-            document.getElementById('resultat-annuel').innerText = "SOIT " + totalAnnuel.toLocaleString('fr-FR') + " € / AN";
+            document.getElementById('res-mensuel').innerText = total.toLocaleString('fr-FR') + " €";
+            document.getElementById('res-annuel').innerText = "SOIT " + (total * 12).toLocaleString('fr-FR') + " € / AN";
         }
-
-        // Lancement au démarrage pour ne pas avoir de champs vides
-        window.addEventListener('load', calculerGain);
+        window.onload = calculer;
     </script>
-
 </body>
 </html>
