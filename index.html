@@ -14,133 +14,140 @@
         :root {
             --bg: #000000;
             --white: #ffffff;
-            --grey: #8e8e93;
-            --glow: rgba(64, 123, 255, 0.2);
+            --grey: #86868b;
+            --accent: #0066cc;
+            --titanium: #1c1c1e;
         }
 
-        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; }
+        body, html { width: 100%; height: 100%; background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-        /* --- NAVIGATION --- */
+        /* --- NAVIGATION PREMIUM --- */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
             border-bottom: 0.5px solid rgba(255,255,255,0.1);
         }
-        .logo { font-weight: 600; font-size: 1rem; letter-spacing: -0.5px; }
+        .logo { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.02em; }
+        .btn-top { background: #fff; color: #000; padding: 8px 16px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; cursor: pointer; border: none; }
 
-        /* --- HERO --- */
-        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 120px 5% 60px; }
-        .container { display: flex; flex-direction: row; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; gap: 40px; }
-        .text-section { flex: 1; max-width: 500px; }
-        h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.04em; }
-        .desc { font-size: 1.15rem; color: var(--grey); line-height: 1.5; margin-bottom: 40px; }
-
-        .btn-calendly { 
-            background: var(--white); color: #000; padding: 18px 35px; border-radius: 40px; 
-            text-decoration: none; font-weight: 600; border: none; cursor: pointer; transition: 0.3s;
+        /* --- HERO SECTION --- */
+        .hero { 
+            min-height: 100vh; display: flex; align-items: center; justify-content: center; 
+            padding: 100px 5%; perspective: 2000px;
         }
+        .container { 
+            display: flex; align-items: center; justify-content: space-between; 
+            width: 100%; max-width: 1200px; gap: 50px;
+        }
+        .text-section { flex: 1; max-width: 550px; opacity: 0; transform: translateY(30px); animation: fadeIn 1s forwards 0.5s; }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
 
-        /* --- RENDU IPHONE 17 PRO PHOTORÉALISTE --- */
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 25px; }
+        .desc { font-size: 1.25rem; color: var(--grey); line-height: 1.5; margin-bottom: 40px; max-width: 450px; }
+
+        .cta-main {
+            background: #fff; color: #000; padding: 20px 40px; border-radius: 50px;
+            font-weight: 600; text-decoration: none; font-size: 1.1rem;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: inline-block;
+        }
+        .cta-main:hover { transform: scale(1.05); box-shadow: 0 20px 40px rgba(255,255,255,0.15); }
+
+        /* --- IPHONE 17 PRO NATIVE EXPERIENCE --- */
         .iphone-wrapper {
             position: relative;
             z-index: 10;
-            perspective: 2000px;
+            transition: 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        /* Halo arrière (Ambiance Sylex) */
-        .iphone-glow {
+        /* L'iPhone lui-même */
+        .iphone-device {
+            width: 320px;
+            height: 650px;
+            background: #000;
+            border-radius: 54px;
+            position: relative;
+            /* Position initiale inclinée (image de rêve) */
+            transform: rotateY(-28deg) rotateX(12deg) rotateZ(3deg);
+            transform-style: preserve-3d;
+            transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            
+            /* Bordures Titane hyper fines */
+            outline: 0.5px solid rgba(255,255,255,0.3);
+            box-shadow: 
+                -1px 1px 0px #1c1c1e,
+                -3px 3px 0px #141415,
+                -10px 20px 50px rgba(0,0,0,0.8);
+        }
+
+        /* Quand on scrolle ou survole : Se redresse en face */
+        .iphone-device.straight {
+            transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1.05);
+        }
+
+        /* Halo Lumineux Premium */
+        .glow-sphere {
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 140%; height: 120%;
-            background: radial-gradient(circle, rgba(0, 102, 255, 0.15) 0%, rgba(138, 43, 226, 0.1) 50%, transparent 80%);
-            filter: blur(60px);
+            width: 150%; height: 130%;
+            background: radial-gradient(circle, rgba(0,102,255,0.2) 0%, rgba(138,43,226,0.15) 40%, transparent 70%);
+            filter: blur(80px);
             z-index: -1;
+            pointer-events: none;
         }
 
-        .iphone-device {
-            width: 310px;
-            height: 640px;
-            background: #000;
-            border-radius: 52px;
-            position: relative;
-            /* Inclinaison 3D exacte de l'image */
-            transform: rotateY(-20deg) rotateX(8deg) rotateZ(2deg);
-            transform-style: preserve-3d;
-            
-            /* Micro-bordure Titane Noir */
-            border: 0.5px solid rgba(255,255,255,0.25);
-            box-shadow: 
-                -1px 1px 2px rgba(0,0,0,0.8),
-                -4px 4px 10px rgba(0,0,0,0.9),
-                inset 0 0 2px rgba(255,255,255,0.1);
-        }
-
-        /* L'écran (Bezels ultra-fins) */
         .iphone-screen {
             position: absolute;
-            inset: 3px; /* Bordure écran 17 Pro */
+            inset: 3px; /* Bezels Apple réels */
             background: #fff;
-            border-radius: 49px;
+            border-radius: 51px;
             overflow: hidden;
             z-index: 2;
         }
 
-        /* Dynamic Island */
         .dynamic-island {
             position: absolute;
-            top: 12px; left: 50%;
+            top: 14px; left: 50%;
             transform: translateX(-50%);
-            width: 80px; height: 26px;
+            width: 85px; height: 28px;
             background: #000;
             border-radius: 20px;
             z-index: 10;
         }
 
-        /* Reflet de vitre dynamique */
-        .iphone-device::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.05) 45%, rgba(255,255,255,0.1) 50%, transparent 55%);
-            z-index: 5;
-            border-radius: 52px;
-            pointer-events: none;
-        }
-
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* --- NOTIF iOS --- */
+        /* --- NOTIFICATION iOS --- */
         #notif {
             position: fixed; left: 50%; transform: translateX(-50%);
-            width: 300px; background: rgba(30, 30, 30, 0.75);
-            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border-radius: 22px; padding: 12px; display: flex; align-items: center; gap: 12px;
-            z-index: 3000; border: 0.5px solid rgba(255,255,255,0.1);
-            transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1); top: -150px;
+            width: 310px; background: rgba(28, 28, 30, 0.7);
+            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            border-radius: 24px; padding: 14px; display: flex; align-items: center; gap: 15px;
+            z-index: 2000; border: 0.5px solid rgba(255,255,255,0.15);
+            top: -150px; transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
         }
-        #notif.show { top: 45px; }
-        #notif img { width: 42px; height: 42px; border-radius: 10px; }
+        #notif.show { top: 40px; }
 
         @media (max-width: 900px) {
             .container { flex-direction: column; text-align: center; }
-            .iphone-wrapper { transform: scale(0.8); margin-bottom: -50px; }
+            .iphone-device { transform: rotateY(-15deg) rotateX(5deg) scale(0.85); }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">SYLEX <span style="font-weight: 300; opacity: 0.5;">IA</span></div>
+        <div class="logo">SYLEX <span style="opacity: 0.4; font-weight: 300;">IA</span></div>
+        <button class="btn-top" onclick="showQRCode()">Partager</button>
     </nav>
 
-    <div id="notif" onclick="this.classList.remove('show')">
-        <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" alt="Logo">
+    <div id="notif">
+        <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" width="44" height="44" style="border-radius:10px;">
         <div>
-            <b style="font-size:0.85rem; display:block">Sylex IA</b>
-            <span style="font-size:0.8rem; color:#aaa">"Bonjour ! Une question sur l'IA ?"</span>
+            <b style="display:block; font-size:0.9rem;">Sylex IA</b>
+            <span style="font-size:0.85rem; color:#aaa;">"Bonjour ! Une question ?"</span>
         </div>
     </div>
 
@@ -148,13 +155,13 @@
         <div class="container">
             <div class="text-section">
                 <h1>Répondez à vos leads,<br>même le dimanche.</h1>
-                <p class="desc">Sylex qualifie vos prospects 24h/24 avec une interface immersive qui valorise votre image de marque.</p>
-                <button onclick="Calendly.showPopupWidget('https://calendly.com/digitalagenceoccitane/30min');" class="btn-calendly">Réserver une démo</button>
+                <p class="desc">Qualifiez vos prospects 24h/24 avec une interface immersive qui valorise votre image de marque.</p>
+                <button onclick="Calendly.showPopupWidget('https://calendly.com/digitalagenceoccitane/30min');" class="cta-main">Réserver une démo</button>
             </div>
 
-            <div class="iphone-wrapper">
-                <div class="iphone-glow"></div>
-                <div class="iphone-device">
+            <div class="iphone-wrapper" id="trigger">
+                <div class="glow-sphere"></div>
+                <div class="iphone-device" id="iphone">
                     <div class="dynamic-island"></div>
                     <div class="iphone-screen">
                         <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
@@ -164,14 +171,43 @@
         </div>
     </section>
 
+    <div id="qrModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:5000; align-items:center; justify-content:center;" onclick="this.style.display='none'">
+        <div style="background:#fff; padding:40px; border-radius:30px; text-align:center;" onclick="event.stopPropagation()">
+            <div id="qrcode"></div>
+            <p style="color:#000; margin-top:20px; font-weight:600;">Scanner Sylex IA</p>
+        </div>
+    </div>
+
     <script>
+        const iphone = document.getElementById('iphone');
+        const notif = document.getElementById('notif');
+
+        // GESTION DU REDRESSEMENT AUTOMATIQUE
+        window.addEventListener('scroll', () => {
+            const rect = iphone.getBoundingClientRect();
+            if(rect.top < window.innerHeight * 0.7) {
+                iphone.classList.add('straight');
+            }
+        });
+
+        // SURVOL SOURIS
+        iphone.addEventListener('mouseenter', () => iphone.classList.add('straight'));
+        iphone.addEventListener('mouseleave', () => {
+            if(window.scrollY < 200) iphone.classList.remove('straight');
+        });
+
+        // NOTIFICATION & QR CODE
         window.onload = () => {
-            setTimeout(() => {
-                const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-                document.getElementById('notif').style.top = isIOS ? "75px" : "45px";
-                document.getElementById('notif').classList.add('show');
-            }, 2500);
+            setTimeout(() => { notif.classList.add('show'); }, 3000);
+            setTimeout(() => { notif.classList.remove('show'); }, 10000);
         };
+
+        function showQRCode() {
+            document.getElementById('qrModal').style.display = 'flex';
+            if(!document.getElementById('qrcode').innerHTML) {
+                new QRCode(document.getElementById("qrcode"), { text: window.location.href, width: 200, height: 200 });
+            }
+        }
     </script>
 </body>
 </html>
