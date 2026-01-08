@@ -31,11 +31,8 @@
         .text-side h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 25px; }
         .text-side p { font-size: 1.4rem; opacity: 0.8; margin-bottom: 40px; line-height: 1.5; }
 
-        /* --- IPHONE PROPRE --- */
-        .iphone-frame { 
-            width: 360px; height: 720px; background: #080808; border-radius: 55px; 
-            border: 3px solid #1a1a1a; position: relative; box-shadow: 0 50px 100px rgba(0,0,0,0.9); flex-shrink: 0;
-        }
+        /* --- IPHONE --- */
+        .iphone-frame { width: 360px; height: 720px; background: #080808; border-radius: 55px; border: 3px solid #1a1a1a; position: relative; box-shadow: 0 50px 100px rgba(0,0,0,0.9); flex-shrink: 0; }
         .iphone-screen { position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; background: #000; border-radius: 42px; overflow: hidden; padding-bottom: 60px; }
         iframe { width: 100%; height: 100%; border: none; }
 
@@ -50,17 +47,18 @@
         .luxury-table td { background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; }
         .table-label { color: var(--sylex-cyan); font-weight: 800; text-transform: uppercase; font-size: 0.9rem; }
 
-        /* --- SIMULATEUR --- */
+        /* --- SIMULATEUR ROI --- */
         .sim-container { max-width: 700px; margin: 60px auto; padding: 60px; background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 45px; text-align: center; }
         .res-amount { font-size: 5rem; font-weight: 900; color: var(--accent); margin: 30px 0; letter-spacing: -2px; }
         input[type=range] { width: 100%; margin: 25px 0; accent-color: var(--sylex-blue); cursor: pointer; }
+        .sim-label { text-align: left; font-weight: bold; margin-top: 20px; display: flex; justify-content: space-between; }
+        .sim-label span { color: var(--sylex-blue); }
 
         .btn-main { background: #fff; color: #000; padding: 22px 45px; border-radius: 100px; font-weight: 900; text-decoration: none; display: inline-block; transition: 0.3s; border: none; cursor: pointer; font-size: 1.1rem; }
         .btn-main:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(0, 102, 255, 0.4); }
 
         @media (max-width: 900px) {
             .container { flex-direction: column; text-align: center; }
-            .text-side { text-align: center; }
             .grid { grid-template-columns: 1fr; }
             .iphone-frame { width: 320px; height: 640px; margin: 0 auto; }
             .logo-text { font-size: 5rem; }
@@ -81,7 +79,6 @@
                 <p>Libérez-vous de l'opérationnel. <br>Un agent ultra-performant sur chaque terrain, 24h/24 et 7j/7.</p>
                 <a href="#simulator" class="btn-main">AUDIT GRATUIT</a>
             </div>
-            
             <div class="iphone-frame">
                 <div class="iphone-screen">
                     <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
@@ -98,30 +95,25 @@
         </div>
 
         <table class="luxury-table">
-            <tr>
-                <td class="table-label">Prestation</td>
-                <td>Qualification Multimodale</td>
-                <td style="text-align:right; color:var(--accent);">ROI Immédiat</td>
-            </tr>
-            <tr>
-                <td class="table-label">Terrain</td>
-                <td>Analyse documents & Voix</td>
-                <td style="text-align:right; color:var(--accent);">Performance 100%</td>
-            </tr>
+            <tr><td class="table-label">Prestation</td><td>Qualification Multimodale</td><td style="text-align:right; color:var(--accent);">ROI Immédiat</td></tr>
+            <tr><td class="table-label">Terrain</td><td>Analyse documents & Voix</td><td style="text-align:right; color:var(--accent);">Performance 100%</td></tr>
         </table>
     </section>
 
     <section id="simulator" class="section">
         <div class="sim-container">
             <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Calculateur de Profit</h2>
-            <p style="opacity:0.6;">Estimez la valeur ajoutée de SYLEX IA</p>
             
-            <div style="margin-top:40px; text-align:left; font-weight:bold;">Temps gagné / jour : <span id="v1" style="color:var(--sylex-blue)">2h</span></div>
+            <div class="sim-label">Temps gagné / jour : <span id="v1">2h</span></div>
             <input type="range" id="t" min="1" max="8" step="0.5" value="2" oninput="calc()">
             
-            <div style="text-align:left; font-weight:bold;">Tarif horaire (€) : <span id="v2" style="color:var(--sylex-blue)">120€</span></div>
+            <div class="sim-label">Tarif horaire (€) : <span id="v2">120€</span></div>
             <input type="range" id="p" min="40" max="500" step="10" value="120" oninput="calc()">
             
+            <div class="sim-label" id="label-hybrid">Effectif ou Frais Prestataires : <span id="v3">1</span></div>
+            <input type="range" id="h" min="1" max="5000" step="1" value="1" oninput="calc()">
+            <p style="text-align:left; font-size:0.7rem; opacity:0.5; margin-top:5px;">(1-30 = Collaborateurs | 31+ = Budget Prestataire annulé)</p>
+
             <div class="res-amount" id="res">-- €</div>
             <p style="margin-bottom:30px; opacity:0.5;">Économie mensuelle générée</p>
             
@@ -131,11 +123,25 @@
 
     <script>
         function calc() {
-            const t = document.getElementById('t').value;
-            const p = document.getElementById('p').value;
+            const t = parseFloat(document.getElementById('t').value);
+            const p = parseFloat(document.getElementById('p').value);
+            const h = parseFloat(document.getElementById('h').value);
+            
             document.getElementById('v1').innerText = t + "h";
             document.getElementById('v2').innerText = p + "€";
-            document.getElementById('res').innerText = Math.round(t * 22 * p).toLocaleString() + " €";
+            
+            let total = 0;
+            if (h <= 30) {
+                // Mode Collaborateurs
+                document.getElementById('v3').innerText = h + " pers.";
+                total = t * 22 * p * h;
+            } else {
+                // Mode Annulation Prestation
+                document.getElementById('v3').innerText = h + "€";
+                total = (t * 22 * p) + h;
+            }
+            
+            document.getElementById('res').innerText = Math.round(total).toLocaleString() + " €";
         }
         window.onload = calc;
     </script>
