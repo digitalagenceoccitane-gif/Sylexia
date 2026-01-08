@@ -4,70 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SYLEX IA | 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
     <style>
-        :root { --blue: #0066ff; --accent: #00ff88; --grey: #8e8e93; }
+        :root { --sylex-blue: #0066ff; --sylex-cyan: #00d9ff; --accent: #00ff88; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
         /* --- FOND AURA --- */
-        .aura { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 140vw; height: 140vh; background: url('https://i.ibb.co/4n4vpP0r/IMG-5824.jpg') no-repeat center; background-size: contain; filter: blur(80px) brightness(0.5); opacity: 0.35; z-index: 1; pointer-events: none; }
+        .aura { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 140vw; height: 140vh; background: url('https://i.ibb.co/4n4vpP0r/IMG-5824.jpg') no-repeat center; background-size: contain; filter: blur(100px) brightness(0.3); opacity: 0.3; z-index: 1; pointer-events: none; }
 
-        /* --- LOGO MASSIF --- */
-        nav { position: relative; width: 100%; padding: 50px 20px; z-index: 1000; text-align: center; }
-        .logo-main { height: 140px !important; filter: drop-shadow(0 0 20px var(--blue)); }
+        /* --- LOGO TEXTE LARGE --- */
+        .nav-header { position: relative; width: 100%; padding: 80px 20px 40px; z-index: 1000; text-align: center; }
+        .logo-text { 
+            font-size: clamp(4rem, 15vw, 10rem); font-weight: 900; letter-spacing: -6px; line-height: 0.8;
+            background: linear-gradient(to right, #fff, var(--sylex-blue), var(--sylex-cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase; display: inline-block;
+        }
 
         /* --- HERO --- */
-        .hero { position: relative; z-index: 10; display: flex; align-items: center; justify-content: center; padding: 20px 5% 80px; }
-        .container { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; gap: 50px; }
-        .text-side { flex: 1; }
-        .text-side h1 { font-size: 3.8rem; font-weight: 800; line-height: 1; margin-bottom: 20px; }
-        .text-side p { font-size: 1.3rem; opacity: 0.7; margin-bottom: 30px; }
-        .btn { background: #fff; color: #000; padding: 20px 50px; border-radius: 100px; font-weight: 700; text-decoration: none; display: inline-block; }
+        .hero { position: relative; z-index: 10; padding: 20px 5% 80px; }
+        .container { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; margin: 0 auto; gap: 60px; }
+        .text-side { flex: 1; text-align: left; }
+        .text-side h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 25px; }
+        .text-side p { font-size: 1.4rem; opacity: 0.8; margin-bottom: 40px; line-height: 1.5; }
 
-        /* --- IPHONE FIX (NON ROGNÉ) --- */
-        .iphone { width: 350px; height: 700px; background: #080808; border-radius: 60px; border: 3px solid #222; position: relative; box-shadow: 0 50px 100px rgba(0,0,0,0.8); flex-shrink: 0; }
-        .screen { position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; background: #000; border-radius: 45px; overflow: hidden; padding-bottom: 50px; }
+        /* --- IPHONE PROPRE --- */
+        .iphone-frame { 
+            width: 360px; height: 720px; background: #080808; border-radius: 55px; 
+            border: 3px solid #1a1a1a; position: relative; box-shadow: 0 50px 100px rgba(0,0,0,0.9); flex-shrink: 0;
+        }
+        .iphone-screen { position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; background: #000; border-radius: 42px; overflow: hidden; padding-bottom: 60px; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* --- SECTIONS RÉCUPÉRÉES --- */
-        .section { position: relative; z-index: 10; padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
+        /* --- GRILLE SERVICES --- */
+        .section { position: relative; z-index: 10; padding: 100px 5%; max-width: 1200px; margin: 0 auto; }
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-        .card { padding: 35px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 25px; }
+        .card { padding: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; }
+        .card h3 { color: var(--sylex-blue); margin-bottom: 15px; font-size: 1.6rem; }
 
-        .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 10px; margin-top: 50px; }
-        .luxury-table td { background: rgba(255,255,255,0.03); padding: 20px; border-top: 1px solid rgba(255,255,255,0.05); }
-        .luxury-table td:first-child { border-radius: 15px 0 0 15px; color: var(--grey); font-weight: bold; }
-        .luxury-table td:last-child { border-radius: 0 15px 15px 0; color: var(--accent); text-align: right; }
+        /* --- TABLEAU PRESTATIONS --- */
+        .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 10px; margin-top: 60px; }
+        .luxury-table td { background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; }
+        .table-label { color: var(--sylex-cyan); font-weight: 800; text-transform: uppercase; font-size: 0.9rem; }
 
         /* --- SIMULATEUR --- */
-        .sim-container { max-width: 600px; margin: 80px auto; padding: 40px; background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 35px; text-align: center; }
-        .res-amount { font-size: 3.5rem; font-weight: 800; color: var(--accent); margin: 20px 0; }
-        input[type=range] { width: 100%; margin: 15px 0; accent-color: var(--blue); }
+        .sim-container { max-width: 700px; margin: 60px auto; padding: 60px; background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 45px; text-align: center; }
+        .res-amount { font-size: 5rem; font-weight: 900; color: var(--accent); margin: 30px 0; letter-spacing: -2px; }
+        input[type=range] { width: 100%; margin: 25px 0; accent-color: var(--sylex-blue); cursor: pointer; }
 
-        @media (max-width: 900px) { 
-            .container, .grid { grid-template-columns: 1fr; flex-direction: column; text-align: center; } 
-            .iphone { margin: 40px auto; width: 310px; height: 630px; }
-            .logo-main { height: 100px !important; }
-            .text-side h1 { font-size: 2.8rem; }
+        .btn-main { background: #fff; color: #000; padding: 22px 45px; border-radius: 100px; font-weight: 900; text-decoration: none; display: inline-block; transition: 0.3s; border: none; cursor: pointer; font-size: 1.1rem; }
+        .btn-main:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(0, 102, 255, 0.4); }
+
+        @media (max-width: 900px) {
+            .container { flex-direction: column; text-align: center; }
+            .text-side { text-align: center; }
+            .grid { grid-template-columns: 1fr; }
+            .iphone-frame { width: 320px; height: 640px; margin: 0 auto; }
+            .logo-text { font-size: 5rem; }
         }
     </style>
 </head>
 <body>
     <div class="aura"></div>
-    <nav><img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" class="logo-main"></nav>
+
+    <header class="nav-header">
+        <div class="logo-text">SYLEX</div>
+    </header>
 
     <section class="hero">
         <div class="container">
             <div class="text-side">
-                <h1>L'intelligence <br><span style="color:var(--blue)">Souveraine.</span></h1>
-                <p>Libérez-vous de l'opérationnel <br>avec l'agent SYLEX IA.</p>
-                <a href="#simulator" class="btn">AUDIT GRATUIT</a>
+                <h1>L'intelligence <br><span style="color:var(--sylex-blue)">Multimodale.</span></h1>
+                <p>Libérez-vous de l'opérationnel. <br>Un agent ultra-performant sur chaque terrain, 24h/24 et 7j/7.</p>
+                <a href="#simulator" class="btn-main">AUDIT GRATUIT</a>
             </div>
-            <div class="iphone">
-                <div class="screen">
+            
+            <div class="iphone-frame">
+                <div class="iphone-screen">
                     <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
                 </div>
             </div>
@@ -76,26 +92,40 @@
 
     <section class="section">
         <div class="grid">
-            <div class="card"><h3>Automatisation</h3><p>Sylex gère vos prospects et fixe vos rendez-vous 24/7.</p></div>
-            <div class="card"><h3>Disponibilité</h3><p>L'IA qualifie vos dossiers pendant que vous dormez.</p></div>
-            <div class="card"><h3>Croissance</h3><p>Gérez 1000 conversations sans perte de qualité.</p></div>
+            <div class="card"><h3>Automatisation</h3><p>Sylex gère vos prospects et fixe vos rendez-vous sans intervention humaine.</p></div>
+            <div class="card"><h3>Omniprésent</h3><p>Ventes, support, logistique. L'IA s'adapte à chaque métier instantanément.</p></div>
+            <div class="card"><h3>Souverain</h3><p>Gardez le contrôle total sur vos données avec une IA haut de gamme.</p></div>
         </div>
 
         <table class="luxury-table">
-            <tr><td>PRESTATION</td><td>Qualification Automatique</td><td>ROI Immédiat</td></tr>
-            <tr><td>IMMOBILIER</td><td>Filtrage dossiers 24/7</td><td>Gain temps total</td></tr>
+            <tr>
+                <td class="table-label">Prestation</td>
+                <td>Qualification Multimodale</td>
+                <td style="text-align:right; color:var(--accent);">ROI Immédiat</td>
+            </tr>
+            <tr>
+                <td class="table-label">Terrain</td>
+                <td>Analyse documents & Voix</td>
+                <td style="text-align:right; color:var(--accent);">Performance 100%</td>
+            </tr>
         </table>
     </section>
 
     <section id="simulator" class="section">
         <div class="sim-container">
-            <h2>Calculateur de Profit</h2>
-            <div style="margin:20px 0; color:var(--grey);">Temps gagné : <span id="v1" style="color:var(--blue)">1.5h</span></div>
-            <input type="range" id="t" min="0.5" max="5" step="0.5" value="1.5" oninput="calc()">
-            <div style="margin:20px 0; color:var(--grey);">Tarif horaire : <span id="v2" style="color:var(--blue)">100€</span></div>
-            <input type="range" id="p" min="30" max="500" step="10" value="100" oninput="calc()">
+            <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Calculateur de Profit</h2>
+            <p style="opacity:0.6;">Estimez la valeur ajoutée de SYLEX IA</p>
+            
+            <div style="margin-top:40px; text-align:left; font-weight:bold;">Temps gagné / jour : <span id="v1" style="color:var(--sylex-blue)">2h</span></div>
+            <input type="range" id="t" min="1" max="8" step="0.5" value="2" oninput="calc()">
+            
+            <div style="text-align:left; font-weight:bold;">Tarif horaire (€) : <span id="v2" style="color:var(--sylex-blue)">120€</span></div>
+            <input type="range" id="p" min="40" max="500" step="10" value="120" oninput="calc()">
+            
             <div class="res-amount" id="res">-- €</div>
-            <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});" style="width:100%; padding:20px; background:var(--blue); color:#fff; border:none; border-radius:15px; font-weight:bold; cursor:pointer;">RESERVER MON AUDIT</button>
+            <p style="margin-bottom:30px; opacity:0.5;">Économie mensuelle générée</p>
+            
+            <button class="btn-main" style="width:100%; background:var(--sylex-blue); color:#fff;" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});">RÉSERVER MON AUDIT</button>
         </div>
     </section>
 
@@ -105,7 +135,7 @@
             const p = document.getElementById('p').value;
             document.getElementById('v1').innerText = t + "h";
             document.getElementById('v2').innerText = p + "€";
-            document.getElementById('res').innerText = Math.round(t * 22 * p) + " €";
+            document.getElementById('res').innerText = Math.round(t * 22 * p).toLocaleString() + " €";
         }
         window.onload = calc;
     </script>
