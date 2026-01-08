@@ -9,10 +9,10 @@
         :root {
             --bg-color: #050505;
             --accent-color: #ffffff;
+            --text-gray: #b0b0b0; /* Plus clair pour la lisibilité */
             --iphone-shadow: 0 50px 100px rgba(0,0,0,0.9);
         }
 
-        /* Empêche le défilement parasite du site complet sur mobile */
         html, body {
             overflow: hidden;
             height: 100%;
@@ -21,7 +21,7 @@
             color: var(--accent-color);
             font-family: 'Inter', sans-serif;
             margin: 0;
-            position: fixed; /* Bloque le rebond élastique iOS */
+            position: fixed;
         }
 
         body {
@@ -35,49 +35,66 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 5vw;
-            width: 95%;
+            gap: 8vw;
+            width: 90%;
             max-width: 1200px;
         }
 
-        /* --- SECTION TEXTE --- */
+        /* --- TEXTE --- */
         .text-section {
             flex: 1;
             z-index: 5;
         }
 
         h1 {
-            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            font-size: clamp(2.2rem, 4.5vw, 3.8rem);
             font-weight: 600;
             line-height: 1.1;
-            margin-bottom: 20px;
-            background: linear-gradient(180deg, #fff 0%, #666 100%);
+            margin-bottom: 24px;
+            background: linear-gradient(180deg, #fff 0%, #888 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         p {
-            font-size: 1.1rem;
-            color: #888;
-            max-width: 400px;
-            line-height: 1.5;
+            font-size: 1.15rem;
+            color: var(--text-gray);
+            max-width: 440px;
+            line-height: 1.6;
+            margin-bottom: 32px;
         }
 
-        /* --- IPHONE FRAME --- */
+        /* BOUTON D'ACTION */
+        .cta-button {
+            display: inline-block;
+            background: #fff;
+            color: #000;
+            padding: 16px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- IPHONE --- */
         .iphone-wrapper {
             position: relative;
             flex-shrink: 0;
         }
 
         .iphone-frame {
-            width: 315px;
-            height: 640px;
+            width: 310px;
+            height: 630px;
             background: #000;
             border: 11px solid #1c1c1e;
             border-radius: 48px;
             position: relative;
             box-shadow: var(--iphone-shadow);
-            overflow: hidden; /* Masque le logo Dify */
+            overflow: hidden;
         }
 
         .dynamic-island {
@@ -92,44 +109,25 @@
             z-index: 20;
         }
 
-        .watermark-logo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 140px;
-            height: 140px;
-            background: url('https://i.ibb.co/4n4vpP0r/IMG-5824.jpg') no-repeat center;
-            background-size: contain;
-            opacity: 0.04;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* IFRAME : Hauteur augmentée pour masquer "Powered by Dify" */
         iframe {
             width: 100%;
             height: 109%; 
             border: none;
-            position: relative;
             z-index: 10;
-            background: transparent;
-            /* Force le scroll doux sur iOS */
-            -webkit-overflow-scrolling: touch;
         }
 
-        /* --- NOTIFICATION iOS --- */
+        /* --- NOTIFICATION --- */
         .notification {
             position: absolute;
             top: -100px;
             left: 50%;
             transform: translateX(-50%);
-            width: 270px;
+            width: 280px;
             background: rgba(28, 28, 30, 0.8);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 20px;
-            padding: 12px 16px;
+            padding: 12px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -137,40 +135,25 @@
             z-index: 100;
             transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
             border: 0.5px solid rgba(255,255,255,0.1);
+            cursor: pointer;
         }
 
-        .notification.show {
-            top: 25px;
-        }
+        .notification.show { top: 25px; }
 
         .notification img {
             width: 38px;
             height: 38px;
             border-radius: 10px;
-            object-fit: cover;
         }
 
-        .notification-text b { font-size: 0.85rem; color: #fff; display: block; margin-bottom: 2px; }
-        .notification-text span { font-size: 0.8rem; color: #d1d1d6; line-height: 1.2; display: block; }
+        .notification-text b { font-size: 0.85rem; color: #fff; display: block; }
+        .notification-text span { font-size: 0.8rem; color: #d1d1d6; }
 
-        /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 850px) {
-            .container {
-                flex-direction: column;
-                gap: 40px;
-                width: 100%;
-            }
-            .text-section { 
-                order: 2; 
-                padding: 0 20px;
-            }
-            .iphone-wrapper { 
-                order: 1; 
-                transform: scale(0.85); /* Réduit la taille pour que ça tienne sur petit écran */
-                margin-top: -20px;
-            }
-            h1 { font-size: 2rem; margin-bottom: 10px; }
-            p { font-size: 1rem; margin: 0 auto; }
+            .container { flex-direction: column; text-align: center; gap: 40px; }
+            .text-section { order: 2; padding: 0 20px; }
+            .iphone-wrapper { order: 1; transform: scale(0.85); margin-top: -30px;}
+            p { margin: 0 auto 30px; }
         }
     </style>
 </head>
@@ -178,12 +161,13 @@
 
     <div class="container">
         <div class="text-section">
-            <h1>L'expérience<br>immobilière IA.</h1>
-            <p>Sylex : L'agent virtuel qui transforme vos visiteurs en mandats qualifiés, 24h/24.</p>
+            <h1>Répondez à vos leads,<br>même le dimanche.</h1>
+            <p>Sylex qualifie vos prospects 24h/24 avec une interface immersive qui valorise votre image de marque.</p>
+            <a href="https://www.malt.fr/profile/ton-profil" class="cta-button">Réserver une démo</a>
         </div>
 
         <div class="iphone-wrapper">
-            <div id="notif" class="notification">
+            <div id="notif" class="notification" onclick="closeNotif()">
                 <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" alt="Logo Sylex">
                 <div class="notification-text">
                     <b>Sylex IA</b>
@@ -193,26 +177,19 @@
 
             <div class="iphone-frame">
                 <div class="dynamic-island"></div>
-                <div class="watermark-logo"></div>
-                
-                <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe" allow="microphone"></iframe>
+                <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
             </div>
         </div>
     </div>
 
     <script>
         const notification = document.getElementById('notif');
+        setTimeout(() => { notification.classList.add('show'); }, 2000);
+        setTimeout(() => { closeNotif(); }, 6000);
 
-        // Apparition après 2 secondes
-        setTimeout(() => {
-            notification.classList.add('show');
-        }, 2000);
-
-        // Disparition après 5 secondes (reste affiché 3s)
-        setTimeout(() => {
+        function closeNotif() {
             notification.classList.remove('show');
-        }, 5000);
+        }
     </script>
-
 </body>
 </html>
