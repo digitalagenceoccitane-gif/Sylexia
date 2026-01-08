@@ -10,39 +10,34 @@
     <style>
         :root { --bg: #000; --white: #fff; --grey: #8e8e93; --blue: #0066ff; }
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; }
-        body, html { width: 100%; height: 100%; background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        body, html { width: 100%; background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 5%; position: relative; overflow: hidden; background: radial-gradient(circle at 50% 50%, #001a33 0%, #000 85%); }
         .projection-logo { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 130vw; height: 130vh; background: url('https://i.ibb.co/4n4vpP0r/IMG-5824.jpg') no-repeat center; background-size: 50%; filter: blur(100px) opacity(0.12); z-index: 1; pointer-events: none; }
         .container { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; gap: 40px; z-index: 10; }
         
-        /* IPHONE - CORRECTION DU ROGNAGE */
+        /* IPHONE SANS ROGNAGE */
         .iphone-wrapper { perspective: 2000px; }
         .iphone-device {
             width: 320px; height: 640px; background: #080808; border-radius: 54px; position: relative;
             transform: rotateY(-10deg) rotateX(5deg); transform-style: preserve-3d;
-            border: 2px solid #222; box-shadow: -30px 50px 80px rgba(0,0,0,0.8);
-            transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
+            border: 2px solid #222; box-shadow: -30px 50px 80px rgba(0,0,0,0.8); transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
         }
         .iphone-device.unlocked { transform: rotateY(0deg) rotateX(0deg) scale(1.02); }
-        .iphone-screen { 
-            position: absolute; 
-            top: 12px; left: 12px; right: 12px; bottom: 12px; 
-            background: #000; border-radius: 42px; overflow: hidden; 
-            display: flex; flex-direction: column;
-        }
-        /* Iframe ajustée pour laisser voir le bas du bot */
-        iframe { width: 100%; height: 100%; border: none; display: block; padding-bottom: 5px; }
+        .iphone-screen { position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; background: #000; border-radius: 42px; overflow: hidden; }
+        iframe { width: 100%; height: 100%; border: none; }
 
-        #lock-screen { position: absolute; inset: 0; background: #000; z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.5s; }
+        /* SIMULATEUR DÉTAILLÉ */
+        .simulator-section { padding: 80px 5%; background: #050505; display: flex; flex-direction: column; align-items: center; }
+        .sim-card { max-width: 600px; width: 100%; padding: 40px; background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 35px; }
+        .slider-group { margin-bottom: 25px; }
+        .slider-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; color: var(--grey); }
+        .val-display { color: var(--blue); font-weight: 700; }
+        input[type=range] { width: 100%; accent-color: var(--blue); height: 5px; appearance: none; background: #222; border-radius: 10px; }
+        .res-amount { font-size: 3.5rem; font-weight: 700; color: #00ff88; text-align: center; margin: 20px 0; }
         
-        .sim-card { max-width: 500px; margin: 40px auto; padding: 30px; background: #0a0a0a; border-radius: 30px; border: 1px solid #1a1a1a; text-align: center; }
-        .res-amount { font-size: 3rem; color: #00ff88; margin: 20px 0; font-weight: 700; }
-        
-        #admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; align-items: center; justify-content: center; flex-direction: column; }
-        #admin-input { background: #111; border: 1px solid var(--blue); color: #fff; padding: 15px; border-radius: 10px; text-align: center; }
-
-        @media (max-width: 900px) { .container { flex-direction: column; text-align: center; } .iphone-device { transform: none; margin: 0 auto; } }
+        #lock-screen { position: absolute; inset: 0; background: #000; z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
+        footer { padding: 60px; text-align: center; color: #333; font-size: 0.8rem; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
@@ -55,15 +50,15 @@
         <div class="container">
             <div class="text-section">
                 <h1>L'intelligence<br><span style="color:var(--blue)">Souveraine.</span></h1>
-                <p class="desc">SYLEX 2026 : Votre agence automatisée.</p>
-                <button onclick="startExperience()" style="background:#fff; color:#000; padding:15px 30px; border-radius:50px; font-weight:bold; border:none; cursor:pointer;">DÉVERROUILLER</button>
+                <p class="desc">SYLEX 2026 : Libérez-vous de l'opérationnel.</p>
+                <button onclick="startExperience()" style="background:#fff; color:#000; padding:15px 40px; border-radius:50px; font-weight:bold; border:none; cursor:pointer;">DÉVERROUILLER</button>
             </div>
             <div class="iphone-wrapper">
                 <div class="iphone-device" id="iphone">
                     <div class="iphone-screen">
                         <div id="lock-screen" onclick="startExperience()">
                             <h2 id="real-time-clock" style="font-size:3.5rem; font-weight:200;">00:00</h2>
-                            <p style="font-size:0.6rem; letter-spacing:2px; margin-top:20px; color:var(--blue);">CLIQUEZ POUR PARLER</p>
+                            <p style="font-size:0.6rem; letter-spacing:2px; margin-top:20px; color:var(--blue);">CLIQUEZ POUR ENTRER</p>
                         </div>
                         <iframe id="chatframe" src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
                     </div>
@@ -72,33 +67,41 @@
         </div>
     </section>
 
-    <section class="simulator-section">
+    <section id="simulator" class="simulator-section">
         <div class="sim-card">
-            <h2>GAIN MENSUEL 2026</h2>
-            <input type="range" id="temps" min="1" max="10" value="3" style="width:100%; margin:30px 0;" oninput="calculer()">
-            <div id="res-mensuel" class="res-amount">-- €</div>
-            <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});" style="width:100%; padding:18px; background:var(--blue); color:#fff; border:none; border-radius:15px; font-weight:bold; cursor:pointer;">RÉSERVER MON CRÉNEAU</button>
+            <h2 style="text-align: center; margin-bottom: 40px;">Potentiel Financier 2026</h2>
+            <div class="slider-group">
+                <div class="slider-header"><span>Gestion DMs/Appels (jour) :</span> <span id="val-temps" class="val-display">1.5h</span></div>
+                <input type="range" id="temps" min="0.5" max="5" step="0.5" value="1.5" oninput="calculer()">
+            </div>
+            <div class="slider-group">
+                <div class="slider-header"><span>Tarif moyen prestation :</span> <span id="val-prix" class="val-display">100€</span></div>
+                <input type="range" id="prix" min="30" max="600" step="10" value="100" oninput="calculer()">
+            </div>
+            <div class="slider-group">
+                <div class="slider-header"><span>RDV sécurisés / Mois :</span> <span id="val-lapins" class="val-display">2</span></div>
+                <input type="range" id="lapins" min="0" max="15" step="1" value="2" oninput="calculer()">
+            </div>
+            <div class="res-amount" id="res-mensuel">-- €</div>
+            <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});" style="width:100%; padding:18px; background:var(--blue); color:#fff; border:none; border-radius:15px; font-weight:bold; cursor:pointer;">AUDIT PREMIUM SYLEX</button>
         </div>
     </section>
 
-    <div id="admin-overlay">
-        <h2>OVERRIDE SYSTEM</h2>
-        <input type="password" id="admin-input" placeholder="CODE">
-    </div>
-
-    <footer style="padding:40px; text-align:center; color:#333; font-size:0.8rem;">&copy; 2026 Digital Agence Occitanie.</footer>
+    <footer>&copy; 2026 Digital Agence Occitanie.</footer>
 
     <script>
-        let clickCount = 0;
-        document.querySelector('.logo-nav').onclick = function() {
-            clickCount++; if (clickCount === 5) { document.getElementById('admin-overlay').style.display = 'flex'; document.getElementById('admin-input').focus(); clickCount = 0; }
-        };
-        document.getElementById('admin-input').onkeyup = function(e) {
-            if (e.key === 'Enter' && this.value.toUpperCase() === 'SYLX-DEV-2026') { alert("MODE ALPHA ACTIVÉ"); document.getElementById('admin-overlay').style.display = 'none'; }
-        };
         function updateClock() { document.getElementById('real-time-clock').textContent = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }); }
         function startExperience() { document.getElementById('iphone').classList.add('unlocked'); document.getElementById('lock-screen').style.display = 'none'; }
-        function calculer() { document.getElementById('res-mensuel').innerText = (document.getElementById('temps').value * 1950).toLocaleString() + " €"; }
+        function calculer() {
+            const t = parseFloat(document.getElementById('temps').value);
+            const p = parseInt(document.getElementById('prix').value);
+            const l = parseInt(document.getElementById('lapins').value);
+            document.getElementById('val-temps').innerText = t + "h";
+            document.getElementById('val-prix').innerText = p + "€";
+            document.getElementById('val-lapins').innerText = l;
+            const total = Math.round((t * 22 * 0.6) * (p / 3) + (l * p));
+            document.getElementById('res-mensuel').innerText = total.toLocaleString('fr-FR') + " €";
+        }
         updateClock(); setInterval(updateClock, 1000); window.onload = calculer;
     </script>
 </body>
