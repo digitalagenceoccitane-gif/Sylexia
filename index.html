@@ -2,20 +2,20 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Sylex IA | Digital Agence Occitanie</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <style>
         :root {
             --bg: #000000;
             --white: #ffffff;
-            --grey: #86868b;
-            --glow: rgba(0, 102, 255, 0.3);
+            --grey: #8e8e93;
+            --glow: rgba(0, 102, 255, 0.35);
         }
 
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; }
@@ -24,21 +24,27 @@
         /* --- NAVIGATION --- */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(30px); border-bottom: 0.5px solid rgba(255,255,255,0.1);
+            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); border-bottom: 0.5px solid rgba(255,255,255,0.1);
         }
-        .logo { font-weight: 600; font-size: 1.1rem; }
+        .logo-nav { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.02em; }
 
         /* --- HERO --- */
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 5%; perspective: 3000px; }
         .container { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; gap: 80px; }
         .text-section { flex: 1; max-width: 500px; }
-        h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; margin-bottom: 25px; }
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 25px; }
         .desc { font-size: 1.25rem; color: var(--grey); line-height: 1.5; margin-bottom: 45px; }
-        .cta-btn { background: #fff; color: #000; padding: 20px 45px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; cursor: pointer; }
 
-        /* --- IPHONE 17 PRO DESIGN --- */
+        .cta-btn {
+            background: #fff; color: #000; padding: 20px 45px; border-radius: 50px;
+            font-weight: 600; text-decoration: none; display: inline-block; cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* --- IPHONE 17 PRO RENDER --- */
         .iphone-wrapper { position: relative; z-index: 10; }
+
         .iphone-device {
             width: 310px; height: 640px; background: #000; border-radius: 52px; position: relative;
             transform: rotateY(-25deg) rotateX(10deg) rotateZ(2deg);
@@ -47,7 +53,8 @@
             box-shadow: -1px 1px 0px #1c1c1e, -3px 3px 0px #141415, -25px 40px 80px rgba(0,0,0,0.9);
             cursor: pointer;
         }
-        .iphone-device.active { transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1.05); }
+
+        .iphone-device.unlocked { transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1.05); }
 
         .glow {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -57,69 +64,82 @@
 
         .iphone-screen { position: absolute; inset: 3px; background: #000; border-radius: 49px; overflow: hidden; z-index: 2; }
 
-        /* --- LOCK SCREEN FUNCTIONALITY --- */
+        /* --- LOCK SCREEN (TEMPS RÉEL) --- */
         #lock-screen {
             position: absolute; inset: 0; background: #000; z-index: 100;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             transition: opacity 0.8s ease, visibility 0.8s;
         }
-        #lock-screen img { width: 120px; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
-        #lock-screen p { font-size: 0.8rem; color: var(--grey); letter-spacing: 1px; text-transform: uppercase; }
-        .unlocked #lock-screen { opacity: 0; visibility: hidden; }
+        #real-time-clock { font-size: 3.5rem; font-weight: 600; margin-bottom: 5px; color: white; }
+        #real-date { font-size: 1rem; color: white; margin-bottom: 40px; font-weight: 400; }
+        
+        #lock-screen img { 
+            width: 90px; height: 90px; border-radius: 20px;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));
+            margin-bottom: 20px;
+        }
+        .swipe-hint { font-size: 0.7rem; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-top: 20px; }
+
+        /* --- STATUS BAR & HOME BAR --- */
+        .status-bar {
+            position: absolute; top: 0; width: 100%; height: 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 30px; z-index: 150; font-size: 10px; font-weight: 600; color: white;
+        }
+        .home-bar {
+            position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+            width: 110px; height: 4.5px; background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px; z-index: 150; transition: 0.5s;
+        }
 
         .dynamic-island {
             position: absolute; top: 13px; left: 50%; transform: translateX(-50%);
-            width: 80px; height: 26px; background: #000; border-radius: 20px; z-index: 110;
+            width: 80px; height: 26px; background: #000; border-radius: 20px; z-index: 160;
             border: 0.5px solid rgba(255,255,255,0.05);
         }
 
         iframe { width: 100%; height: 100%; border: none; background: #fff; }
 
-        /* --- NOTIF iOS --- */
-        #notif {
-            position: fixed; left: 50%; transform: translateX(-50%); width: 320px; 
-            background: rgba(28, 28, 30, 0.7); backdrop-filter: blur(30px); border-radius: 24px; padding: 14px;
-            display: flex; align-items: center; gap: 15px; z-index: 2000; border: 0.5px solid rgba(255,255,255,0.15);
-            top: -150px; transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        #notif.show { top: 40px; }
-
         @media (max-width: 900px) {
             .container { flex-direction: column; text-align: center; }
-            .iphone-device { transform: rotateY(-15deg) rotateX(5deg) scale(0.8); }
+            .iphone-device { transform: rotateY(-15deg) rotateX(5deg) scale(0.85); }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">SYLEX <span style="opacity: 0.4; font-weight: 300;">IA</span></div>
+        <div class="logo-nav">SYLEX <span style="opacity: 0.4; font-weight: 300;">IA</span></div>
     </nav>
-
-    <div id="notif">
-        <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" width="44" height="44" style="border-radius:12px;">
-        <div><b style="display:block; font-size:0.9rem; color:white;">Sylex IA</b><span style="font-size:0.85rem; color:#aaa;">"Cliquez sur l'iPhone pour me parler"</span></div>
-    </div>
 
     <section class="hero">
         <div class="container">
             <div class="text-section">
                 <h1>Répondez à vos leads,<br><span style="opacity:0.6">même le dimanche.</span></h1>
-                <p class="desc">Qualifiez vos prospects 24h/24 avec une interface immersive digne d'une application native.</p>
-                <button onclick="unlockPhone()" class="cta-btn">Tester l'IA maintenant</button>
+                <p class="desc">Qualifiez vos prospects 24h/24 avec une interface immersive digne d'un produit natif.</p>
+                <button onclick="startExperience()" class="cta-btn">Tester l'interface</button>
             </div>
 
             <div class="iphone-wrapper">
                 <div class="glow"></div>
-                <div class="iphone-device" id="iphone" onclick="unlockPhone()">
+                <div class="iphone-device" id="iphone" onclick="startExperience()">
                     <div class="dynamic-island"></div>
+                    <div class="status-bar">
+                        <span id="status-clock">00:00</span>
+                        <div style="display:flex; gap:4px;">📶 5G 🔋</div>
+                    </div>
+                    
                     <div class="iphone-screen">
                         <div id="lock-screen">
+                            <p id="real-date">Lundi 1 Janvier</p>
+                            <h2 id="real-time-clock">00:00</h2>
                             <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" alt="Logo Sylex">
-                            <p>Toucher pour ouvrir</p>
+                            <p class="swipe-hint">Toucher pour déverrouiller</p>
                         </div>
                         <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
                     </div>
+                    
+                    <div class="home-bar" id="homeBar"></div>
                 </div>
             </div>
         </div>
@@ -127,21 +147,32 @@
 
     <script>
         const iphone = document.getElementById('iphone');
-        const notif = document.getElementById('notif');
+        const lockScreen = document.getElementById('lock-screen');
+        const homeBar = document.getElementById('homeBar');
 
-        function unlockPhone() {
-            iphone.classList.add('active'); // Redressement
-            document.body.classList.add('unlocked'); // Retire le lock screen
-            notif.classList.remove('show');
+        // FONCTION HORLOGE TEMPS RÉEL
+        function updateClock() {
+            const now = new Date();
+            const optionsDate = { weekday: 'long', day: 'numeric', month: 'long' };
+            
+            const timeString = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            const dateString = now.toLocaleDateString('fr-FR', optionsDate);
+
+            document.getElementById('real-time-clock').textContent = timeString;
+            document.getElementById('status-clock').textContent = timeString;
+            document.getElementById('real-date').textContent = dateString.charAt(0).toUpperCase() + dateString.slice(1);
         }
 
-        window.onload = () => {
-            setTimeout(() => { notif.classList.add('show'); }, 2000);
-        };
+        function startExperience() {
+            iphone.classList.add('unlocked');
+            lockScreen.style.opacity = '0';
+            homeBar.style.background = "rgba(0,0,0,0.2)"; // La barre devient sombre sur le chatbot blanc
+            setTimeout(() => { lockScreen.style.visibility = 'hidden'; }, 800);
+        }
 
-        // Redressement au survol (optionnel si pas encore déverrouillé)
-        iphone.addEventListener('mouseenter', () => { if(!iphone.classList.contains('active')) iphone.style.transform = "rotateY(-10deg) rotateX(5deg) scale(1.02)"; });
-        iphone.addEventListener('mouseleave', () => { if(!iphone.classList.contains('active')) iphone.style.transform = "rotateY(-25deg) rotateX(10deg) rotateZ(2deg)"; });
+        // Mise à jour immédiate et chaque minute
+        updateClock();
+        setInterval(updateClock, 10000);
     </script>
 </body>
 </html>
