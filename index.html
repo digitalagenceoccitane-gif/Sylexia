@@ -7,13 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #050505;
+            --bg-color: #000000; /* Noir pur pour l'élégance */
             --accent-color: #ffffff;
-            --text-gray: #b0b0b0;
-            --iphone-shadow: 0 50px 100px rgba(0,0,0,0.9);
+            --text-main: #ffffff;
+            --text-secondary: #d1d1d6; /* Gris clair optimisé pour la lecture (plus lisible que #888) */
+            --iphone-shadow: 0 40px 80px rgba(0,0,0,0.8);
         }
 
-        /* --- STRUCTURE DE BASE --- */
         html, body {
             overflow: hidden;
             height: 100%;
@@ -23,7 +23,7 @@
             font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
-            position: fixed; /* Évite le scroll élastique sur iPhone */
+            position: fixed;
         }
 
         body {
@@ -37,52 +37,51 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 8vw;
+            gap: 6vw;
             width: 90%;
             max-width: 1200px;
-            z-index: 2;
         }
 
-        /* --- SECTION TEXTE --- */
+        /* --- TEXTE --- */
         .text-section {
             flex: 1;
             z-index: 5;
         }
 
         h1 {
-            font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+            font-size: clamp(2.4rem, 5vw, 4rem);
             font-weight: 600;
             line-height: 1.1;
-            margin-bottom: 24px;
-            background: linear-gradient(180deg, #fff 0%, #888 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
         }
 
         p {
-            font-size: 1.15rem;
-            color: var(--text-gray);
+            font-size: 1.2rem;
+            color: var(--text-secondary); /* Lisibilité accrue */
             max-width: 440px;
             line-height: 1.6;
-            margin-bottom: 32px;
+            margin-bottom: 35px;
         }
 
         .cta-button {
             display: inline-block;
-            background: #fff;
-            color: #000;
-            padding: 16px 32px;
-            border-radius: 30px;
+            background: #ffffff;
+            color: #000000;
+            padding: 18px 35px;
+            border-radius: 40px;
             text-decoration: none;
             font-weight: 600;
-            transition: transform 0.2s ease;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
         }
 
         .cta-button:hover {
             transform: scale(1.05);
+            background: #f2f2f7;
         }
 
-        /* --- IPHONE FRAME --- */
+        /* --- IPHONE --- */
         .iphone-wrapper {
             position: relative;
             flex-shrink: 0;
@@ -90,99 +89,91 @@
 
         .iphone-frame {
             width: 315px;
-            height: 640px;
-            background: #000;
+            height: 645px;
+            background: #000000;
             border: 11px solid #1c1c1e;
-            border-radius: 48px;
+            border-radius: 50px;
             position: relative;
             box-shadow: var(--iphone-shadow);
             overflow: hidden;
         }
 
-        /* Encoche dessinée (visible uniquement sur PC) */
+        /* L'encoche (Dynamic Island) uniquement sur Bureau */
         .dynamic-island {
             position: absolute;
-            top: 12px;
+            top: 14px;
             left: 50%;
             transform: translateX(-50%);
-            width: 85px;
-            height: 25px;
-            background: #000;
+            width: 90px;
+            height: 28px;
+            background: #000000;
             border-radius: 20px;
-            z-index: 20;
+            z-index: 25;
         }
 
         iframe {
             width: 100%;
-            height: 110%; /* Cache le footer Dify */
-            margin-top: -5px;
+            height: 100%;
             border: none;
             z-index: 10;
             background: transparent;
-            -webkit-overflow-scrolling: touch;
+            /* Masque le footer Dify */
+            transform: scale(1.02); 
+            transform-origin: top;
         }
 
-        /* --- NOTIFICATION iOS --- */
+        /* --- NOTIFICATION --- */
         .notification {
             position: absolute;
             top: -100px;
             left: 50%;
             transform: translateX(-50%);
-            width: 280px;
-            background: rgba(28, 28, 30, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 12px;
+            width: 290px;
+            background: rgba(28, 28, 30, 0.7);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 22px;
+            padding: 14px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            gap: 14px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             z-index: 100;
-            transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
-            border: 0.5px solid rgba(255,255,255,0.1);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 0.5px solid rgba(255,255,255,0.12);
             cursor: pointer;
         }
 
-        .notification.show {
-            top: 25px;
-        }
+        .notification.show { top: 25px; }
 
         .notification img {
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
             border-radius: 10px;
             object-fit: cover;
         }
 
-        .notification-text b { font-size: 0.85rem; color: #fff; display: block; margin-bottom: 2px; }
-        .notification-text span { font-size: 0.8rem; color: #d1d1d6; }
+        .notification-text b { font-size: 0.9rem; color: #fff; display: block; margin-bottom: 2px; }
+        .notification-text span { font-size: 0.85rem; color: #ebebf5; }
 
-        /* --- RESPONSIVE MOBILE --- */
+        /* --- RESPONSIVE --- */
         @media (max-width: 850px) {
-            html, body {
-                overflow-y: auto; /* Permet le scroll si nécessaire sur petit mobile */
-                position: relative;
-            }
+            html, body { overflow-y: auto; position: relative; }
             .container {
                 flex-direction: column;
-                padding: 40px 20px;
+                padding: 60px 24px;
                 text-align: center;
-                gap: 20px;
+                gap: 30px;
             }
             .text-section { order: 2; }
             .iphone-wrapper { 
                 order: 1; 
-                transform: scale(0.85);
-                margin-top: -20px;
-                margin-bottom: -40px;
+                transform: scale(0.9);
+                margin-bottom: -20px;
             }
-            /* Suppression de l'encoche factice sur mobile pour éviter le doublon */
-            .dynamic-island {
-                display: none;
-            }
-            h1 { font-size: 2rem; }
-            p { margin: 0 auto 24px; font-size: 1rem; }
+            .dynamic-island { display: none; } /* On enlève la fausse encoche sur iPhone */
+            h1 { font-size: 2.2rem; }
+            p { font-size: 1.1rem; margin: 0 auto 30px; }
         }
     </style>
 </head>
@@ -190,9 +181,9 @@
 
     <div class="container">
         <div class="text-section">
-            <h1>Répondez à vos leads,<br>même le dimanche.</h1>
-            <p>Sylex qualifie vos prospects 24h/24 avec une interface immersive qui valorise votre agence immobilière.</p>
-            <a href="https://www.malt.fr" class="cta-button">Réserver une démo</a>
+            <h1>Répondez à vos leads, même le dimanche.</h1>
+            <p>Sylex qualifie vos prospects 24h/24 avec une interface immersive qui valorise votre agence.</p>
+            <a href="https://www.malt.fr/profile/ton-profil" class="cta-button">Réserver une démo</a>
         </div>
 
         <div class="iphone-wrapper">
@@ -213,16 +204,8 @@
 
     <script>
         const notification = document.getElementById('notif');
-
-        // Apparition après 2 secondes
-        setTimeout(() => {
-            notification.classList.add('show');
-        }, 2000);
-
-        // Disparition après 6 secondes au total (donc 4s de présence)
-        setTimeout(() => {
-            notification.classList.remove('show');
-        }, 6000);
+        setTimeout(() => { notification.classList.add('show'); }, 2000);
+        setTimeout(() => { notification.classList.remove('show'); }, 7000);
     </script>
 
 </body>
