@@ -2,174 +2,181 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sylexia - Super Agent IA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Sylex IA | Digital Agence Occitanie</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary: #00d2ff;
-            --secondary: #3a7bd5;
-            --bg: #050505;
+            --bg: #000000;
+            --white: #ffffff;
+            --grey: #8e8e93;
+            --blue: #0066ff;
+            --glow: rgba(0, 102, 255, 0.35);
             --card-bg: #111111;
-            --text: #ffffff;
         }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; }
+        body, html { width: 100%; background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* --- DESIGN IPHONE ORIGINAL --- */
-        .iphone-container {
-            position: relative;
-            width: 300px;
-            height: 600px;
-            background: #222;
-            border: 8px solid #333;
-            border-radius: 40px;
-            margin: 50px auto;
-            box-shadow: 0 0 50px rgba(0,210,255,0.2);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); border-bottom: 0.5px solid rgba(255,255,255,0.1);
         }
+        .logo-nav { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.02em; }
 
-        .iphone-screen {
-            flex: 1;
-            background: #000;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+        /* --- HERO --- */
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 120px 5% 60px; perspective: 3000px; }
+        .container { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; gap: 80px; }
+        .text-section { flex: 1; max-width: 500px; }
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 25px; }
+        .desc { font-size: 1.2rem; color: var(--grey); line-height: 1.5; margin-bottom: 40px; }
 
-        .iphone-notch {
-            width: 150px;
-            height: 20px;
-            background: #333;
-            margin: 0 auto;
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
-        }
-
-        /* --- APPEL À L'ACTION --- */
-        .cta-section {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
+        .cta-group { display: flex; gap: 15px; flex-wrap: wrap; }
         .cta-btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,210,255,0.3);
-            text-decoration: none;
-            display: inline-block;
-            transition: 0.3s;
+            background: #fff; color: #000; padding: 18px 35px; border-radius: 50px;
+            font-weight: 600; text-decoration: none; display: inline-block; cursor: pointer; transition: 0.4s;
         }
+        .cta-btn.secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255,255,255,0.1); }
 
-        .cta-btn:hover { transform: scale(1.05); }
+        /* --- IPHONE 17 PRO RENDER --- */
+        .iphone-wrapper { position: relative; z-index: 10; }
+        .iphone-device {
+            width: 310px; height: 640px; background: #000; border-radius: 52px; position: relative;
+            transform: rotateY(-22deg) rotateX(8deg) rotateZ(2deg);
+            transform-style: preserve-3d; transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border: 0.5px solid rgba(255,255,255,0.25);
+            box-shadow: -1px 1px 0px #1c1c1e, -3px 3px 0px #141415, -25px 40px 80px rgba(0,0,0,0.9);
+            cursor: pointer;
+        }
+        .iphone-device.unlocked { transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1.04); }
+        .iphone-screen { position: absolute; inset: 3px; background: #000; border-radius: 49px; overflow: hidden; z-index: 2; }
 
         /* --- SIMULATEUR --- */
-        .simulator-container {
-            max-width: 500px;
-            margin: 40px auto;
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid #222;
+        .simulator-section { padding: 100px 5%; display: flex; flex-direction: column; align-items: center; }
+        .simulator-card {
+            background: var(--card-bg); width: 100%; max-width: 600px; padding: 40px; 
+            border-radius: 30px; border: 1px solid #222; box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
+        .slider-group { margin-bottom: 30px; }
+        .slider-header { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.9rem; color: var(--grey); }
+        .val-display { color: var(--blue); font-weight: 600; font-size: 1.1rem; }
+        
+        input[type=range] { width: 100%; accent-color: var(--blue); cursor: pointer; height: 6px; border-radius: 10px; }
 
-        .slider-group { margin-bottom: 25px; }
-        .slider-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; color: #888; }
-        .val-highlight { color: var(--primary); font-weight: bold; }
-
-        input[type=range] {
-            width: 100%;
-            accent-color: var(--primary);
-            cursor: pointer;
+        .result-box {
+            background: rgba(0, 255, 136, 0.05); border: 1px solid rgba(0, 255, 136, 0.2);
+            padding: 30px; border-radius: 20px; text-align: center; margin-top: 20px;
         }
+        .res-amount { font-size: 3rem; font-weight: 700; color: #00ff88; margin: 5px 0; }
+        .res-annual { background: #00ff88; color: #000; padding: 4px 12px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; display: inline-block; }
 
-        .result-zone {
-            background: rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px dashed #444;
+        /* --- DYNAMIC ISLAND & CLOCK --- */
+        #lock-screen {
+            position: absolute; inset: 0; background: #000; z-index: 100;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.6s ease; text-align: center;
         }
+        #real-time-clock { font-size: 3.5rem; font-weight: 600; margin-bottom: 40px; }
+        .dynamic-island { position: absolute; top: 13px; left: 50%; transform: translateX(-50%); width: 85px; height: 26px; background: #000; border-radius: 20px; z-index: 160; }
+        iframe { width: 100%; height: 100%; border: none; visibility: hidden; }
+        .unlocked iframe { visibility: visible; }
 
-        .gain-mensuel { font-size: 2.5rem; font-weight: 800; color: #00ff88; margin: 10px 0; }
-        .gain-annuel { background: #00ff88; color: #000; padding: 4px 12px; border-radius: 5px; font-weight: bold; font-size: 0.8rem; }
-
+        @media (max-width: 900px) {
+            .container { flex-direction: column; text-align: center; }
+            .text-section { max-width: 100%; }
+            .cta-group { justify-content: center; }
+            .iphone-device { transform: rotateY(0deg) rotateX(0deg) scale(0.85); margin-top: -50px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="cta-section">
-        <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Sylexia : Super Agent IA</h1>
-        <p style="color: #888; margin-bottom: 30px;">L'intelligence qui gère votre business pendant que vous travaillez.</p>
-        
-        <button class="cta-btn" onclick="document.getElementById('simulateur-ia').scrollIntoView({behavior: 'smooth'})">
-            💰 Estimer mon gain de CA
-        </button>
-    </div>
+    <nav>
+        <div class="logo-nav">SYLEX <span style="opacity: 0.4; font-weight: 300;">IA</span></div>
+    </nav>
 
-    <div class="iphone-container">
-        <div class="iphone-notch"></div>
-        <div class="iphone-screen">
-            <div style="color: var(--primary); font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">Sylexia</div>
-            <p style="font-size: 0.9rem; line-height: 1.4; color: #ccc;">
-                "Bonjour Laila, j'ai pris 3 rendez-vous pour toi aujourd'hui et encaissé 150€ d'acomptes."
+    <section class="hero">
+        <div class="container">
+            <div class="text-section">
+                <h1>Répondez à vos leads,<br><span style="opacity:0.6">même le dimanche.</span></h1>
+                <p class="desc">Qualifiez vos prospects 24h/24 avec une IA capable de transformer vos conversations en revenus.</p>
+                <div class="cta-group">
+                    <div class="cta-btn" onclick="startExperience()">Tester l'interface</div>
+                    <div class="cta-btn secondary" onclick="document.getElementById('simulator').scrollIntoView({behavior: 'smooth'})">Calculer mon gain CA</div>
+                </div>
+            </div>
+
+            <div class="iphone-wrapper">
+                <div class="iphone-device" id="iphone" onclick="startExperience()">
+                    <div class="dynamic-island"></div>
+                    <div class="iphone-screen">
+                        <div id="lock-screen">
+                            <h2 id="real-time-clock">00:00</h2>
+                            <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" alt="Logo Sylex" style="width: 80px; height: 80px; border-radius: 18px; margin-bottom: 20px;">
+                            <p style="font-size: 0.9rem; color: #fff;">Assistant Sylex prêt</p>
+                            <p style="font-size: 0.7rem; color: #555; margin-top: 10px; text-transform: uppercase; letter-spacing: 1px;">Cliquer pour déverrouiller</p>
+                        </div>
+                        <iframe id="chatframe" src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="simulator" class="simulator-section">
+        <div class="simulator-card">
+            <h2 style="text-align: center; margin-bottom: 40px; letter-spacing: -0.02em;">Potentiel de gain financier</h2>
+            
+            <div class="slider-group">
+                <div class="slider-header"><span>Temps de gestion DMs/Appels (jour) :</span> <span id="val-temps" class="val-display">1.5h</span></div>
+                <input type="range" id="temps" min="0.5" max="5" step="0.5" value="1.5" oninput="calculer()">
+            </div>
+
+            <div class="slider-group">
+                <div class="slider-header"><span>Tarif moyen prestation :</span> <span id="val-prix" class="val-display">100€</span></div>
+                <input type="range" id="prix" min="30" max="600" step="10" value="100" oninput="calculer()">
+            </div>
+
+            <div class="slider-group">
+                <div class="slider-header"><span>Rendez-vous manqués / Mois :</span> <span id="val-lapins" class="val-display">2</span></div>
+                <input type="range" id="lapins" min="0" max="15" step="1" value="2" oninput="calculer()">
+            </div>
+
+            <div class="result-box">
+                <p style="font-size: 0.9rem; color: var(--grey);">Votre gain mensuel estimé :</p>
+                <div id="res-mensuel" class="res-amount">-- €</div>
+                <div id="res-annuel" class="res-annuel">SOIT -- € / AN</div>
+            </div>
+            
+            <p style="font-size: 0.7rem; color: #444; text-align: center; margin-top: 20px; line-height: 1.4;">
+                *Estimation basée sur la conversion de 60% du temps gagné en temps facturable et la sécurisation des acomptes.
             </p>
-            <div style="margin-top: 30px; width: 80%; height: 2px; background: #333;"></div>
-            <p style="font-size: 0.7rem; color: #555; margin-top: 15px;">Agent IA Actif • Connecté à Instagram</p>
         </div>
-    </div>
-
-    <div id="simulateur-ia" class="simulator-container">
-        <h2 style="text-align: center; font-size: 1.4rem; margin-bottom: 30px;">Simulateur de Gain</h2>
-        
-        <div class="slider-group">
-            <div class="slider-header">
-                <span>Gestion DMs/Appels (jour) :</span>
-                <span id="val-temps" class="val-highlight">1.5h</span>
-            </div>
-            <input type="range" id="temps" min="0.5" max="5" step="0.5" value="1.5" oninput="calculer()">
-        </div>
-
-        <div class="slider-group">
-            <div class="slider-header">
-                <span>Prix prestation moyen :</span>
-                <span id="val-prix" class="val-highlight">120€</span>
-            </div>
-            <input type="range" id="prix" min="30" max="500" step="10" value="120" oninput="calculer()">
-        </div>
-
-        <div class="slider-group">
-            <div class="slider-header">
-                <span>Lapins / Mois :</span>
-                <span id="val-lapins" class="val-highlight">2</span>
-            </div>
-            <input type="range" id="lapins" min="0" max="10" step="1" value="2" oninput="calculer()">
-        </div>
-
-        <div class="result-zone">
-            <div style="font-size: 0.9rem; color: #aaa;">Gain mensuel estimé :</div>
-            <div id="res-mensuel" class="gain-mensuel">-- €</div>
-            <div id="res-annuel" class="gain-annuel">SOIT -- € / AN</div>
-        </div>
-    </div>
+    </section>
 
     <script>
+        const iphone = document.getElementById('iphone');
+        const lockScreen = document.getElementById('lock-screen');
+
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('real-time-clock').textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function startExperience() {
+            iphone.classList.add('unlocked');
+            lockScreen.style.opacity = '0';
+            setTimeout(() => { 
+                lockScreen.style.display = 'none';
+                document.getElementById('chatframe').style.visibility = 'visible';
+            }, 600);
+        }
+
         function calculer() {
             const t = parseFloat(document.getElementById('temps').value);
             const p = parseInt(document.getElementById('prix').value);
@@ -179,14 +186,17 @@
             document.getElementById('val-prix').innerText = p + "€";
             document.getElementById('val-lapins').innerText = l;
 
-            // Calcul : (Temps récupéré * 22j * 60% conversion) + (Lapins évités)
-            const gainTemps = (t * 22 * 0.6) * (p / 3);
+            // Calcul : Temps récupéré valorisé + Lapins sauvés
+            const gainTemps = (t * 22 * 0.6) * (p / 3); 
             const gainLapins = l * p;
             const total = Math.round(gainTemps + gainLapins);
 
             document.getElementById('res-mensuel').innerText = total.toLocaleString('fr-FR') + " €";
             document.getElementById('res-annuel').innerText = "SOIT " + (total * 12).toLocaleString('fr-FR') + " € / AN";
         }
+
+        updateClock();
+        setInterval(updateClock, 1000);
         window.onload = calculer;
     </script>
 </body>
