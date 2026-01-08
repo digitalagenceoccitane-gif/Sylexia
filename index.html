@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sylex IA | Digital Agence Occitanie</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -12,16 +12,22 @@
             --iphone-shadow: 0 50px 100px rgba(0,0,0,0.9);
         }
 
-        body {
+        /* Empêche le défilement parasite du site complet sur mobile */
+        html, body {
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
             background-color: var(--bg-color);
             color: var(--accent-color);
             font-family: 'Inter', sans-serif;
             margin: 0;
+            position: fixed; /* Bloque le rebond élastique iOS */
+        }
+
+        body {
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            overflow: hidden;
         }
 
         .container {
@@ -29,8 +35,8 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 10vw;
-            width: 90%;
+            gap: 5vw;
+            width: 95%;
             max-width: 1200px;
         }
 
@@ -41,7 +47,7 @@
         }
 
         h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
             font-weight: 600;
             line-height: 1.1;
             margin-bottom: 20px;
@@ -51,10 +57,10 @@
         }
 
         p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #888;
-            max-width: 420px;
-            line-height: 1.6;
+            max-width: 400px;
+            line-height: 1.5;
         }
 
         /* --- IPHONE FRAME --- */
@@ -64,52 +70,52 @@
         }
 
         .iphone-frame {
-            width: 320px;
-            height: 650px;
+            width: 315px;
+            height: 640px;
             background: #000;
-            border: 10px solid #1c1c1e;
-            border-radius: 44px;
+            border: 11px solid #1c1c1e;
+            border-radius: 48px;
             position: relative;
             box-shadow: var(--iphone-shadow);
-            overflow: hidden; /* Masque le badge Dify en bas */
+            overflow: hidden; /* Masque le logo Dify */
         }
 
-        /* Dynamic Island */
         .dynamic-island {
             position: absolute;
             top: 12px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90px;
-            height: 26px;
+            width: 85px;
+            height: 25px;
             background: #000;
             border-radius: 20px;
             z-index: 20;
         }
 
-        /* Logo filigrane en arrière-plan */
         .watermark-logo {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 150px;
-            height: 150px;
+            width: 140px;
+            height: 140px;
             background: url('https://i.ibb.co/4n4vpP0r/IMG-5824.jpg') no-repeat center;
             background-size: contain;
-            opacity: 0.05;
+            opacity: 0.04;
             z-index: 1;
             pointer-events: none;
         }
 
-        /* Iframe IA - Ajustée pour cacher le footer Dify */
+        /* IFRAME : Hauteur augmentée pour masquer "Powered by Dify" */
         iframe {
             width: 100%;
-            height: 108%; /* On pousse le bas de l'iframe hors du cadre */
+            height: 109%; 
             border: none;
             position: relative;
             z-index: 10;
             background: transparent;
+            /* Force le scroll doux sur iOS */
+            -webkit-overflow-scrolling: touch;
         }
 
         /* --- NOTIFICATION iOS --- */
@@ -118,59 +124,53 @@
             top: -100px;
             left: 50%;
             transform: translateX(-50%);
-            width: 280px;
-            background: rgba(28, 28, 30, 0.85);
+            width: 270px;
+            background: rgba(28, 28, 30, 0.8);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 18px;
-            padding: 12px;
+            border-radius: 20px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
             gap: 12px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
             z-index: 100;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            border: 0.5px solid rgba(255,255,255,0.15);
-            pointer-events: none;
+            transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+            border: 0.5px solid rgba(255,255,255,0.1);
         }
 
         .notification.show {
-            top: 20px;
+            top: 25px;
         }
 
         .notification img {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
             object-fit: cover;
         }
 
-        .notification-text {
-            display: flex;
-            flex-direction: column;
-        }
+        .notification-text b { font-size: 0.85rem; color: #fff; display: block; margin-bottom: 2px; }
+        .notification-text span { font-size: 0.8rem; color: #d1d1d6; line-height: 1.2; display: block; }
 
-        .notification-text b {
-            font-size: 0.85rem;
-            color: #fff;
-        }
-
-        .notification-text span {
-            font-size: 0.8rem;
-            color: #d1d1d6;
-        }
-
-        /* Responsive Mobile */
+        /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 850px) {
-            body { overflow-y: auto; }
             .container {
                 flex-direction: column;
-                padding: 60px 20px;
-                text-align: center;
-                gap: 50px;
+                gap: 40px;
+                width: 100%;
             }
-            h1 { font-size: 2.5rem; }
-            p { margin: 0 auto; }
+            .text-section { 
+                order: 2; 
+                padding: 0 20px;
+            }
+            .iphone-wrapper { 
+                order: 1; 
+                transform: scale(0.85); /* Réduit la taille pour que ça tienne sur petit écran */
+                margin-top: -20px;
+            }
+            h1 { font-size: 2rem; margin-bottom: 10px; }
+            p { font-size: 1rem; margin: 0 auto; }
         }
     </style>
 </head>
@@ -178,8 +178,8 @@
 
     <div class="container">
         <div class="text-section">
-            <h1>Digitalisez votre<br>agence avec l'IA.</h1>
-            <p>Sylex : l'assistant virtuel intelligent qui qualifie vos leads et répond à vos clients 24h/24, avec l'élégance que votre agence mérite.</p>
+            <h1>L'expérience<br>immobilière IA.</h1>
+            <p>Sylex : L'agent virtuel qui transforme vos visiteurs en mandats qualifiés, 24h/24.</p>
         </div>
 
         <div class="iphone-wrapper">
@@ -187,7 +187,7 @@
                 <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" alt="Logo Sylex">
                 <div class="notification-text">
                     <b>Sylex IA</b>
-                    <span>"Bonjour ! Je cherche un bien à Toulouse..."</span>
+                    <span>"Bonjour ! Comment puis-je vous aider ?"</span>
                 </div>
             </div>
 
@@ -195,7 +195,7 @@
                 <div class="dynamic-island"></div>
                 <div class="watermark-logo"></div>
                 
-                <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
+                <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe" allow="microphone"></iframe>
             </div>
         </div>
     </div>
@@ -203,12 +203,12 @@
     <script>
         const notification = document.getElementById('notif');
 
-        // Apparition à 2 secondes
+        // Apparition après 2 secondes
         setTimeout(() => {
             notification.classList.add('show');
         }, 2000);
 
-        // Disparition à 5 secondes (soit 3 secondes de visibilité au total)
+        // Disparition après 5 secondes (reste affiché 3s)
         setTimeout(() => {
             notification.classList.remove('show');
         }, 5000);
