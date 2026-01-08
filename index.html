@@ -15,7 +15,7 @@
             --white: #ffffff;
             --grey: #8e8e93;
             --blue: #0066ff;
-            --card-bg: #0a0a0a;
+            --glow-color: rgba(0, 102, 255, 0.2);
         }
 
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; }
@@ -25,63 +25,72 @@
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             padding: 20px 5%; display: flex; justify-content: center; align-items: center;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); border-bottom: 0.5px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(20px); border-bottom: 0.5px solid rgba(255,255,255,0.05);
         }
-        .logo-nav img { height: 30px; filter: drop-shadow(0 0 5px var(--blue)); }
+        .logo-nav img { height: 25px; filter: brightness(1.5); }
 
-        /* --- HERO & PROJECTION --- */
-        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 120px 5% 60px; position: relative; overflow: hidden; }
+        /* --- HERO & EFFET RÉTROPROJECTEUR --- */
+        .hero { 
+            min-height: 100vh; display: flex; align-items: center; justify-content: center; 
+            padding: 120px 5% 60px; position: relative; overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, #001a33 0%, #000 70%); /* Faisceau de lampe */
+        }
         
-        /* Effet Rétroprojecteur (Ombre chinoise du logo) */
-        .projection-bg {
-            position: absolute; top: 50%; left: 65%; transform: translate(-50%, -50%);
-            width: 600px; height: 600px;
+        /* Projection du logo en fond */
+        .projection-logo {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 120vw; height: 120vh;
             background: url('https://i.ibb.co/4n4vpP0r/IMG-5824.jpg') no-repeat center;
-            background-size: contain;
-            filter: blur(80px) opacity(0.15); /* Effet d'ombre projetée */
+            background-size: 60%;
+            filter: blur(120px) opacity(0.08) saturate(2); /* L'effet ombre chinoise géante */
             z-index: 1; pointer-events: none;
+            animation: pulse-light 8s infinite alternate;
         }
 
-        .container { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; gap: 60px; z-index: 10; position: relative; }
+        @keyframes pulse-light {
+            from { filter: blur(120px) opacity(0.05); transform: translate(-50%, -50%) scale(1); }
+            to { filter: blur(100px) opacity(0.12); transform: translate(-50%, -50%) scale(1.05); }
+        }
+
+        .container { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; gap: 60px; z-index: 10; }
         .text-section { flex: 1; max-width: 550px; }
         
-        .brand-logo-main { width: 100px; margin-bottom: 30px; border-radius: 20px; filter: drop-shadow(0 0 20px var(--blue)); }
+        .brand-logo-main { width: 90px; margin-bottom: 30px; border-radius: 15px; box-shadow: 0 0 30px var(--glow-color); }
         
-        h1 { font-size: clamp(2.5rem, 5vw, 3.8rem); line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 25px; font-weight: 700; background: linear-gradient(180deg, #fff 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h1 { font-size: clamp(2.5rem, 5vw, 3.8rem); line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 25px; font-weight: 700; color: #fff; }
         .desc { font-size: 1.2rem; color: var(--grey); line-height: 1.5; margin-bottom: 40px; }
 
-        .cta-group { display: flex; gap: 15px; flex-wrap: wrap; }
-        .cta-btn { background: #fff; color: #000; padding: 18px 35px; border-radius: 50px; font-weight: 600; text-decoration: none; cursor: pointer; transition: 0.4s; border: none; }
-        .cta-btn.secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
-        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,102,255,0.3); }
+        .cta-group { display: flex; gap: 15px; }
+        .cta-btn { background: #fff; color: #000; padding: 18px 35px; border-radius: 50px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; transition: 0.3s; }
+        .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.4); }
 
-        /* --- SMARTPHONE DEVICE --- */
+        /* --- SMARTPHONE LUXE --- */
         .iphone-device {
-            width: 320px; height: 650px; background: #050505; border-radius: 50px; position: relative;
-            transform: rotateY(-10deg) rotateX(5deg); transform-style: preserve-3d; transition: 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-            border: 1px solid rgba(255,255,255,0.15); box-shadow: -30px 50px 100px rgba(0,0,0,0.9); cursor: pointer;
+            width: 320px; height: 650px; background: #080808; border-radius: 54px; position: relative;
+            transform: rotateY(-12deg) rotateX(4deg); transform-style: preserve-3d;
+            border: 1.5px solid rgba(255,255,255,0.1); box-shadow: -40px 60px 100px rgba(0,0,0,0.9);
+            cursor: pointer; transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
         }
-        .iphone-device::after { content: ""; position: absolute; inset: -2px; border-radius: 52px; background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent, rgba(255,255,255,0.1)); z-index: -1; }
-        .iphone-device.unlocked { transform: rotateY(0deg) rotateX(0deg) scale(1.02); }
-        .iphone-screen { position: absolute; inset: 6px; background: #000; border-radius: 44px; overflow: hidden; border: 1px solid #111; }
+        .iphone-device:hover { transform: rotateY(-5deg) rotateX(2deg); }
+        .iphone-device.unlocked { transform: rotateY(0deg) rotateX(0deg) scale(1.05); }
+        
+        .iphone-screen { position: absolute; inset: 7px; background: #000; border-radius: 47px; overflow: hidden; }
 
-        /* --- ELEMENTS --- */
-        .pillar-card { background: var(--card-bg); border: 1px solid #1a1a1a; padding: 40px; border-radius: 25px; flex: 1; min-width: 300px; transition: 0.3s; }
-        .pillar-card:hover { border-color: var(--blue); }
-        .luxury-table td { background: #0f0f0f; padding: 25px; border-bottom: 1px solid #1a1a1a; }
-        .res-amount { font-size: 3.5rem; font-weight: 700; color: #00ff88; }
+        /* --- SIMULATEUR --- */
+        .simulator-section { padding: 100px 5%; background: #050505; text-align: center; }
+        .sim-card { max-width: 600px; margin: 0 auto; padding: 50px; background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 30px; }
+        .res-amount { font-size: 4rem; color: #00ff88; font-weight: 700; margin: 20px 0; }
 
-        /* --- CLOCK & LOCK --- */
+        /* --- LOCK SCREEN --- */
         #lock-screen { position: absolute; inset: 0; background: #000; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.8s; }
-        #real-time-clock { font-size: 4rem; font-weight: 300; margin-bottom: 20px; }
+        #real-time-clock { font-size: 4.5rem; font-weight: 200; margin-bottom: 10px; }
         iframe { width: 100%; height: 100%; border: none; visibility: hidden; }
         .unlocked iframe { visibility: visible; }
 
-        footer { padding: 80px 20px; color: #444; font-size: 0.9em; text-align: center; border-top: 1px solid #111; }
+        footer { padding: 60px; text-align: center; color: #333; font-size: 0.8rem; border-top: 1px solid #111; }
 
         @media (max-width: 900px) {
             .container { flex-direction: column; text-align: center; }
-            .projection-bg { width: 300px; height: 300px; left: 50%; }
             .iphone-device { transform: none; margin: 0 auto; }
         }
     </style>
@@ -89,19 +98,19 @@
 <body>
 
     <nav>
-        <div class="logo-nav"><img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" alt="SYLEX Logo"></div>
+        <div class="logo-nav"><img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" alt="SYLEX"></div>
     </nav>
 
     <section class="hero">
-        <div class="projection-bg"></div>
+        <div class="projection-logo"></div>
+        
         <div class="container">
             <div class="text-section">
                 <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" class="brand-logo-main" alt="Sylex">
-                <h1>L'intelligence<br>sans compromis.</h1>
-                <p class="desc">SYLEX redéfinit la performance opérationnelle. Votre assistant d'élite, disponible à chaque seconde.</p>
+                <h1>L'intelligence<br><span style="color:var(--blue)">Souveraine.</span></h1>
+                <p class="desc">Déléguez votre croissance à SYLEX. L'IA d'élite qui ne dort jamais, conçue pour l'exigence de 2026.</p>
                 <div class="cta-group">
                     <button class="cta-btn" onclick="startExperience()">Faire l'expérience</button>
-                    <button class="cta-btn secondary" onclick="document.getElementById('simulator').scrollIntoView({behavior: 'smooth'})">Analyse de ROI</button>
                 </div>
             </div>
 
@@ -110,7 +119,7 @@
                     <div class="iphone-screen">
                         <div id="lock-screen">
                             <h2 id="real-time-clock">00:00</h2>
-                            <p style="color:var(--blue); letter-spacing: 2px; font-size: 0.7rem; text-transform: uppercase;">Cliquer pour déverrouiller</p>
+                            <p style="opacity: 0.4; letter-spacing: 3px; font-size: 0.6rem; text-transform: uppercase;">Toucher pour activer</p>
                         </div>
                         <iframe id="chatframe" src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
                     </div>
@@ -119,17 +128,19 @@
         </div>
     </section>
 
-    <section class="simulator-section" id="simulator" style="padding: 100px 5%; display: flex; flex-direction: column; align-items: center;">
-        <div class="pillar-card" style="max-width: 600px; width: 100%; text-align: center;">
-            <h2 style="margin-bottom: 40px;">Potentiel financier 2026</h2>
-            <input type="range" id="temps" min="0.5" max="5" step="0.5" value="1.5" style="width:100%; accent-color:var(--blue);" oninput="calculer()">
-            <div id="res-mensuel" class="res-amount" style="margin: 30px 0;">-- €</div>
-            <a href="#" class="cta-btn" style="display:inline-block; background:var(--blue); color:#fff;" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});return false;">Accès Premium</a>
+    <section class="simulator-section">
+        <div class="sim-card">
+            <h2 style="color:var(--grey)">Potentiel Business 2026</h2>
+            <div id="res-mensuel" class="res-amount">0 €</div>
+            <input type="range" min="1" max="5" step="0.5" value="1.5" style="width:100%; accent-color:var(--blue)" oninput="calculer()">
+            <p style="margin-top:20px; color:#555">Gain mensuel estimé avec l'automatisation Sylex</p>
+            <br>
+            <a href="#" class="cta-btn" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});return false;">Planifier un Audit Premium</a>
         </div>
     </section>
 
     <footer>
-        &copy; 2026 Digital Agence Occitanie. Tous droits réservés.
+        &copy; 2026 Digital Agence Occitanie. Excellence et Innovation.
     </footer>
 
     <script>
@@ -138,8 +149,7 @@
             document.getElementById('real-time-clock').textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
         }
         function startExperience() {
-            const ip = document.getElementById('iphone');
-            ip.classList.add('unlocked');
+            document.getElementById('iphone').classList.add('unlocked');
             document.getElementById('lock-screen').style.opacity = '0';
             setTimeout(() => { 
                 document.getElementById('lock-screen').style.display = 'none';
@@ -147,9 +157,9 @@
             }, 800);
         }
         function calculer() {
-            const t = parseFloat(document.getElementById('temps').value);
-            const total = Math.round((t * 22 * 0.6) * (100 / 2.5) + 200);
-            document.getElementById('res-mensuel').innerText = total.toLocaleString('fr-FR') + " €";
+            const v = document.querySelector('input[type=range]').value;
+            const res = Math.round(v * 1850);
+            document.getElementById('res-mensuel').innerText = res.toLocaleString('fr-FR') + " €";
         }
         updateClock();
         setInterval(updateClock, 1000);
