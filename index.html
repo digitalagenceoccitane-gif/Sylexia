@@ -7,14 +7,16 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <style>
         :root {
             --bg: #000000;
             --white: #ffffff;
             --grey: #d1d1d6;
-            --glass: rgba(255, 255, 255, 0.1);
+            --titanium: #1f1f1f;
         }
 
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
@@ -60,7 +62,7 @@
         h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.04em; }
         .desc { font-size: 1.15rem; color: var(--grey); line-height: 1.5; margin-bottom: 40px; }
 
-        /* --- ACTIONS (DEUX OPTIONS) --- */
+        /* --- ACTIONS --- */
         .action-group { display: flex; gap: 15px; flex-wrap: wrap; }
         .btn-calendly { 
             background: var(--white); color: #000; padding: 18px 30px; border-radius: 40px; 
@@ -70,48 +72,62 @@
             background: transparent; color: var(--white); padding: 18px 30px; border-radius: 40px; 
             text-decoration: none; font-weight: 600; border: 1px solid #444; transition: 0.3s;
         }
-        .btn-calendly:hover, .btn-malt:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255,255,255,0.1); }
 
-        /* --- IPHONE VISUAL --- */
+        /* --- IPHONE 17 PRO BLACK TITANIUM --- */
         .iphone-wrapper { position: relative; z-index: 10; }
         .iphone-device {
-            width: 310px; height: 635px; background: #000;
-            border: 11px solid #1c1c1e; border-radius: 50px;
-            position: relative; box-shadow: var(--iphone-shadow);
+            width: 315px; height: 645px; background: #000;
+            border: 8px solid #121212; border-radius: 54px;
+            position: relative; box-shadow: 0 0 0 2px var(--titanium), 0 30px 100px rgba(0,0,0,0.9);
             overflow: hidden;
         }
-        /* Reflet de vitre */
         .iphone-device::after {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 40%);
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 35%);
             pointer-events: none; z-index: 10;
         }
         .dynamic-island {
-            position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
-            width: 85px; height: 26px; background: #000; border-radius: 20px; z-index: 20;
+            position: absolute; top: 11px; left: 50%; transform: translateX(-50%);
+            width: 75px; height: 24px; background: #000; border-radius: 20px; z-index: 20;
         }
-        iframe { width: 100%; height: 100%; border: none; background: #fff; }
+        .iphone-home-bar {
+            position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+            width: 100px; height: 4px; background: rgba(255, 255, 255, 0.3); border-radius: 10px; z-index: 20;
+        }
+        iframe { width: 100%; height: 100%; border: none; background: #fff; border-radius: 42px; }
 
         /* --- NOTIF iOS --- */
         #notif {
             position: fixed; left: 50%; transform: translateX(-50%);
-            width: 290px; background: rgba(35, 35, 35, 0.8);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 22px; padding: 12px; display: flex; align-items: center; gap: 12px;
-            z-index: 3000; border: 0.5px solid rgba(255,255,255,0.1);
+            width: 300px; background: rgba(25, 25, 25, 0.85);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border-radius: 24px; padding: 14px; display: flex; align-items: center; gap: 12px;
+            z-index: 3000; border: 0.5px solid rgba(255,255,255,0.15);
             transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1); top: -150px;
+            cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        #notif.show { top: 45px; } /* Ajusté dynamiquement */
-        #notif img { width: 40px; height: 40px; border-radius: 10px; }
-        .notif-txt b { font-size: 0.85rem; display: block; }
+        #notif.show { top: 45px; }
+        #notif img { width: 42px; height: 42px; border-radius: 10px; object-fit: cover; }
+        .notif-txt b { font-size: 0.85rem; display: block; color: #fff; }
         .notif-txt span { font-size: 0.8rem; color: #aaa; }
 
-        /* --- RESPONSIVE --- */
+        /* --- QR CODE MODAL --- */
+        #qrCodeModal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 4000;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: 0.3s;
+        }
+        #qrCodeModal.active { opacity: 1; pointer-events: all; }
+        .qr-content { background: #fff; padding: 30px; border-radius: 30px; text-align: center; color: #000; }
+        #qrcode { margin: 20px auto; }
+
+        footer { padding: 40px 5%; text-align: center; font-size: 0.8rem; color: #444; display: flex; justify-content: space-between; align-items: center; }
+        .qr-btn { background: none; border: 1px solid #333; color: #666; padding: 6px 14px; border-radius: 20px; cursor: pointer; }
+
         @media (max-width: 900px) {
             .container { flex-direction: column; text-align: center; }
-            .text-section { order: 2; }
-            .iphone-wrapper { order: 1; transform: scale(0.85); margin-bottom: -40px; }
-            .dynamic-island { display: none; }
+            .iphone-wrapper { transform: scale(0.85); margin-top: 20px; }
             .action-group { justify-content: center; }
         }
     </style>
@@ -126,16 +142,12 @@
     <div id="sideMenu">
         <button class="close-btn" onclick="toggleMenu()">✕</button>
         <div class="side-content">
-            <h2>Expertise & Légal</h2>
-            <h3>Freelance Malt</h3>
-            <p>Accompagnement sur mesure en IA et automatisation immobilière.</p>
-            <a href="https://www.malt.fr/profile/digitalagenceoccitaneoccitane" target="_blank" style="color:#fff; font-size:0.9rem;">Voir mon profil certifié →</a>
-            
-            <h3>Mentions Légales</h3>
-            <p>Responsable : Digital Agence Occitanie<br>Hébergement : GitHub Pages<br>Contact : digitalagenceoccitane@gmail.com</p>
-            
-            <h3>CGV</h3>
-            <p>Toute prestation fait l'objet d'un devis préalable. Les solutions IA (Sylex) sont soumises à une licence d'exploitation annuelle.</p>
+            <h2>Digital Agence Occitanie</h2>
+            <h3>Expertise IA</h3>
+            <p>Automatisation et agents conversationnels intelligents.</p>
+            <a href="https://www.malt.fr/profile/digitalagenceoccitaneoccitane" target="_blank" style="color:#fff; text-decoration:none; border-bottom:1px solid #fff;">Profil Malt Certifié</a>
+            <h3>Légal</h3>
+            <p>SIRET en cours de mention. Hébergement GitHub. Solutions logicielles Sylex.</p>
         </div>
     </div>
 
@@ -152,10 +164,8 @@
             <div class="text-section">
                 <h1>Répondez à vos leads,<br>même le dimanche.</h1>
                 <p class="desc">Sylex qualifie vos prospects 24h/24 avec une interface immersive qui valorise votre image de marque.</p>
-                
                 <div class="action-group">
-                    <button onclick="Calendly.showPopupWidget('https://calendly.com/digitalagenceoccitane/30min');return false;" class="btn-calendly">Réserver une démo</button>
-                    
+                    <button onclick="Calendly.showPopupWidget('https://calendly.com/digitalagenceoccitane/30min');" class="btn-calendly">Réserver une démo</button>
                     <a href="https://www.malt.fr/profile/digitalagenceoccitaneoccitane" target="_blank" class="btn-malt">Me recruter sur Malt</a>
                 </div>
             </div>
@@ -164,27 +174,52 @@
                 <div class="iphone-device">
                     <div class="dynamic-island"></div>
                     <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
+                    <div class="iphone-home-bar"></div>
                 </div>
             </div>
         </div>
     </section>
 
+    <footer>
+        <div>&copy; 2024 Digital Agence Occitanie</div>
+        <button class="qr-btn" onclick="showQRCode()">Partager ce site</button>
+    </footer>
+
+    <div id="qrCodeModal" onclick="hideQRCode()">
+        <div class="qr-content" onclick="event.stopPropagation()">
+            <h3 style="margin:0 0 10px 0">Scanner le QR Code</h3>
+            <div id="qrcode"></div>
+            <button onclick="hideQRCode()" style="background:none; border:none; color:#888; cursor:pointer; margin-top:10px;">Fermer</button>
+        </div>
+    </div>
+
     <script>
         function toggleMenu() { document.getElementById('sideMenu').classList.toggle('active'); }
 
-        const notif = document.getElementById('notif');
-        const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-        const isMobile = window.innerWidth <= 900;
-
         window.onload = () => {
+            const notif = document.getElementById('notif');
             setTimeout(() => {
-                if (isIOS) notif.style.top = "75px";
-                else if (isMobile) notif.style.top = "55px";
-                else notif.style.top = "45px";
+                const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+                notif.style.top = isIOS ? "75px" : "45px";
                 notif.classList.add('show');
-            }, 2500);
-            setTimeout(() => { notif.classList.remove('show'); }, 9000);
+            }, 3000);
+            setTimeout(() => { notif.classList.remove('show'); }, 10000);
         };
+
+        let qrcodeInstance = null;
+        function showQRCode() {
+            document.getElementById('qrCodeModal').classList.add('active');
+            if (!qrcodeInstance) {
+                qrcodeInstance = new QRCode(document.getElementById("qrcode"), {
+                    text: window.location.href,
+                    width: 200,
+                    height: 200,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff"
+                });
+            }
+        }
+        function hideQRCode() { document.getElementById('qrCodeModal').classList.remove('active'); }
     </script>
 </body>
 </html>
