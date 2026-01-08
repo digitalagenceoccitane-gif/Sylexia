@@ -4,84 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>SYLEX IA | 2026</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-
     <style>
-        :root {
-            --bg: #000000;
-            --white: #ffffff;
-            --grey: #8e8e93;
-            --blue: #0066ff;
-        }
-
+        :root { --bg: #000; --white: #fff; --grey: #8e8e93; --blue: #0066ff; }
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; }
         body, html { width: 100%; height: 100%; background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-        /* --- HERO & PROJECTION --- */
-        .hero { 
-            min-height: 100vh; display: flex; align-items: center; justify-content: center; 
-            padding: 80px 5%; position: relative; overflow: hidden;
-            background: radial-gradient(circle at 50% 50%, #001a33 0%, #000 85%); 
-        }
-        
-        .projection-logo {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 130vw; height: 130vh;
-            background: url('https://i.ibb.co/4n4vpP0r/IMG-5824.jpg') no-repeat center;
-            background-size: 50%; filter: blur(100px) opacity(0.1); z-index: 1; pointer-events: none;
-        }
-
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 5%; position: relative; overflow: hidden; background: radial-gradient(circle at 50% 50%, #001a33 0%, #000 85%); }
+        .projection-logo { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 130vw; height: 130vh; background: url('https://i.ibb.co/4n4vpP0r/IMG-5824.jpg') no-repeat center; background-size: 50%; filter: blur(100px) opacity(0.12); z-index: 1; pointer-events: none; }
         .container { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; gap: 40px; z-index: 10; }
-        .text-section { flex: 1; max-width: 500px; }
         
-        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 20px; font-weight: 700; }
-        .desc { font-size: 1.1rem; color: var(--grey); margin-bottom: 30px; }
-
-        /* --- IPHONE FIXED (PAS DE ROGNAGE) --- */
+        /* IPHONE - CORRECTION DU ROGNAGE */
         .iphone-wrapper { perspective: 2000px; }
         .iphone-device {
-            width: 320px; height: 640px; background: #080808; border-radius: 50px; position: relative;
+            width: 320px; height: 640px; background: #080808; border-radius: 54px; position: relative;
             transform: rotateY(-10deg) rotateX(5deg); transform-style: preserve-3d;
             border: 2px solid #222; box-shadow: -30px 50px 80px rgba(0,0,0,0.8);
             transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
         }
         .iphone-device.unlocked { transform: rotateY(0deg) rotateX(0deg) scale(1.02); }
-        
         .iphone-screen { 
             position: absolute; 
-            top: 10px; bottom: 10px; left: 10px; right: 10px; /* Marges pour éviter le rognage */
-            background: #000; border-radius: 40px; overflow: hidden; 
+            top: 12px; left: 12px; right: 12px; bottom: 12px; 
+            background: #000; border-radius: 42px; overflow: hidden; 
+            display: flex; flex-direction: column;
         }
+        /* Iframe ajustée pour laisser voir le bas du bot */
+        iframe { width: 100%; height: 100%; border: none; display: block; padding-bottom: 5px; }
 
-        iframe { width: 100%; height: 100%; border: none; display: block; }
-
-        /* --- ADMIN OVERLAY --- */
-        #admin-overlay {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95);
-            z-index: 9999; align-items: center; justify-content: center; flex-direction: column;
-        }
+        #lock-screen { position: absolute; inset: 0; background: #000; z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.5s; }
+        
+        .sim-card { max-width: 500px; margin: 40px auto; padding: 30px; background: #0a0a0a; border-radius: 30px; border: 1px solid #1a1a1a; text-align: center; }
+        .res-amount { font-size: 3rem; color: #00ff88; margin: 20px 0; font-weight: 700; }
+        
+        #admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; align-items: center; justify-content: center; flex-direction: column; }
         #admin-input { background: #111; border: 1px solid var(--blue); color: #fff; padding: 15px; border-radius: 10px; text-align: center; }
 
-        /* --- ELEMENTS BAS DE PAGE --- */
-        .simulator-section { padding: 60px 5%; background: #000; }
-        .sim-card { max-width: 500px; margin: 0 auto; padding: 30px; background: #0a0a0a; border-radius: 30px; border: 1px solid #1a1a1a; }
-        .res-amount { font-size: 3rem; color: #00ff88; text-align: center; margin: 20px 0; font-weight: 700; }
-        
-        footer { padding: 40px; text-align: center; color: #333; font-size: 0.8rem; }
-
-        @media (max-width: 900px) {
-            .container { flex-direction: column; text-align: center; }
-            .iphone-device { transform: none; margin: 0 auto; width: 300px; height: 600px; }
-        }
+        @media (max-width: 900px) { .container { flex-direction: column; text-align: center; } .iphone-device { transform: none; margin: 0 auto; } }
     </style>
 </head>
 <body>
-
     <nav style="position:fixed; top:20px; width:100%; z-index:1000; text-align:center;">
-        <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" class="logo-nav" style="height:30px; cursor:pointer;" alt="SYLEX">
+        <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" class="logo-nav" style="height:35px; cursor:pointer;" alt="SYLEX">
     </nav>
 
     <section class="hero">
@@ -89,16 +55,15 @@
         <div class="container">
             <div class="text-section">
                 <h1>L'intelligence<br><span style="color:var(--blue)">Souveraine.</span></h1>
-                <p class="desc">SYLEX 2026 : L'exécution sans limite.</p>
-                <button class="btn" style="background:#fff; color:#000; padding:15px 30px; border-radius:50px; font-weight:bold; border:none; cursor:pointer;" onclick="startExperience()">Débloquer l'IA</button>
+                <p class="desc">SYLEX 2026 : Votre agence automatisée.</p>
+                <button onclick="startExperience()" style="background:#fff; color:#000; padding:15px 30px; border-radius:50px; font-weight:bold; border:none; cursor:pointer;">DÉVERROUILLER</button>
             </div>
-
             <div class="iphone-wrapper">
                 <div class="iphone-device" id="iphone">
                     <div class="iphone-screen">
-                        <div id="lock-screen" style="position:absolute; inset:0; background:#000; z-index:10; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer;" onclick="startExperience()">
-                            <h2 id="real-time-clock" style="font-size:3rem;">00:00</h2>
-                            <p style="font-size:0.6rem; letter-spacing:2px; margin-top:10px; color:var(--blue);">TOUCHER POUR ENTRER</p>
+                        <div id="lock-screen" onclick="startExperience()">
+                            <h2 id="real-time-clock" style="font-size:3.5rem; font-weight:200;">00:00</h2>
+                            <p style="font-size:0.6rem; letter-spacing:2px; margin-top:20px; color:var(--blue);">CLIQUEZ POUR PARLER</p>
                         </div>
                         <iframe id="chatframe" src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
                     </div>
@@ -107,58 +72,33 @@
         </div>
     </section>
 
-    <section id="simulator" class="simulator-section">
+    <section class="simulator-section">
         <div class="sim-card">
-            <h2 style="text-align:center; font-size:1.2rem;">ROI ESTIMÉ 2026</h2>
-            <input type="range" id="temps" min="0.5" max="5" step="0.5" value="1.5" style="width:100%; margin:20px 0;" oninput="calculer()">
+            <h2>GAIN MENSUEL 2026</h2>
+            <input type="range" id="temps" min="1" max="10" value="3" style="width:100%; margin:30px 0;" oninput="calculer()">
             <div id="res-mensuel" class="res-amount">-- €</div>
-            <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});return false;" style="width:100%; padding:15px; border-radius:10px; background:var(--blue); color:#fff; border:none; font-weight:bold; cursor:pointer;">PRENDRE RENDEZ-VOUS</button>
+            <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});" style="width:100%; padding:18px; background:var(--blue); color:#fff; border:none; border-radius:15px; font-weight:bold; cursor:pointer;">RÉSERVER MON CRÉNEAU</button>
         </div>
     </section>
 
     <div id="admin-overlay">
-        <h2>SYSTEM OVERRIDE</h2>
-        <input type="password" id="admin-input" placeholder="CODE D'ACCÈS">
+        <h2>OVERRIDE SYSTEM</h2>
+        <input type="password" id="admin-input" placeholder="CODE">
     </div>
 
-    <footer>&copy; 2026 Digital Agence Occitanie.</footer>
+    <footer style="padding:40px; text-align:center; color:#333; font-size:0.8rem;">&copy; 2026 Digital Agence Occitanie.</footer>
 
     <script>
         let clickCount = 0;
         document.querySelector('.logo-nav').onclick = function() {
-            clickCount++;
-            if (clickCount === 5) {
-                document.getElementById('admin-overlay').style.display = 'flex';
-                document.getElementById('admin-input').focus();
-                clickCount = 0;
-            }
+            clickCount++; if (clickCount === 5) { document.getElementById('admin-overlay').style.display = 'flex'; document.getElementById('admin-input').focus(); clickCount = 0; }
         };
-
         document.getElementById('admin-input').onkeyup = function(e) {
-            if (e.key === 'Enter') {
-                if (this.value.toUpperCase() === 'SYLX-DEV-2026') {
-                    alert("MODE ALPHA ACTIVÉ");
-                    document.getElementById('admin-overlay').style.display = 'none';
-                }
-            }
+            if (e.key === 'Enter' && this.value.toUpperCase() === 'SYLX-DEV-2026') { alert("MODE ALPHA ACTIVÉ"); document.getElementById('admin-overlay').style.display = 'none'; }
         };
-
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('real-time-clock').textContent = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-        }
-
-        function startExperience() {
-            document.getElementById('iphone').classList.add('unlocked');
-            document.getElementById('lock-screen').style.display = 'none';
-        }
-
-        function calculer() {
-            const t = document.getElementById('temps').value;
-            const total = Math.round(t * 1850);
-            document.getElementById('res-mensuel').innerText = total.toLocaleString('fr-FR') + " €";
-        }
-
+        function updateClock() { document.getElementById('real-time-clock').textContent = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }); }
+        function startExperience() { document.getElementById('iphone').classList.add('unlocked'); document.getElementById('lock-screen').style.display = 'none'; }
+        function calculer() { document.getElementById('res-mensuel').innerText = (document.getElementById('temps').value * 1950).toLocaleString() + " €"; }
         updateClock(); setInterval(updateClock, 1000); window.onload = calculer;
     </script>
 </body>
