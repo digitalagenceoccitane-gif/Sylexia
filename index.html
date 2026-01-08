@@ -2,177 +2,260 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Sylex IA | Digital Agence Occitanie</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sylexia - Super Agent IA</title>
     <style>
-        :root {
-            --bg: #000000;
-            --white: #ffffff;
-            --grey: #8e8e93;
-            --glow: rgba(0, 102, 255, 0.35);
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
-        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; }
-        body, html { width: 100%; height: 100%; background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
-
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); border-bottom: 0.5px solid rgba(255,255,255,0.1);
-        }
-        .logo-nav { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.02em; }
-
-        /* --- HERO --- */
-        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 5%; perspective: 3000px; }
-        .container { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; gap: 80px; }
-        .text-section { flex: 1; max-width: 500px; }
-        h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -0.05em; margin-bottom: 25px; }
-        .desc { font-size: 1.25rem; color: var(--grey); line-height: 1.5; margin-bottom: 45px; }
-
-        .cta-btn {
-            background: #fff; color: #000; padding: 20px 45px; border-radius: 50px;
-            font-weight: 600; text-decoration: none; display: inline-block; cursor: pointer;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* --- SECTION APPEL À L'ACTION --- */
+        .cta-container {
+            text-align: center;
+            padding: 80px 20px;
+            background: radial-gradient(circle at center, rgba(58, 123, 213, 0.1) 0%, transparent 70%);
+            border-bottom: 1px solid #1a1a1a;
         }
 
-        /* --- IPHONE 17 PRO RENDER --- */
-        .iphone-wrapper { position: relative; z-index: 10; }
+        .cta-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        .iphone-device {
-            width: 310px; height: 640px; background: #000; border-radius: 52px; position: relative;
-            transform: rotateY(-25deg) rotateX(10deg) rotateZ(2deg);
-            transform-style: preserve-3d; transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-            border: 0.5px solid rgba(255,255,255,0.25);
-            box-shadow: -1px 1px 0px #1c1c1e, -3px 3px 0px #141415, -25px 40px 80px rgba(0,0,0,0.9);
+        .cta-container p {
+            color: #aaa;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .btn-simulateur {
+            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(58, 123, 213, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-simulateur:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(58, 123, 213, 0.6);
+        }
+
+        /* --- SECTION SIMULATEUR --- */
+        .simulator-section {
+            padding: 100px 20px;
+            background-color: #050505;
+        }
+
+        .simulator-card {
+            background: #111;
+            color: white;
+            padding: 40px;
+            border-radius: 28px;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #222;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+        }
+
+        .simulator-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .badge {
+            background: rgba(0, 210, 255, 0.1);
+            color: #00d2ff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-group {
+            margin-bottom: 35px;
+        }
+
+        .input-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: #eee;
+        }
+
+        .val-display {
+            color: #00d2ff;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        input[type=range] {
+            width: 100%;
+            height: 6px;
+            border-radius: 5px;
+            appearance: none;
+            background: #333;
+            outline: none;
             cursor: pointer;
         }
 
-        .iphone-device.unlocked { transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1.05); }
-
-        .glow {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 160%; height: 140%; background: radial-gradient(circle, var(--glow) 0%, rgba(138,43,226,0.15) 35%, transparent 70%);
-            filter: blur(80px); z-index: -1; pointer-events: none;
+        input[type=range]::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #00d2ff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
         }
 
-        .iphone-screen { position: absolute; inset: 3px; background: #000; border-radius: 49px; overflow: hidden; z-index: 2; }
-
-        /* --- LOCK SCREEN (TEMPS RÉEL) --- */
-        #lock-screen {
-            position: absolute; inset: 0; background: #000; z-index: 100;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.8s ease, visibility 0.8s;
-        }
-        #real-time-clock { font-size: 3.5rem; font-weight: 600; margin-bottom: 5px; color: white; }
-        #real-date { font-size: 1rem; color: white; margin-bottom: 40px; font-weight: 400; }
-        
-        #lock-screen img { 
-            width: 90px; height: 90px; border-radius: 20px;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));
-            margin-bottom: 20px;
-        }
-        .swipe-hint { font-size: 0.7rem; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-top: 20px; }
-
-        /* --- STATUS BAR & HOME BAR --- */
-        .status-bar {
-            position: absolute; top: 0; width: 100%; height: 40px;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 30px; z-index: 150; font-size: 10px; font-weight: 600; color: white;
-        }
-        .home-bar {
-            position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
-            width: 110px; height: 4.5px; background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px; z-index: 150; transition: 0.5s;
+        /* --- RESULTATS --- */
+        .result-box {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.05) 100%);
+            border-radius: 24px;
+            padding: 35px;
+            text-align: center;
+            border: 1px solid #333;
+            margin-top: 20px;
         }
 
-        .dynamic-island {
-            position: absolute; top: 13px; left: 50%; transform: translateX(-50%);
-            width: 80px; height: 26px; background: #000; border-radius: 20px; z-index: 160;
-            border: 0.5px solid rgba(255,255,255,0.05);
+        .result-label {
+            font-size: 1rem;
+            color: #aaa;
+            margin-bottom: 10px;
         }
 
-        iframe { width: 100%; height: 100%; border: none; background: #fff; }
+        .result-main {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #00ff88;
+            margin: 10px 0;
+            text-shadow: 0 0 30px rgba(0,255,136,0.2);
+        }
 
-        @media (max-width: 900px) {
-            .container { flex-direction: column; text-align: center; }
-            .iphone-device { transform: rotateY(-15deg) rotateX(5deg) scale(0.85); }
+        .result-sub {
+            background: #00ff88;
+            color: #000;
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-top: 10px;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #444;
+            margin-top: 25px;
+            line-height: 1.4;
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo-nav">SYLEX <span style="opacity: 0.4; font-weight: 300;">IA</span></div>
-    </nav>
+    <section class="cta-container">
+        <h1>Combien de chiffre d'affaires perdez-vous ?</h1>
+        <p>Répondre aux messages et gérer les rendez-vous manuellement vous coûte plus cher qu'un loyer. Découvrez votre manque à gagner en 10 secondes.</p>
+        <button class="btn-simulateur" onclick="document.getElementById('simulateur-ia').scrollIntoView({behavior: 'smooth'})">
+            🔥 Tester mon gain potentiel avec Sylexia
+        </button>
+    </section>
 
-    <section class="hero">
-        <div class="container">
-            <div class="text-section">
-                <h1>Répondez à vos leads,<br><span style="opacity:0.6">même le dimanche.</span></h1>
-                <p class="desc">Qualifiez vos prospects 24h/24 avec une interface immersive digne d'un produit natif.</p>
-                <button onclick="startExperience()" class="cta-btn">Tester l'interface</button>
+    <section class="simulator-section">
+        <div id="simulateur-ia" class="simulator-card">
+            
+            <div class="simulator-header">
+                <span class="badge">Analyse Financière IA</span>
+                <h2 style="margin-top: 15px; font-size: 1.8rem;">Simulateur Sylexia</h2>
+                <p style="color: #666;">Faites glisser les curseurs selon votre activité réelle.</p>
             </div>
 
-            <div class="iphone-wrapper">
-                <div class="glow"></div>
-                <div class="iphone-device" id="iphone" onclick="startExperience()">
-                    <div class="dynamic-island"></div>
-                    <div class="status-bar">
-                        <span id="status-clock">00:00</span>
-                        <div style="display:flex; gap:4px;">📶 5G 🔋</div>
-                    </div>
-                    
-                    <div class="iphone-screen">
-                        <div id="lock-screen">
-                            <p id="real-date">Lundi 1 Janvier</p>
-                            <h2 id="real-time-clock">00:00</h2>
-                            <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" alt="Logo Sylex">
-                            <p class="swipe-hint">Toucher pour déverrouiller</p>
-                        </div>
-                        <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
-                    </div>
-                    
-                    <div class="home-bar" id="homeBar"></div>
+            <div class="input-group">
+                <div class="input-header">
+                    <span>Temps de gestion DMs/Appels (par jour) :</span>
+                    <span id="val-temps" class="val-display">1h</span>
                 </div>
+                <input type="range" id="temps" min="0.5" max="5" step="0.5" value="1.5" oninput="calculerGain()">
             </div>
+
+            <div class="input-group">
+                <div class="input-header">
+                    <span>Tarif moyen d'une prestation :</span>
+                    <span id="val-prix" class="val-display">100€</span>
+                </div>
+                <input type="range" id="prix" min="30" max="600" step="10" value="120" oninput="calculerGain()">
+            </div>
+
+            <div class="input-group">
+                <div class="input-header">
+                    <span>Lapins / Annulations (par mois) :</span>
+                    <span id="val-lapins" class="val-display">2</span>
+                </div>
+                <input type="range" id="lapins" min="0" max="15" step="1" value="2" oninput="calculerGain()">
+            </div>
+
+            <div class="result-box">
+                <div class="result-label">Gain mensuel potentiel avec Sylexia :</div>
+                <div id="resultat-mensuel" class="result-main">-- €</div>
+                <div style="color: #00ff88; font-weight: bold; margin-bottom: 15px;">de revenus supplémentaires</div>
+                <div id="resultat-annuel" class="result-sub">SOIT -- € / AN</div>
+            </div>
+
+            <p class="footer-note">
+                *Le calcul estime que 60% du temps gagné est réinvesti en prestations facturables et que les acomptes automatiques éliminent 100% des pertes liées aux rendez-vous non honorés.
+            </p>
         </div>
     </section>
 
     <script>
-        const iphone = document.getElementById('iphone');
-        const lockScreen = document.getElementById('lock-screen');
-        const homeBar = document.getElementById('homeBar');
+        function calculerGain() {
+            // Récupération des données
+            const tempsDMs = parseFloat(document.getElementById('temps').value);
+            const tarifPresta = parseInt(document.getElementById('prix').value);
+            const nbLapins = parseInt(document.getElementById('lapins').value);
 
-        // FONCTION HORLOGE TEMPS RÉEL
-        function updateClock() {
-            const now = new Date();
-            const optionsDate = { weekday: 'long', day: 'numeric', month: 'long' };
+            // Mise à jour visuelle des chiffres au-dessus des sliders
+            document.getElementById('val-temps').innerText = tempsDMs + "h";
+            document.getElementById('val-prix').innerText = tarifPresta + "€";
+            document.getElementById('val-lapins').innerText = nbLapins;
+
+            // Logique de calcul du gain
+            // 22 jours ouvrés, efficacité de conversion du temps de 60%, base 3h de travail par presta
+            const gainTemps = (tempsDMs * 22 * 0.6) * (tarifPresta / 3);
+            const gainLapins = nbLapins * tarifPresta;
             
-            const timeString = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-            const dateString = now.toLocaleDateString('fr-FR', optionsDate);
+            const totalMensuel = Math.round(gainTemps + gainLapins);
+            const totalAnnuel = totalMensuel * 12;
 
-            document.getElementById('real-time-clock').textContent = timeString;
-            document.getElementById('status-clock').textContent = timeString;
-            document.getElementById('real-date').textContent = dateString.charAt(0).toUpperCase() + dateString.slice(1);
+            // Affichage avec formatage français
+            document.getElementById('resultat-mensuel').innerText = totalMensuel.toLocaleString('fr-FR') + " €";
+            document.getElementById('resultat-annuel').innerText = "SOIT " + totalAnnuel.toLocaleString('fr-FR') + " € / AN";
         }
 
-        function startExperience() {
-            iphone.classList.add('unlocked');
-            lockScreen.style.opacity = '0';
-            homeBar.style.background = "rgba(0,0,0,0.2)"; // La barre devient sombre sur le chatbot blanc
-            setTimeout(() => { lockScreen.style.visibility = 'hidden'; }, 800);
-        }
-
-        // Mise à jour immédiate et chaque minute
-        updateClock();
-        setInterval(updateClock, 10000);
+        // Lancement au démarrage pour ne pas avoir de champs vides
+        window.addEventListener('load', calculerGain);
     </script>
+
 </body>
 </html>
