@@ -12,36 +12,56 @@
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; }
         body, html { width: 100%; background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
 
+        /* --- ADMIN OVERRIDE --- */
         #admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 10000; align-items: center; justify-content: center; flex-direction: column; backdrop-filter: blur(15px); }
         #admin-input { background: #0a0a0a; border: 1px solid #333; color: var(--accent); padding: 20px; border-radius: 12px; width: 280px; text-align: center; font-family: monospace; font-size: 1.2rem; outline: none; margin-top: 20px; }
 
+        /* --- HERO & IDENTITÉ VISUELLE (LOGO PROJETÉ) --- */
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 5%; position: relative; overflow: hidden; background: radial-gradient(circle at 50% 50%, #001a33 0%, #000 85%); }
-        .projection-logo { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 130vw; height: 130vh; background: url('https://i.ibb.co/4n4vpP0r/IMG-5824.jpg') no-repeat center; background-size: 45%; filter: blur(100px) opacity(0.12); z-index: 1; pointer-events: none; animation: pulse-glow 8s infinite alternate ease-in-out; }
-        @keyframes pulse-glow { from { opacity: 0.08; transform: translate(-50%, -50%) scale(1); } to { opacity: 0.15; transform: translate(-50%, -50%) scale(1.05); } }
+        
+        /* Effet de Halo Pulsant derrière l'iPhone */
+        .projection-logo { 
+            position: absolute; top: 50%; left: 60%; transform: translate(-50%, -50%); 
+            width: 80vw; height: 80vh; 
+            background: url('https://i.ibb.co/4n4vpP0r/IMG-5824.jpg') no-repeat center; 
+            background-size: contain; 
+            filter: blur(80px) opacity(0.25); 
+            z-index: 1; pointer-events: none; 
+            animation: pulse-glow 6s infinite alternate ease-in-out; 
+        }
+        
+        @keyframes pulse-glow { 0% { opacity: 0.15; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0.35; transform: translate(-50%, -50%) scale(1.1); } }
         
         .container { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; gap: 40px; z-index: 10; }
         
+        /* --- IPHONE DESIGN --- */
         .iphone-wrapper { perspective: 2000px; position: relative; }
-        .iphone-device { width: 320px; height: 660px; background: #080808; border-radius: 54px; position: relative; transform: rotateY(-10deg) rotateX(5deg); transform-style: preserve-3d; border: 2.2px solid #222; box-shadow: -30px 50px 80px rgba(0,0,0,0.8); transition: 1s cubic-bezier(0.19, 1, 0.22, 1); }
+        .iphone-device { width: 320px; height: 660px; background: #080808; border-radius: 54px; position: relative; transform: rotateY(-12deg) rotateX(4deg); transform-style: preserve-3d; border: 2.2px solid #222; box-shadow: -30px 50px 80px rgba(0,0,0,0.8); transition: 1s cubic-bezier(0.19, 1, 0.22, 1); }
         .iphone-device.unlocked { transform: rotateY(0deg) rotateX(0deg) scale(1.02); }
         .iphone-screen { position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; background: #000; border-radius: 42px; overflow: hidden; display: flex; flex-direction: column; }
         iframe { width: 100%; height: 94%; border: none; margin-top: auto; }
 
+        /* --- SECTIONS TEXTES (L'AMI) --- */
         .explainer-section { padding: 100px 5%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         .explainer-card { padding: 40px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 30px; transition: 0.3s; }
-        .explainer-card:hover { border-color: var(--blue); transform: translateY(-10px); }
+        .explainer-card:hover { border-color: var(--blue); transform: translateY(-10px); background: rgba(0, 102, 255, 0.05); }
 
+        /* --- TABLEAU SECTORIEL --- */
         .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 10px; padding: 60px 5%; max-width: 1100px; margin: 0 auto; }
         .luxury-table td { background: rgba(255,255,255,0.03); padding: 25px; border-top: 1px solid rgba(255,255,255,0.05); }
-        .luxury-table td:first-child { border-radius: 15px 0 0 15px; font-weight: 700; }
-        .luxury-table td:last-child { border-radius: 0 15px 15px 0; color: var(--accent); text-align: right; }
+        .luxury-table td:first-child { border-radius: 15px 0 0 15px; font-weight: 700; color: var(--grey); }
+        .luxury-table td:last-child { border-radius: 0 15px 15px 0; color: var(--accent); text-align: right; font-weight: bold; }
 
+        /* --- SIMULATEUR --- */
         .simulator-section { padding: 100px 5%; background: #050505; display: flex; flex-direction: column; align-items: center; }
         .sim-card { max-width: 600px; width: 100%; padding: 45px; background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 40px; }
         .res-amount { font-size: 4rem; font-weight: 800; color: var(--accent); text-align: center; margin: 25px 0; }
         
         #lock-screen { position: absolute; inset: 0; background: #000; z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
-        @media (max-width: 900px) { .container, .explainer-section { grid-template-columns: 1fr; } .iphone-device { margin: 0 auto; } }
+        
+        nav { position: fixed; top: 0; width: 100%; padding: 20px; z-index: 1000; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); backdrop-filter: blur(10px); display: flex; justify-content: center; }
+        
+        @media (max-width: 900px) { .container, .explainer-section { grid-template-columns: 1fr; } .iphone-device { margin: 0 auto; } .projection-logo { left: 50%; width: 100vw; } }
     </style>
 </head>
 <body>
@@ -50,8 +70,8 @@
         <input type="password" id="admin-input" placeholder="ACCESS CODE">
     </div>
 
-    <nav style="position:fixed; top:20px; width:100%; z-index:1000; text-align:center;">
-        <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" id="master-logo" style="height:35px; cursor:pointer;" alt="SYLEX">
+    <nav>
+        <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" id="master-logo" style="height:45px; cursor:pointer;" alt="SYLEX">
     </nav>
 
     <section class="hero">
@@ -59,8 +79,8 @@
         <div class="container">
             <div class="text-section">
                 <h1>L'intelligence <span id="dynamic-blue" style="color:var(--blue)">Souveraine.</span></h1>
-                <p>SYLEX 2026 : Libérez-vous de l'opérationnel.</p>
-                <button onclick="startExperience()" style="background:#fff; color:#000; padding:18px 45px; border-radius:50px; font-weight:bold; border:none; cursor:pointer; margin-top:20px;">DÉVERROUILLER</button>
+                <p style="font-size: 1.2rem; opacity: 0.8; margin-top: 10px;">SYLEX 2026 : Libérez-vous de l'opérationnel.</p>
+                <button onclick="startExperience()" style="background:#fff; color:#000; padding:18px 45px; border-radius:50px; font-weight:bold; border:none; cursor:pointer; margin-top:30px; transition: 0.3s;">DÉVERROUILLER</button>
             </div>
             <div class="iphone-wrapper">
                 <div class="iphone-device" id="iphone">
@@ -84,22 +104,22 @@
 
     <table class="luxury-table">
         <tr><td>Services</td><td>Qualification Automatisée</td><td>ROI Immédiat</td></tr>
-        <tr><td>Commerce</td><td>Upselling IA Dynamique</td><td>+25% CA</td></tr>
-        <tr><td>Immobilier</td><td>Tri de dossiers 24/7</td><td>Gain de temps</td></tr>
+        <tr><td>Commerce</td><td>Upselling IA Dynamique</td><td>+25% CA estimé</td></tr>
+        <tr><td>Immobilier</td><td>Tri de dossiers 24/7</td><td>Gain de temps total</td></tr>
     </table>
 
     <section id="simulator" class="simulator-section">
         <div class="sim-card">
             <h2 style="text-align: center; margin-bottom: 40px;">Potentiel Financier</h2>
-            <div style="margin-bottom:20px;"><div style="display:flex; justify-content:space-between; color:var(--grey);"><span>Temps gagné :</span> <span id="val-temps" style="color:var(--blue)">1.5h</span></div><input type="range" id="temps" min="0.5" max="5" step="0.5" value="1.5" style="width:100%" oninput="calculer()"></div>
-            <div style="margin-bottom:20px;"><div style="display:flex; justify-content:space-between; color:var(--grey);"><span>Tarif Prestation :</span> <span id="val-prix" style="color:var(--blue)">100€</span></div><input type="range" id="prix" min="30" max="600" step="10" value="100" style="width:100%" oninput="calculer()"></div>
-            <div style="margin-bottom:20px;"><div style="display:flex; justify-content:space-between; color:var(--grey);"><span>RDV sécurisés :</span> <span id="val-lapins" style="color:var(--blue)">2</span></div><input type="range" id="lapins" min="0" max="15" step="1" value="2" style="width:100%" oninput="calculer()"></div>
+            <div style="margin-bottom:20px;"><div style="display:flex; justify-content:space-between; color:var(--grey); margin-bottom:10px;"><span>Temps gagné / jour :</span> <span id="val-temps" style="color:var(--blue)">1.5h</span></div><input type="range" id="temps" min="0.5" max="5" step="0.5" value="1.5" style="width:100%" oninput="calculer()"></div>
+            <div style="margin-bottom:20px;"><div style="display:flex; justify-content:space-between; color:var(--grey); margin-bottom:10px;"><span>Tarif Prestation :</span> <span id="val-prix" style="color:var(--blue)">100€</span></div><input type="range" id="prix" min="30" max="600" step="10" value="100" style="width:100%" oninput="calculer()"></div>
+            <div style="margin-bottom:20px;"><div style="display:flex; justify-content:space-between; color:var(--grey); margin-bottom:10px;"><span>RDV sécurisés / mois :</span> <span id="val-lapins" style="color:var(--blue)">2</span></div><input type="range" id="lapins" min="0" max="15" step="1" value="2" style="width:100%" oninput="calculer()"></div>
             <div class="res-amount" id="res-mensuel">-- €</div>
             <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});" style="width:100%; padding:20px; background:var(--blue); color:#fff; border:none; border-radius:18px; font-weight:bold; cursor:pointer;">ACCÈS ÉLITE</button>
         </div>
     </section>
 
-    <footer style="padding:40px; text-align:center; color:#333; font-size:0.8rem;">&copy; 2026 Digital Agence Occitanie.</footer>
+    <footer style="padding:40px; text-align:center; color:#333; font-size:0.8rem; letter-spacing: 2px;">SYLEX &copy; 2026 DIGITAL AGENCE OCCITANIE</footer>
 
     <script>
         function updateClock() { 
@@ -125,7 +145,7 @@
                 document.documentElement.style.setProperty('--blue', '#00ff88');
                 document.getElementById('dynamic-blue').style.color = '#00ff88';
                 document.getElementById('admin-overlay').style.display = 'none';
-                alert("Mode Alpha Activé.");
+                alert("SYLEX ALPHA ACTIVÉ.");
             }
         };
 
