@@ -2,210 +2,219 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Sylex IA | Digital Agence Occitanie</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+
     <style>
         :root {
-            --bg-color: #000000; /* Noir pur pour l'élégance */
-            --accent-color: #ffffff;
-            --text-main: #ffffff;
-            --text-secondary: #d1d1d6; /* Gris clair optimisé pour la lecture (plus lisible que #888) */
-            --iphone-shadow: 0 40px 80px rgba(0,0,0,0.8);
+            --bg-color: #000000;
+            --accent: #ffffff;
+            --text-dim: #d1d1d6;
+            --iphone-shadow: 0 30px 100px rgba(0,0,0,0.9);
         }
+
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
         html, body {
-            overflow: hidden;
-            height: 100%;
-            width: 100%;
+            height: 100%; width: 100%; margin: 0; padding: 0;
             background-color: var(--bg-color);
-            color: var(--accent-color);
+            color: var(--accent);
             font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            position: fixed;
+            overflow-x: hidden;
         }
 
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            padding: 25px 5%; display: flex;
+            justify-content: space-between; align-items: center;
+            z-index: 500; background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+        }
+        .logo { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.5px; cursor: pointer; }
+        .menu-trigger { 
+            background: none; border: 1px solid #333; color: #fff; 
+            padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 0.8rem;
         }
 
+        /* --- SIDE MENU (CGV / MENTIONS) --- */
+        .side-menu {
+            position: fixed; top: 0; right: -100%; width: 350px; height: 100%;
+            background: #0a0a0a; z-index: 2000; padding: 40px;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            overflow-y: auto;
+        }
+        .side-menu.active { right: 0; }
+        .close-menu { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; margin-bottom: 30px; }
+        .side-menu h3 { font-size: 1.2rem; margin-top: 30px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .side-menu p, .side-menu li { color: #888; font-size: 0.85rem; line-height: 1.6; }
+
+        /* --- HERO AREA --- */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 100px 5%;
+        }
         .container {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            gap: 6vw;
-            width: 90%;
-            max-width: 1200px;
+            display: flex; align-items: center; justify-content: center;
+            gap: 6vw; width: 100%; max-width: 1200px;
+        }
+        .text-section { flex: 1; text-align: left; }
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; margin-bottom: 25px; letter-spacing: -0.03em; }
+        p.desc { font-size: 1.2rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 40px; max-width: 480px; }
+
+        /* --- BUTTONS --- */
+        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
+        .cta-main { 
+            background: #fff; color: #000; padding: 18px 35px; border-radius: 40px; 
+            text-decoration: none; font-weight: 600; border: none; cursor: pointer; transition: 0.3s;
+        }
+        .cta-alt { 
+            border: 1px solid #333; color: #fff; padding: 18px 35px; border-radius: 40px; 
+            text-decoration: none; transition: 0.3s;
         }
 
-        /* --- TEXTE --- */
-        .text-section {
-            flex: 1;
-            z-index: 5;
-        }
-
-        h1 {
-            font-size: clamp(2.4rem, 5vw, 4rem);
-            font-weight: 600;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            letter-spacing: -0.02em;
-        }
-
-        p {
-            font-size: 1.2rem;
-            color: var(--text-secondary); /* Lisibilité accrue */
-            max-width: 440px;
-            line-height: 1.6;
-            margin-bottom: 35px;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: #ffffff;
-            color: #000000;
-            padding: 18px 35px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
-        }
-
-        .cta-button:hover {
-            transform: scale(1.05);
-            background: #f2f2f7;
-        }
-
-        /* --- IPHONE --- */
-        .iphone-wrapper {
-            position: relative;
-            flex-shrink: 0;
-        }
-
+        /* --- IPHONE PRO DISPLAY --- */
+        .iphone-container { position: relative; z-index: 100; perspective: 1000px; }
         .iphone-frame {
-            width: 315px;
-            height: 645px;
-            background: #000000;
-            border: 11px solid #1c1c1e;
-            border-radius: 50px;
-            position: relative;
-            box-shadow: var(--iphone-shadow);
-            overflow: hidden;
+            width: 310px; height: 630px; background: #000;
+            border: 10px solid #1c1c1e; border-radius: 50px;
+            position: relative; box-shadow: var(--iphone-shadow);
+            overflow: hidden; transform: rotateY(-5deg); transition: 0.5s;
+        }
+        .iphone-frame:hover { transform: rotateY(0deg); }
+        
+        /* Reflet de vitre */
+        .iphone-frame::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%);
+            pointer-events: none; z-index: 30;
         }
 
-        /* L'encoche (Dynamic Island) uniquement sur Bureau */
         .dynamic-island {
-            position: absolute;
-            top: 14px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90px;
-            height: 28px;
-            background: #000000;
-            border-radius: 20px;
-            z-index: 25;
+            position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+            width: 85px; height: 26px; background: #000; border-radius: 20px; z-index: 40;
         }
+        iframe { width: 100%; height: 105%; border: none; background: #fff; margin-top: -5px; }
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            z-index: 10;
-            background: transparent;
-            /* Masque le footer Dify */
-            transform: scale(1.02); 
-            transform-origin: top;
-        }
-
-        /* --- NOTIFICATION --- */
-        .notification {
-            position: absolute;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 290px;
-            background: rgba(28, 28, 30, 0.7);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-radius: 22px;
-            padding: 14px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            z-index: 100;
+        /* --- NOTIFICATION iOS ADAPTATIVE --- */
+        #notif {
+            position: fixed; left: 50%; transform: translateX(-50%);
+            width: 300px; background: rgba(30, 30, 30, 0.75);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border-radius: 22px; padding: 14px;
+            display: flex; align-items: center; gap: 14px;
+            z-index: 3000; border: 0.5px solid rgba(255,255,255,0.15);
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            border: 0.5px solid rgba(255,255,255,0.12);
-            cursor: pointer;
+            top: -150px; cursor: pointer;
         }
+        #notif.active { top: 40px; } /* Ajusté par JS */
+        #notif img { width: 42px; height: 42px; border-radius: 11px; object-fit: cover; }
+        .notif-content b { font-size: 0.9rem; display: block; color: #fff; }
+        .notif-content span { font-size: 0.8rem; color: #d1d1d6; }
 
-        .notification.show { top: 25px; }
-
-        .notification img {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-
-        .notification-text b { font-size: 0.9rem; color: #fff; display: block; margin-bottom: 2px; }
-        .notification-text span { font-size: 0.85rem; color: #ebebf5; }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 850px) {
-            html, body { overflow-y: auto; position: relative; }
-            .container {
-                flex-direction: column;
-                padding: 60px 24px;
-                text-align: center;
-                gap: 30px;
-            }
+        /* --- RESPONSIVE OPTIMIZATIONS --- */
+        @media (max-width: 900px) {
+            .container { flex-direction: column; text-align: center; }
             .text-section { order: 2; }
-            .iphone-wrapper { 
-                order: 1; 
-                transform: scale(0.9);
-                margin-bottom: -20px;
-            }
-            .dynamic-island { display: none; } /* On enlève la fausse encoche sur iPhone */
-            h1 { font-size: 2.2rem; }
-            p { font-size: 1.1rem; margin: 0 auto 30px; }
+            .iphone-container { order: 1; transform: scale(0.85); margin-bottom: -50px; }
+            .dynamic-island { display: none; }
+            .btn-group { justify-content: center; }
+            .side-menu { width: 85%; }
         }
+
+        /* --- FOOTER --- */
+        footer { padding: 40px 5%; text-align: center; font-size: 0.8rem; color: #444; }
+        footer a { color: #666; text-decoration: none; margin: 0 10px; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="text-section">
-            <h1>Répondez à vos leads, même le dimanche.</h1>
-            <p>Sylex qualifie vos prospects 24h/24 avec une interface immersive qui valorise votre agence.</p>
-            <a href="https://www.malt.fr/profile/ton-profil" class="cta-button">Réserver une démo</a>
-        </div>
+    <nav>
+        <div class="logo" onclick="window.scrollTo(0,0)">SYLEX <span style="font-weight: 300; opacity: 0.6;">IA</span></div>
+        <button class="menu-trigger" onclick="toggleMenu()">Mentions & CGV</button>
+    </nav>
 
-        <div class="iphone-wrapper">
-            <div id="notif" class="notification" onclick="this.classList.remove('show')">
-                <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" alt="Logo Sylex">
-                <div class="notification-text">
-                    <b>Sylex IA</b>
-                    <span>"Bonjour ! Comment puis-je vous aider ?"</span>
-                </div>
-            </div>
+    <div id="sideMenu" class="side-menu">
+        <button class="close-menu" onclick="toggleMenu()">✕</button>
+        <h2>Informations Légales</h2>
+        
+        <h3>Digital Agence Occitanie</h3>
+        <p>Expert en digitalisation immobilière et déploiement de solutions d'intelligence artificielle.</p>
+        
+        <h3>Profil Malt</h3>
+        <p><a href="https://www.malt.fr/profile/digitalagenceoccitaneoccitane" target="_blank" style="color:#fff;">Consulter mon expertise sur Malt →</a></p>
 
-            <div class="iphone-frame">
-                <div class="dynamic-island"></div>
-                <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
-            </div>
+        <h3>Mentions Légales</h3>
+        <p>Hébergement : GitHub Pages<br>Responsable : Digital Agence Occitanie<br>Contact : digitalagenceoccitane@gmail.com</p>
+
+        <h3>Confidentialité & CGV</h3>
+        <p>Les données collectées via le chatbot Sylex ou le formulaire de contact sont utilisées exclusivement pour répondre à vos demandes professionnelles. Aucun transfert de données n'est effectué vers des tiers sans votre consentement explicite.</p>
+    </div>
+
+    <div id="notif" onclick="this.classList.remove('active')">
+        <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" alt="Logo Sylex">
+        <div class="notif-content">
+            <b>Sylex IA</b>
+            <span>"Bonjour ! Comment puis-je vous aider ?"</span>
         </div>
     </div>
 
+    <section class="hero">
+        <div class="container">
+            <div class="text-section">
+                <h1>Répondez à vos leads,<br>même le dimanche.</h1>
+                <p class="desc">Sylex qualifie vos prospects 24h/24 avec une interface immersive qui valorise votre agence immobilière.</p>
+                <div class="btn-group">
+                    <button onclick="Calendly.showPopupWidget('https://calendly.com/digitalagenceoccitane/30min');return false;" class="cta-main">Réserver un créneau</button>
+                    <a href="mailto:digitalagenceoccitane@gmail.com" class="cta-alt">Contact direct</a>
+                </div>
+            </div>
+
+            <div class="iphone-container">
+                <div class="iphone-frame">
+                    <div class="dynamic-island"></div>
+                    <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Digital Agence Occitanie. <a href="https://www.malt.fr/profile/digitalagenceoccitaneoccitane" target="_blank">Expert Malt</a></p>
+    </footer>
+
     <script>
-        const notification = document.getElementById('notif');
-        setTimeout(() => { notification.classList.add('show'); }, 2000);
-        setTimeout(() => { notification.classList.remove('show'); }, 7000);
+        // GESTION DU MENU COULISSANT
+        function toggleMenu() {
+            document.getElementById('sideMenu').classList.toggle('active');
+        }
+
+        // DETECTION APPAREIL & GESTION NOTIFICATION
+        const notif = document.getElementById('notif');
+        const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+        const isMobile = window.innerWidth <= 900;
+
+        window.onload = () => {
+            setTimeout(() => {
+                // Ajustement dynamique de la position pour éviter le glitch des encoches
+                if (isIOS) {
+                    notif.style.top = "70px"; // Sous la Dynamic Island réelle
+                } else if (isMobile) {
+                    notif.style.top = "50px"; // Sous la barre de status Android
+                } else {
+                    notif.style.top = "40px"; // PC
+                }
+                notif.classList.add('active');
+            }, 2500);
+
+            // Disparition après 8s
+            setTimeout(() => { notif.classList.remove('active'); }, 9500);
+        };
     </script>
 
 </body>
