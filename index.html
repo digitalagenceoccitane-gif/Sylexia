@@ -49,10 +49,15 @@
 
         /* --- SIMULATEUR ROI --- */
         .sim-container { max-width: 700px; margin: 60px auto; padding: 60px; background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 45px; text-align: center; }
-        .res-amount { font-size: 5rem; font-weight: 900; color: var(--accent); margin: 30px 0; letter-spacing: -2px; }
-        input[type=range] { width: 100%; margin: 25px 0; accent-color: var(--sylex-blue); cursor: pointer; }
+        .res-amount { font-size: 5rem; font-weight: 900; color: var(--accent); margin: 20px 0; letter-spacing: -2px; }
+        input[type=range] { width: 100%; margin: 20px 0; accent-color: var(--sylex-blue); cursor: pointer; }
         .sim-label { text-align: left; font-weight: bold; margin-top: 20px; display: flex; justify-content: space-between; }
         .sim-label span { color: var(--sylex-blue); }
+
+        /* SWITCH STYLE */
+        .switch-container { display: flex; background: #1a1a1a; border-radius: 100px; padding: 5px; margin-bottom: 30px; }
+        .switch-btn { flex: 1; padding: 12px; border-radius: 100px; border: none; cursor: pointer; font-weight: 800; transition: 0.3s; font-size: 0.75rem; text-transform: uppercase; color: #666; background: transparent; }
+        .switch-btn.active { background: var(--sylex-blue); color: #fff; }
 
         .btn-main { background: #fff; color: #000; padding: 22px 45px; border-radius: 100px; font-weight: 900; text-decoration: none; display: inline-block; transition: 0.3s; border: none; cursor: pointer; font-size: 1.1rem; }
         .btn-main:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(0, 102, 255, 0.4); }
@@ -102,26 +107,52 @@
 
     <section id="simulator" class="section">
         <div class="sim-container">
-            <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Calculateur de Profit</h2>
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Calculateur de Profit</h2>
             
+            <div class="switch-container">
+                <button id="btn-team" class="switch-btn active" onclick="setMode('team')">Équipe</button>
+                <button id="btn-solo" class="switch-btn" onclick="setMode('solo')">Indépendant</button>
+            </div>
+
             <div class="sim-label">Temps gagné / jour : <span id="v1">2h</span></div>
             <input type="range" id="t" min="1" max="8" step="0.5" value="2" oninput="calc()">
             
             <div class="sim-label">Tarif horaire (€) : <span id="v2">120€</span></div>
             <input type="range" id="p" min="40" max="500" step="10" value="120" oninput="calc()">
             
-            <div class="sim-label" id="label-hybrid">Effectif ou Frais Prestataires : <span id="v3">1</span></div>
-            <input type="range" id="h" min="1" max="5000" step="1" value="1" oninput="calc()">
-            <p style="text-align:left; font-size:0.7rem; opacity:0.5; margin-top:5px;">(1-30 = Collaborateurs | 31+ = Budget Prestataire annulé)</p>
+            <div class="sim-label"><span id="lbl-hybrid">Effectif</span> : <span id="v3">1</span></div>
+            <input type="range" id="h" min="1" max="30" step="1" value="1" oninput="calc()">
 
             <div class="res-amount" id="res">-- €</div>
-            <p style="margin-bottom:30px; opacity:0.5;">Économie mensuelle générée</p>
+            <p style="margin-bottom:30px; opacity:0.5;">Économie mensuelle générée avec SYLEX IA</p>
             
             <button class="btn-main" style="width:100%; background:var(--sylex-blue); color:#fff;" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});">RÉSERVER MON AUDIT</button>
         </div>
     </section>
 
     <script>
+        let mode = 'team';
+
+        function setMode(m) {
+            mode = m;
+            const btnTeam = document.getElementById('btn-team');
+            const btnSolo = document.getElementById('btn-solo');
+            const lbl = document.getElementById('lbl-hybrid');
+            const slider = document.getElementById('h');
+
+            btnTeam.classList.toggle('active', m === 'team');
+            btnSolo.classList.toggle('active', m === 'solo');
+
+            if (m === 'team') {
+                lbl.innerText = "Effectif (Collaborateurs)";
+                slider.min = 1; slider.max = 30; slider.step = 1; slider.value = 1;
+            } else {
+                lbl.innerText = "Frais prestataires / mois";
+                slider.min = 0; slider.max = 5000; slider.step = 100; slider.value = 0;
+            }
+            calc();
+        }
+
         function calc() {
             const t = parseFloat(document.getElementById('t').value);
             const p = parseFloat(document.getElementById('p').value);
@@ -131,12 +162,10 @@
             document.getElementById('v2').innerText = p + "€";
             
             let total = 0;
-            if (h <= 30) {
-                // Mode Collaborateurs
+            if (mode === 'team') {
                 document.getElementById('v3').innerText = h + " pers.";
                 total = t * 22 * p * h;
             } else {
-                // Mode Annulation Prestation
                 document.getElementById('v3').innerText = h + "€";
                 total = (t * 22 * p) + h;
             }
