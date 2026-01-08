@@ -2,165 +2,73 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SYLEX IA | 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #000; --white: #fff; --grey: #8e8e93; --blue: #0066ff; --accent: #00ff88; }
-        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; }
-        body, html { width: 100%; background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        :root { --blue: #0066ff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body, html { width: 100%; height: 100%; background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; }
 
-        /* --- MODE ALPHA SECRET --- */
-        #admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 10000; align-items: center; justify-content: center; flex-direction: column; backdrop-filter: blur(15px); }
-        #admin-input { background: #0a0a0a; border: 1px solid #333; color: var(--accent); padding: 20px; border-radius: 12px; width: 280px; text-align: center; font-family: monospace; font-size: 1.2rem; outline: none; margin-top: 20px; }
-
-        /* --- HERO & PROJECTION RETRO-PROJECTEUR --- */
-        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 5%; position: relative; overflow: hidden; background: radial-gradient(circle at 50% 50%, #001a33 0%, #000 85%); }
-        
-        /* L'AURA / RETROPROJECTEUR (Très grand en fond) */
-        .projection-logo { 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 110vw; height: 110vh; 
-            background: url('https://i.ibb.co/4n4vpP0r/IMG-5824.jpg') no-repeat center; 
-            background-size: 50%; 
-            filter: blur(70px) opacity(0.25); 
-            z-index: 1; pointer-events: none; 
-            animation: pulse-glow 8s infinite alternate ease-in-out; 
+        /* --- L'EFFET RÉTROPROJECTEUR (AURA) --- */
+        .aura-bg {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 130vw; height: 130vh;
+            background: url('https://i.ibb.co/4n4vpP0r/IMG-5824.jpg') no-repeat center;
+            background-size: contain;
+            filter: blur(80px) brightness(0.6); /* Crée le halo coloré géant */
+            opacity: 0.4;
+            z-index: 1;
+            animation: breathe 10s infinite alternate ease-in-out;
         }
-        
-        @keyframes pulse-glow { 0% { opacity: 0.15; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1.1); } }
-        
-        .container { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; gap: 40px; z-index: 10; }
-        
-        /* --- IPHONE DESIGN --- */
-        .iphone-wrapper { perspective: 2000px; position: relative; }
-        .iphone-device { width: 320px; height: 660px; background: #080808; border-radius: 54px; position: relative; transform: rotateY(-12deg) rotateX(4deg); transform-style: preserve-3d; border: 2.2px solid #222; box-shadow: -30px 50px 80px rgba(0,0,0,0.8); transition: 1s cubic-bezier(0.19, 1, 0.22, 1); }
-        .iphone-device.unlocked { transform: rotateY(0deg) rotateX(0deg) scale(1.02); }
-        .iphone-screen { position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; background: #000; border-radius: 42px; overflow: hidden; display: flex; flex-direction: column; }
-        iframe { width: 100%; height: 94%; border: none; margin-top: auto; }
 
-        /* --- CONTENU --- */
-        .explainer-section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-        .explainer-card { padding: 35px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 25px; transition: 0.3s; }
-        .explainer-card:hover { border-color: var(--blue); transform: translateY(-5px); background: rgba(0, 102, 255, 0.05); }
+        @keyframes breathe { from { opacity: 0.3; transform: translate(-50%, -50%) scale(1); } to { opacity: 0.5; transform: translate(-50%, -50%) scale(1.1); } }
 
-        .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 10px; padding: 40px 5%; max-width: 1100px; margin: 0 auto; }
-        .luxury-table td { background: rgba(255,255,255,0.02); padding: 22px; border-top: 1px solid rgba(255,255,255,0.05); }
-        .luxury-table td:first-child { border-radius: 15px 0 0 15px; font-weight: 700; color: var(--grey); }
-        .luxury-table td:last-child { border-radius: 0 15px 15px 0; color: var(--accent); text-align: right; }
+        /* --- LOGO DE NAVIGATION (AGRANDI) --- */
+        nav { position: fixed; top: 0; width: 100%; padding: 30px; z-index: 1000; text-align: center; }
+        .nav-logo { height: 75px; filter: drop-shadow(0 0 20px var(--blue)); }
 
-        .simulator-section { padding: 80px 5%; background: #050505; display: flex; flex-direction: column; align-items: center; }
-        .sim-card { max-width: 600px; width: 100%; padding: 40px; background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 35px; }
-        .res-amount { font-size: 3.5rem; font-weight: 800; color: var(--accent); text-align: center; margin: 20px 0; }
+        /* --- MISE EN PAGE --- */
+        .hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; z-index: 10; padding: 0 5%; }
+        .container { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1100px; gap: 40px; }
         
-        #lock-screen { position: absolute; inset: 0; background: #000; z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
-        
-        nav { position: fixed; top: 0; width: 100%; padding: 25px; z-index: 1000; display: flex; justify-content: center; }
-        #master-logo { height: 55px; cursor: pointer; filter: drop-shadow(0 0 15px rgba(0, 102, 255, 0.4)); transition: 0.3s; }
-        #master-logo:hover { transform: scale(1.05); }
+        .text-section h1 { font-size: 3.5rem; font-weight: 700; line-height: 1.1; }
+        .text-section p { font-size: 1.2rem; opacity: 0.8; margin: 25px 0; line-height: 1.5; }
+        .btn { background: #fff; color: #000; padding: 20px 45px; border-radius: 60px; font-weight: 700; text-decoration: none; display: inline-block; font-size: 1rem; box-shadow: 0 10px 30px rgba(0,102,255,0.3); }
 
-        @media (max-width: 900px) { .container, .explainer-section { grid-template-columns: 1fr; } .iphone-device { margin: 0 auto; } .projection-logo { width: 150vw; background-size: 70%; } }
+        /* --- IPHONE --- */
+        .iphone { width: 310px; height: 635px; background: #080808; border-radius: 50px; border: 3px solid #1a1a1a; position: relative; box-shadow: 0 40px 80px rgba(0,0,0,0.9); }
+        .screen { position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; background: #000; border-radius: 40px; overflow: hidden; }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        @media (max-width: 900px) { 
+            .container { flex-direction: column; text-align: center; padding-top: 80px; } 
+            .text-section h1 { font-size: 2.8rem; }
+            .iphone { width: 280px; height: 580px; margin-top: 20px; } 
+        }
     </style>
 </head>
 <body>
-    <div id="admin-overlay">
-        <h2>OVERRIDE SYSTEM</h2>
-        <input type="password" id="admin-input" placeholder="ACCESS CODE">
-    </div>
+    <div class="aura-bg"></div>
 
     <nav>
-        <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" id="master-logo" alt="SYLEX">
+        <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" class="nav-logo" alt="SYLEX">
     </nav>
 
     <section class="hero">
-        <div class="projection-logo"></div>
-        
         <div class="container">
             <div class="text-section">
-                <h1 style="font-size: 3.2rem; line-height: 1.1;">L'intelligence <span id="dynamic-blue" style="color:var(--blue)">Souveraine.</span></h1>
-                <p style="font-size: 1.1rem; opacity: 0.8; margin-top: 15px;">Libérez-vous de l'opérationnel avec SYLEX 2026.</p>
-                <button onclick="startExperience()" style="background:#fff; color:#000; padding:18px 45px; border-radius:50px; font-weight:bold; border:none; cursor:pointer; margin-top:35px; font-size: 1rem;">DÉVERROUILLER</button>
+                <h1>L'intelligence <br><span style="color:var(--blue)">Souveraine.</span></h1>
+                <p>Libérez-vous de l'opérationnel <br>avec la puissance de SYLEX.</p>
+                <a href="#" class="btn">DÉVERROUILLER</a>
             </div>
             
-            <div class="iphone-wrapper">
-                <div class="iphone-device" id="iphone">
-                    <div class="iphone-screen">
-                        <div id="lock-screen" onclick="startExperience()">
-                            <h2 id="real-time-clock" style="font-size:3.5rem; font-weight:200;">--:--</h2>
-                            <p style="font-size:0.6rem; letter-spacing:4px; margin-top:20px; color:var(--blue);">SYLEX ALPHA UNIT</p>
-                        </div>
-                        <iframe id="chatframe" src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
-                    </div>
+            <div class="iphone">
+                <div class="screen">
+                    <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
                 </div>
             </div>
         </div>
     </section>
-
-    <section class="explainer-section">
-        <div class="explainer-card"><h3>Automatisation</h3><p>Sylex gère vos prospects et fixe vos rendez-vous sans aucune intervention humaine.</p></div>
-        <div class="explainer-card"><h3>Disponibilité</h3><p>Pendant que vous dormez, votre IA qualifie les dossiers et sature votre agenda.</p></div>
-        <div class="explainer-card"><h3>Croissance</h3><p>Gérez 1000 conversations simultanées avec la même précision chirurgicale.</p></div>
-    </section>
-
-    <table class="luxury-table">
-        <tr><td>PRESTATION</td><td>Qualification Automatique</td><td>ROI Immédiat</td></tr>
-        <tr><td>COMMERCE</td><td>Upselling Dynamique</td><td>+25% CA estimé</td></tr>
-        <tr><td>IMMOBILIER</td><td>Filtrage 24/7</td><td>Temps optimisé</td></tr>
-    </table>
-
-    <section id="simulator" class="simulator-section">
-        <div class="sim-card">
-            <h2 style="text-align: center; margin-bottom: 40px; font-size: 1.5rem;">Calculateur de Profitabilité</h2>
-            <div style="margin-bottom:20px;"><div style="display:flex; justify-content:space-between; color:var(--grey); margin-bottom:8px;"><span>Heures gagnées / jour</span> <span id="val-temps" style="color:var(--blue); font-weight:bold;">1.5h</span></div><input type="range" id="temps" min="0.5" max="5" step="0.5" value="1.5" style="width:100%" oninput="calculer()"></div>
-            <div style="margin-bottom:20px;"><div style="display:flex; justify-content:space-between; color:var(--grey); margin-bottom:8px;"><span>Panier moyen</span> <span id="val-prix" style="color:var(--blue); font-weight:bold;">100€</span></div><input type="range" id="prix" min="30" max="600" step="10" value="100" style="width:100%" oninput="calculer()"></div>
-            <div style="margin-bottom:20px;"><div style="display:flex; justify-content:space-between; color:var(--grey); margin-bottom:8px;"><span>RDV sécurisés / mois</span> <span id="val-lapins" style="color:var(--blue); font-weight:bold;">2</span></div><input type="range" id="lapins" min="0" max="15" step="1" value="2" style="width:100%" oninput="calculer()"></div>
-            <div class="res-amount" id="res-mensuel">-- €</div>
-            <button onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});" style="width:100%; padding:22px; background:var(--blue); color:#fff; border:none; border-radius:18px; font-weight:bold; cursor:pointer; font-size: 1rem;">RÉSERVER MON AUDIT</button>
-        </div>
-    </section>
-
-    <footer style="padding:60px; text-align:center; color:#222; font-size:0.7rem; letter-spacing: 3px;">SYLEX &copy; 2026 DIGITAL AGENCE OCCITANIE</footer>
-
-    <script>
-        function updateClock() { 
-            const now = new Date();
-            document.getElementById('real-time-clock').textContent = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        function startExperience() { 
-            document.getElementById('iphone').classList.add('unlocked'); 
-            document.getElementById('lock-screen').style.display = 'none'; 
-        }
-
-        let clicks = 0;
-        document.getElementById('master-logo').onclick = function() {
-            clicks++;
-            if (clicks === 5) { document.getElementById('admin-overlay').style.display = 'flex'; document.getElementById('admin-input').focus(); clicks = 0; }
-        };
-
-        document.getElementById('admin-input').onkeyup = function(e) {
-            if (e.key === 'Enter' && this.value.toUpperCase() === 'SYLX-DEV-2026') {
-                document.documentElement.style.setProperty('--blue', '#00ff88');
-                document.getElementById('dynamic-blue').style.color = '#00ff88';
-                document.getElementById('admin-overlay').style.display = 'none';
-                alert("SYLEX ALPHA SYNC COMPLETED.");
-            }
-        };
-
-        function calculer() {
-            const t = parseFloat(document.getElementById('temps').value);
-            const p = parseInt(document.getElementById('prix').value);
-            const l = parseInt(document.getElementById('lapins').value);
-            document.getElementById('val-temps').innerText = t + "h";
-            document.getElementById('val-prix').innerText = p + "€";
-            document.getElementById('val-lapins').innerText = l;
-            document.getElementById('res-mensuel').innerText = Math.round((t * 22 * 0.6) * (p / 3) + (l * p)).toLocaleString() + " €";
-        }
-        window.onload = calculer;
-    </script>
 </body>
 </html>
