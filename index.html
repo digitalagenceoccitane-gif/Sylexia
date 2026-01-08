@@ -7,7 +7,6 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-    
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
@@ -16,7 +15,8 @@
             --bg: #000000;
             --white: #ffffff;
             --grey: #d1d1d6;
-            --titanium: #1f1f1f;
+            --accent-blue: rgba(64, 123, 255, 0.4);
+            --accent-purple: rgba(160, 32, 240, 0.3);
         }
 
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
@@ -46,8 +46,6 @@
         }
         #sideMenu.active { right: 0; }
         .close-btn { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; margin-bottom: 20px; }
-        .side-content h3 { font-size: 1.1rem; margin-top: 25px; color: var(--white); border-bottom: 1px solid #222; padding-bottom: 8px; }
-        .side-content p { font-size: 0.85rem; color: #888; line-height: 1.6; }
 
         /* --- HERO --- */
         .hero {
@@ -56,79 +54,98 @@
         }
         .container {
             display: flex; flex-direction: row; align-items: center;
-            justify-content: space-between; width: 100%; max-width: 1200px; gap: 50px;
+            justify-content: space-between; width: 100%; max-width: 1200px; gap: 80px;
         }
-        .text-section { flex: 1; max-width: 550px; }
-        h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.04em; }
-        .desc { font-size: 1.15rem; color: var(--grey); line-height: 1.5; margin-bottom: 40px; }
+        .text-section { flex: 1; max-width: 500px; }
+        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.04em; }
+        .desc { font-size: 1.1rem; color: var(--grey); line-height: 1.5; margin-bottom: 40px; }
 
-        /* --- ACTIONS --- */
-        .action-group { display: flex; gap: 15px; flex-wrap: wrap; }
         .btn-calendly { 
             background: var(--white); color: #000; padding: 18px 30px; border-radius: 40px; 
-            text-decoration: none; font-weight: 600; border: none; cursor: pointer; transition: 0.3s;
-        }
-        .btn-malt { 
-            background: transparent; color: var(--white); padding: 18px 30px; border-radius: 40px; 
-            text-decoration: none; font-weight: 600; border: 1px solid #444; transition: 0.3s;
+            text-decoration: none; font-weight: 600; border: none; cursor: pointer;
         }
 
-        /* --- IPHONE 17 PRO BLACK TITANIUM --- */
-        .iphone-wrapper { position: relative; z-index: 10; }
+        /* --- IPHONE 17 PRO RENDER 3D --- */
+        .iphone-wrapper {
+            position: relative;
+            z-index: 10;
+            perspective: 2000px;
+        }
+
         .iphone-device {
-            width: 315px; height: 645px; background: #000;
-            border: 8px solid #121212; border-radius: 54px;
-            position: relative; box-shadow: 0 0 0 2px var(--titanium), 0 30px 100px rgba(0,0,0,0.9);
-            overflow: hidden;
+            width: 320px;
+            height: 650px;
+            background: #050505;
+            border-radius: 50px;
+            position: relative;
+            /* Inclinaison 3D identique à ton image */
+            transform: rotateY(-22deg) rotateX(8deg) rotateZ(2deg);
+            transform-style: preserve-3d;
+            box-shadow: 
+                -15px 20px 50px rgba(0,0,0,0.9),
+                0 0 0 1px #1a1a1a;
+            /* Tranche titane */
+            border-right: 7px solid #111;
+            border-bottom: 4px solid #080808;
         }
-        .iphone-device::after {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 35%);
-            pointer-events: none; z-index: 10;
+
+        /* Halo lumineux autour du téléphone */
+        .iphone-device::before {
+            content: "";
+            position: absolute;
+            top: -10%; left: -15%; width: 130%; height: 120%;
+            background: radial-gradient(circle, var(--accent-blue) 0%, var(--accent-purple) 40%, transparent 75%);
+            z-index: -1;
+            filter: blur(50px);
+            pointer-events: none;
         }
+
         .dynamic-island {
-            position: absolute; top: 11px; left: 50%; transform: translateX(-50%);
-            width: 75px; height: 24px; background: #000; border-radius: 20px; z-index: 20;
+            position: absolute;
+            top: 15px; left: 50%;
+            transform: translateX(-50%);
+            width: 75px; height: 24px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 25;
         }
-        .iphone-home-bar {
-            position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
-            width: 100px; height: 4px; background: rgba(255, 255, 255, 0.3); border-radius: 10px; z-index: 20;
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 44px;
+            background: #fff;
         }
-        iframe { width: 100%; height: 100%; border: none; background: #fff; border-radius: 42px; }
 
         /* --- NOTIF iOS --- */
         #notif {
             position: fixed; left: 50%; transform: translateX(-50%);
-            width: 300px; background: rgba(25, 25, 25, 0.85);
-            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border-radius: 24px; padding: 14px; display: flex; align-items: center; gap: 12px;
-            z-index: 3000; border: 0.5px solid rgba(255,255,255,0.15);
+            width: 290px; background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 22px; padding: 12px; display: flex; align-items: center; gap: 12px;
+            z-index: 3000; border: 0.5px solid rgba(255,255,255,0.1);
             transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1); top: -150px;
-            cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         #notif.show { top: 45px; }
-        #notif img { width: 42px; height: 42px; border-radius: 10px; object-fit: cover; }
-        .notif-txt b { font-size: 0.85rem; display: block; color: #fff; }
-        .notif-txt span { font-size: 0.8rem; color: #aaa; }
+        #notif img { width: 40px; height: 40px; border-radius: 10px; }
 
-        /* --- QR CODE MODAL --- */
+        /* --- MODAL QR --- */
         #qrCodeModal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 4000;
+            background: rgba(0,0,0,0.9); z-index: 4000;
             display: flex; justify-content: center; align-items: center;
             opacity: 0; pointer-events: none; transition: 0.3s;
         }
         #qrCodeModal.active { opacity: 1; pointer-events: all; }
-        .qr-content { background: #fff; padding: 30px; border-radius: 30px; text-align: center; color: #000; }
-        #qrcode { margin: 20px auto; }
+        .qr-content { background: #fff; padding: 30px; border-radius: 25px; text-align: center; color: #000; }
 
-        footer { padding: 40px 5%; text-align: center; font-size: 0.8rem; color: #444; display: flex; justify-content: space-between; align-items: center; }
-        .qr-btn { background: none; border: 1px solid #333; color: #666; padding: 6px 14px; border-radius: 20px; cursor: pointer; }
+        footer { padding: 30px 5%; text-align: center; font-size: 0.8rem; color: #444; }
 
         @media (max-width: 900px) {
             .container { flex-direction: column; text-align: center; }
-            .iphone-wrapper { transform: scale(0.85); margin-top: 20px; }
-            .action-group { justify-content: center; }
+            .iphone-wrapper { transform: scale(0.8) translateX(20px); margin-top: 0; }
+            .iphone-device { transform: rotateY(-15deg) rotateX(5deg); }
         }
     </style>
 </head>
@@ -142,20 +159,17 @@
     <div id="sideMenu">
         <button class="close-btn" onclick="toggleMenu()">✕</button>
         <div class="side-content">
-            <h2>Digital Agence Occitanie</h2>
-            <h3>Expertise IA</h3>
-            <p>Automatisation et agents conversationnels intelligents.</p>
-            <a href="https://www.malt.fr/profile/digitalagenceoccitaneoccitane" target="_blank" style="color:#fff; text-decoration:none; border-bottom:1px solid #fff;">Profil Malt Certifié</a>
-            <h3>Légal</h3>
-            <p>SIRET en cours de mention. Hébergement GitHub. Solutions logicielles Sylex.</p>
+            <h2 style="color:white">Sylex IA</h2>
+            <p>Digital Agence Occitanie</p>
+            <p style="font-size: 0.8rem; color: #666;">Expertise en IA conversationnelle et automatisation pour l'immobilier.</p>
         </div>
     </div>
 
     <div id="notif" onclick="this.classList.remove('show')">
         <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" alt="Logo">
         <div class="notif-txt">
-            <b>Sylex IA</b>
-            <span>"Bonjour ! Une question sur l'IA ?"</span>
+            <b style="font-size:0.85rem; display:block">Sylex IA</b>
+            <span style="font-size:0.8rem; color:#aaa">"Bonjour ! Une question sur l'IA ?"</span>
         </div>
     </div>
 
@@ -164,32 +178,27 @@
             <div class="text-section">
                 <h1>Répondez à vos leads,<br>même le dimanche.</h1>
                 <p class="desc">Sylex qualifie vos prospects 24h/24 avec une interface immersive qui valorise votre image de marque.</p>
-                <div class="action-group">
-                    <button onclick="Calendly.showPopupWidget('https://calendly.com/digitalagenceoccitane/30min');" class="btn-calendly">Réserver une démo</button>
-                    <a href="https://www.malt.fr/profile/digitalagenceoccitaneoccitane" target="_blank" class="btn-malt">Me recruter sur Malt</a>
-                </div>
+                <button onclick="Calendly.showPopupWidget('https://calendly.com/digitalagenceoccitane/30min');" class="btn-calendly">Réserver une démo</button>
             </div>
 
             <div class="iphone-wrapper">
                 <div class="iphone-device">
                     <div class="dynamic-island"></div>
                     <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
-                    <div class="iphone-home-bar"></div>
                 </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <div>&copy; 2024 Digital Agence Occitanie</div>
-        <button class="qr-btn" onclick="showQRCode()">Partager ce site</button>
+        <button onclick="showQRCode()" style="background:none; border:1px solid #333; color:#555; padding:5px 15px; border-radius:20px; cursor:pointer">Partager le site</button>
+        <p>&copy; 2024 Digital Agence Occitanie</p>
     </footer>
 
     <div id="qrCodeModal" onclick="hideQRCode()">
         <div class="qr-content" onclick="event.stopPropagation()">
-            <h3 style="margin:0 0 10px 0">Scanner le QR Code</h3>
+            <h3 style="margin-top:0">Scanner pour visiter</h3>
             <div id="qrcode"></div>
-            <button onclick="hideQRCode()" style="background:none; border:none; color:#888; cursor:pointer; margin-top:10px;">Fermer</button>
         </div>
     </div>
 
@@ -197,13 +206,11 @@
         function toggleMenu() { document.getElementById('sideMenu').classList.toggle('active'); }
 
         window.onload = () => {
-            const notif = document.getElementById('notif');
             setTimeout(() => {
                 const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-                notif.style.top = isIOS ? "75px" : "45px";
-                notif.classList.add('show');
-            }, 3000);
-            setTimeout(() => { notif.classList.remove('show'); }, 10000);
+                document.getElementById('notif').style.top = isIOS ? "75px" : "45px";
+                document.getElementById('notif').classList.add('show');
+            }, 2500);
         };
 
         let qrcodeInstance = null;
@@ -212,10 +219,7 @@
             if (!qrcodeInstance) {
                 qrcodeInstance = new QRCode(document.getElementById("qrcode"), {
                     text: window.location.href,
-                    width: 200,
-                    height: 200,
-                    colorDark : "#000000",
-                    colorLight : "#ffffff"
+                    width: 180, height: 180
                 });
             }
         }
