@@ -14,18 +14,12 @@
         :root {
             --bg: #000000;
             --white: #ffffff;
-            --grey: #d1d1d6;
-            --accent-blue: rgba(64, 123, 255, 0.4);
-            --accent-purple: rgba(160, 32, 240, 0.3);
+            --grey: #8e8e93;
+            --glow: rgba(64, 123, 255, 0.2);
         }
 
         * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-
-        body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            background-color: var(--bg); color: var(--white);
-            font-family: 'Inter', sans-serif; overflow-x: hidden;
-        }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
         /* --- NAVIGATION --- */
         nav {
@@ -35,117 +29,104 @@
             border-bottom: 0.5px solid rgba(255,255,255,0.1);
         }
         .logo { font-weight: 600; font-size: 1rem; letter-spacing: -0.5px; }
-        .legal-btn { background: none; border: 1px solid #333; color: #fff; padding: 7px 15px; border-radius: 20px; cursor: pointer; font-size: 0.75rem; }
-
-        /* --- SIDE MENU --- */
-        #sideMenu {
-            position: fixed; top: 0; right: -100%; width: 320px; height: 100%;
-            background: #0a0a0a; z-index: 2000; padding: 40px 30px;
-            transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-            box-shadow: -10px 0 30px rgba(0,0,0,0.5); overflow-y: auto;
-        }
-        #sideMenu.active { right: 0; }
-        .close-btn { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; margin-bottom: 20px; }
 
         /* --- HERO --- */
-        .hero {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            padding: 120px 5% 60px;
-        }
-        .container {
-            display: flex; flex-direction: row; align-items: center;
-            justify-content: space-between; width: 100%; max-width: 1200px; gap: 80px;
-        }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 120px 5% 60px; }
+        .container { display: flex; flex-direction: row; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; gap: 40px; }
         .text-section { flex: 1; max-width: 500px; }
-        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.04em; }
-        .desc { font-size: 1.1rem; color: var(--grey); line-height: 1.5; margin-bottom: 40px; }
+        h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.04em; }
+        .desc { font-size: 1.15rem; color: var(--grey); line-height: 1.5; margin-bottom: 40px; }
 
         .btn-calendly { 
-            background: var(--white); color: #000; padding: 18px 30px; border-radius: 40px; 
-            text-decoration: none; font-weight: 600; border: none; cursor: pointer;
+            background: var(--white); color: #000; padding: 18px 35px; border-radius: 40px; 
+            text-decoration: none; font-weight: 600; border: none; cursor: pointer; transition: 0.3s;
         }
 
-        /* --- IPHONE 17 PRO RENDER 3D --- */
+        /* --- RENDU IPHONE 17 PRO PHOTORÉALISTE --- */
         .iphone-wrapper {
             position: relative;
             z-index: 10;
             perspective: 2000px;
         }
 
-        .iphone-device {
-            width: 320px;
-            height: 650px;
-            background: #050505;
-            border-radius: 50px;
-            position: relative;
-            /* Inclinaison 3D identique à ton image */
-            transform: rotateY(-22deg) rotateX(8deg) rotateZ(2deg);
-            transform-style: preserve-3d;
-            box-shadow: 
-                -15px 20px 50px rgba(0,0,0,0.9),
-                0 0 0 1px #1a1a1a;
-            /* Tranche titane */
-            border-right: 7px solid #111;
-            border-bottom: 4px solid #080808;
+        /* Halo arrière (Ambiance Sylex) */
+        .iphone-glow {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140%; height: 120%;
+            background: radial-gradient(circle, rgba(0, 102, 255, 0.15) 0%, rgba(138, 43, 226, 0.1) 50%, transparent 80%);
+            filter: blur(60px);
+            z-index: -1;
         }
 
-        /* Halo lumineux autour du téléphone */
-        .iphone-device::before {
+        .iphone-device {
+            width: 310px;
+            height: 640px;
+            background: #000;
+            border-radius: 52px;
+            position: relative;
+            /* Inclinaison 3D exacte de l'image */
+            transform: rotateY(-20deg) rotateX(8deg) rotateZ(2deg);
+            transform-style: preserve-3d;
+            
+            /* Micro-bordure Titane Noir */
+            border: 0.5px solid rgba(255,255,255,0.25);
+            box-shadow: 
+                -1px 1px 2px rgba(0,0,0,0.8),
+                -4px 4px 10px rgba(0,0,0,0.9),
+                inset 0 0 2px rgba(255,255,255,0.1);
+        }
+
+        /* L'écran (Bezels ultra-fins) */
+        .iphone-screen {
+            position: absolute;
+            inset: 3px; /* Bordure écran 17 Pro */
+            background: #fff;
+            border-radius: 49px;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        /* Dynamic Island */
+        .dynamic-island {
+            position: absolute;
+            top: 12px; left: 50%;
+            transform: translateX(-50%);
+            width: 80px; height: 26px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        /* Reflet de vitre dynamique */
+        .iphone-device::after {
             content: "";
             position: absolute;
-            top: -10%; left: -15%; width: 130%; height: 120%;
-            background: radial-gradient(circle, var(--accent-blue) 0%, var(--accent-purple) 40%, transparent 75%);
-            z-index: -1;
-            filter: blur(50px);
+            inset: 0;
+            background: linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.05) 45%, rgba(255,255,255,0.1) 50%, transparent 55%);
+            z-index: 5;
+            border-radius: 52px;
             pointer-events: none;
         }
 
-        .dynamic-island {
-            position: absolute;
-            top: 15px; left: 50%;
-            transform: translateX(-50%);
-            width: 75px; height: 24px;
-            background: #000;
-            border-radius: 20px;
-            z-index: 25;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 44px;
-            background: #fff;
-        }
+        iframe { width: 100%; height: 100%; border: none; }
 
         /* --- NOTIF iOS --- */
         #notif {
             position: fixed; left: 50%; transform: translateX(-50%);
-            width: 290px; background: rgba(30, 30, 30, 0.8);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            width: 300px; background: rgba(30, 30, 30, 0.75);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border-radius: 22px; padding: 12px; display: flex; align-items: center; gap: 12px;
             z-index: 3000; border: 0.5px solid rgba(255,255,255,0.1);
-            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1); top: -150px;
+            transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1); top: -150px;
         }
         #notif.show { top: 45px; }
-        #notif img { width: 40px; height: 40px; border-radius: 10px; }
-
-        /* --- MODAL QR --- */
-        #qrCodeModal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 4000;
-            display: flex; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transition: 0.3s;
-        }
-        #qrCodeModal.active { opacity: 1; pointer-events: all; }
-        .qr-content { background: #fff; padding: 30px; border-radius: 25px; text-align: center; color: #000; }
-
-        footer { padding: 30px 5%; text-align: center; font-size: 0.8rem; color: #444; }
+        #notif img { width: 42px; height: 42px; border-radius: 10px; }
 
         @media (max-width: 900px) {
             .container { flex-direction: column; text-align: center; }
-            .iphone-wrapper { transform: scale(0.8) translateX(20px); margin-top: 0; }
-            .iphone-device { transform: rotateY(-15deg) rotateX(5deg); }
+            .iphone-wrapper { transform: scale(0.8); margin-bottom: -50px; }
         }
     </style>
 </head>
@@ -153,21 +134,11 @@
 
     <nav>
         <div class="logo">SYLEX <span style="font-weight: 300; opacity: 0.5;">IA</span></div>
-        <button class="legal-btn" onclick="toggleMenu()">Mentions & CGV</button>
     </nav>
-
-    <div id="sideMenu">
-        <button class="close-btn" onclick="toggleMenu()">✕</button>
-        <div class="side-content">
-            <h2 style="color:white">Sylex IA</h2>
-            <p>Digital Agence Occitanie</p>
-            <p style="font-size: 0.8rem; color: #666;">Expertise en IA conversationnelle et automatisation pour l'immobilier.</p>
-        </div>
-    </div>
 
     <div id="notif" onclick="this.classList.remove('show')">
         <img src="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg" alt="Logo">
-        <div class="notif-txt">
+        <div>
             <b style="font-size:0.85rem; display:block">Sylex IA</b>
             <span style="font-size:0.8rem; color:#aaa">"Bonjour ! Une question sur l'IA ?"</span>
         </div>
@@ -182,29 +153,18 @@
             </div>
 
             <div class="iphone-wrapper">
+                <div class="iphone-glow"></div>
                 <div class="iphone-device">
                     <div class="dynamic-island"></div>
-                    <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
+                    <div class="iphone-screen">
+                        <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <button onclick="showQRCode()" style="background:none; border:1px solid #333; color:#555; padding:5px 15px; border-radius:20px; cursor:pointer">Partager le site</button>
-        <p>&copy; 2024 Digital Agence Occitanie</p>
-    </footer>
-
-    <div id="qrCodeModal" onclick="hideQRCode()">
-        <div class="qr-content" onclick="event.stopPropagation()">
-            <h3 style="margin-top:0">Scanner pour visiter</h3>
-            <div id="qrcode"></div>
-        </div>
-    </div>
-
     <script>
-        function toggleMenu() { document.getElementById('sideMenu').classList.toggle('active'); }
-
         window.onload = () => {
             setTimeout(() => {
                 const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
@@ -212,18 +172,6 @@
                 document.getElementById('notif').classList.add('show');
             }, 2500);
         };
-
-        let qrcodeInstance = null;
-        function showQRCode() {
-            document.getElementById('qrCodeModal').classList.add('active');
-            if (!qrcodeInstance) {
-                qrcodeInstance = new QRCode(document.getElementById("qrcode"), {
-                    text: window.location.href,
-                    width: 180, height: 180
-                });
-            }
-        }
-        function hideQRCode() { document.getElementById('qrCodeModal').classList.remove('active'); }
     </script>
 </body>
 </html>
