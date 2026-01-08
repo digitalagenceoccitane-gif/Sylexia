@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SYLEX IA - L'Expérience Élite</title>
-    <link rel="icon" type="image/x-icon" href="https://digitalagenceoccitanie-gif.github.io/Sylexia/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://digitalagenceoccitane-gif.github.io/Sylexia/favicon.ico">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #000000; /* Fond noir profond */
-            color: #E0E0E0; /* Texte gris clair */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #E0E0E0;
             margin: 0;
             padding: 0;
             display: flex;
@@ -19,274 +19,205 @@
         }
         header {
             text-align: center;
-            padding: 50px 20px;
-            max-width: 800px;
-            color: #FFFFFF; /* Texte blanc pur pour le header */
+            padding: 80px 20px 50px 20px;
+            max-width: 900px;
+        }
+        /* Style du Logo */
+        .logo-container {
+            margin-bottom: 30px;
+        }
+        .logo-sylex {
+            width: 120px; /* Ajuste la taille selon tes besoins */
+            height: auto;
+            filter: drop-shadow(0 0 15px rgba(0, 198, 255, 0.4)); /* Lueur bleue */
         }
         header h1 {
-            font-size: 3.5em; /* Grande taille pour le titre principal */
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #00C6FF, #0072FF); /* Dégradé bleu */
+            font-size: 3.8em;
+            margin: 20px 0;
+            background: linear-gradient(180deg, #FFFFFF 0%, #A0A0A0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: bold;
+            font-weight: 700;
+            letter-spacing: -1px;
         }
         header p {
-            font-size: 1.2em;
-            color: #B0B0B0;
+            font-size: 1.3em;
+            color: #888888;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
         }
         .buttons-container {
-            margin-top: 30px;
+            margin-top: 40px;
             display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
+            gap: 15px;
             justify-content: center;
         }
         .btn {
-            background-color: #007BFF; /* Bouton bleu standard */
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            padding: 14px 28px;
+            border-radius: 30px;
             font-size: 1em;
+            font-weight: 600;
             text-decoration: none;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
         }
-        .btn:hover {
-            background-color: #0056b3;
+        .btn-primary {
+            background-color: #FFFFFF;
+            color: #000000;
+        }
+        .btn-primary:hover {
+            background-color: #E0E0E0;
+            transform: scale(1.05);
+        }
+        .btn-secondary {
+            background-color: #1a1a1a;
+            color: #FFFFFF;
+            border: 1px solid #333333;
+        }
+        .btn-secondary:hover {
+            background-color: #252525;
         }
         .section {
             width: 100%;
-            max-width: 900px;
-            padding: 40px 20px;
+            max-width: 1000px;
+            padding: 60px 20px;
             text-align: center;
-            box-sizing: border-box;
         }
         .section h2 {
-            font-size: 2em;
-            margin-bottom: 30px;
-            color: #00C6FF; /* Titres de section en bleu */
+            font-size: 2.2em;
+            margin-bottom: 40px;
+            font-weight: 600;
         }
         .icons-container {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
+            gap: 25px;
             flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 40px;
         }
         .icon-item {
-            flex-basis: calc(33% - 60px); /* 3 éléments par ligne avec gap */
-            min-width: 250px;
-            background: #1a1a1a; /* Fond légèrement plus clair pour les cartes */
-            border: 1px solid #333333;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 4px 8px rgba(0, 198, 255, 0.1); /* Ombre avec teinte bleue */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            flex: 1;
+            min-width: 280px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 35px;
+            transition: border 0.3s ease;
         }
         .icon-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 198, 255, 0.2);
+            border-color: #00C6FF;
         }
         .icon-item img {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 5px rgba(0, 198, 255, 0.5)); /* Lumière bleue sur icônes */
+            width: 50px;
+            margin-bottom: 20px;
         }
         .icon-item h3 {
-            font-size: 1.4em;
-            color: #00C6FF;
-            margin-bottom: 10px;
+            color: #FFFFFF;
+            font-size: 1.5em;
+            margin-bottom: 15px;
         }
         .icon-item p {
-            font-size: 0.95em;
+            color: #888888;
             line-height: 1.6;
-            color: #B0B0B0;
         }
         .cases-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0 10px;
             margin-top: 30px;
-            background: #1a1a1a;
-            border-radius: 10px;
-            overflow: hidden; /* Pour les coins arrondis */
-        }
-        .cases-table th, .cases-table td {
-            border: 1px solid #333333;
-            padding: 15px;
-            text-align: left;
-            color: #E0E0E0;
         }
         .cases-table th {
-            background-color: #0056b3; /* En-tête de tableau bleu foncé */
-            color: white;
-            font-weight: bold;
+            color: #555555;
             text-transform: uppercase;
-            font-size: 0.9em;
+            font-size: 0.8em;
+            padding: 10px 20px;
+            text-align: left;
         }
-        .cases-table tr:nth-child(even) {
-            background-color: #111111; /* Lignes paires légèrement plus sombres */
+        .cases-table td {
+            background: #0a0a0a;
+            padding: 20px;
+            border-top: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;
         }
-        .cases-table td:nth-child(2) {
-            color: #00C6FF; /* Actions en bleu */
-        }
-        .cases-table td:nth-child(3) {
-            font-weight: bold;
-            color: #00FF99; /* Gains en vert flashy */
+        .cases-table td:first-child { border-left: 1px solid #1a1a1a; border-radius: 12px 0 0 12px; }
+        .cases-table td:last-child { border-right: 1px solid #1a1a1a; border-radius: 0 12px 12px 0; }
+
+        iframe {
+            border: 1px solid #222;
+            width: 100%;
+            height: 700px;
+            max-width: 450px;
+            border-radius: 30px;
+            margin-top: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
         footer {
-            margin-top: 50px;
-            padding: 20px;
-            color: #777777;
-            font-size: 0.8em;
-            text-align: center;
-        }
-
-        /* Styles pour le chatbot */
-        iframe {
-            border: none;
-            width: 100%;
-            height: 600px; /* Ajustez la hauteur si nécessaire */
-            max-width: 400px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 198, 255, 0.3); /* Ombre bleue pour le chatbot */
-            margin-top: 50px;
-            background-color: #000000; /* S'assurer que le fond du iframe est aussi noir */
-        }
-
-        /* Media Queries pour la responsivité */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.5em;
-            }
-            header p {
-                font-size: 1em;
-            }
-            .icon-item {
-                flex-basis: calc(50% - 30px); /* 2 éléments par ligne sur petits écrans */
-            }
-        }
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 1.8em;
-            }
-            .btn {
-                padding: 10px 20px;
-                font-size: 0.9em;
-            }
-            .icon-item {
-                flex-basis: 100%; /* 1 élément par ligne sur très petits écrans */
-            }
-            .cases-table th, .cases-table td {
-                padding: 10px;
-                font-size: 0.8em;
-            }
-            .cases-table thead {
-                display: none; /* Cache l'en-tête du tableau sur mobile */
-            }
-            .cases-table, .cases-table tbody, .cases-table tr, .cases-table td {
-                display: block;
-                width: 100%;
-            }
-            .cases-table tr {
-                margin-bottom: 15px;
-                border: 1px solid #333333;
-                border-radius: 8px;
-            }
-            .cases-table td {
-                text-align: right;
-                padding-left: 50%;
-                position: relative;
-            }
-            .cases-table td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 10px;
-                width: calc(50% - 20px);
-                padding-right: 10px;
-                white-space: nowrap;
-                text-align: left;
-                font-weight: bold;
-                color: #00C6FF;
-            }
+            padding: 60px 20px;
+            color: #444;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>SYLEX. L'IA qui réécrit les règles.</h1>
-        <p>Plus qu'une intelligence. Votre nouveau Directeur des Opérations, disponible 24/7. <br>Conçu pour une croissance sans précédent.</p>
+        <div class="logo-container">
+            <img src="https://digitalagenceoccitanie-gif.github.io/Sylexia/logo.png" alt="SYLEX Logo" class="logo-sylex">
+        </div>
+        <h1>L'intelligence sans compromis.</h1>
+        <p>SYLEX redéfinit la performance opérationnelle. Votre assistant d'élite, disponible à chaque seconde.</p>
         <div class="buttons-container">
-            <a href="#test-sylex" class="btn">Faire l'expérience Sylex</a>
-            <a href="#cas-usages" class="btn">Découvrir les Cas Concrets</a>
+            <a href="#test-sylex" class="btn btn-primary">Lancer l'expérience</a>
+            <a href="#cas-usages" class="btn btn-secondary">Cas d'usage</a>
         </div>
     </header>
 
     <div class="section">
-        <h2>Les trois piliers de l'efficacité SYLEX</h2>
         <div class="icons-container">
             <div class="icon-item">
-                <img src="https://img.icons8.com/ios-filled/100/00C6FF/hourglass-not-fully-empty.png" alt="Gagner du temps"> <h3>Libérez Votre Temps</h3>
-                <p>SYLEX gère l'opérationnel. Fini les tâches répétitives, les appels incessants ou la prospection chronophage. Concentrez-vous sur l'essentiel, SYLEX s'occupe du reste.</p>
+                <img src="https://img.icons8.com/ios-filled/100/ffffff/time.png" alt="Temps">
+                <h3>Vitesse absolue</h3>
+                <p>Automatisez vos agendas et vos relances. Libérez 15h par semaine immédiatement.</p>
             </div>
             <div class="icon-item">
-                <img src="https://img.icons8.com/ios-filled/100/00FF99/increase-profits.png" alt="Gagner de l'argent"> <h3>Multipliez Vos Revenus</h3>
-                <p>De l'upselling intelligent sur vos commandes aux relances automatiques d'acomptes, SYLEX est un moteur de croissance. Chaque interaction devient une opportunité de chiffre d'affaires.</p>
-            </div>
-            <div class="icon-item">
-                <img src="https://img.icons8.com/ios-filled/100/0072FF/self-driving-car.png" alt="Déléguer l'effort"> <h3>Déléguez l'Effort</h3>
-                <p>Confiez vos agendas, vos réseaux sociaux et la qualification de vos prospects à une IA. SYLEX travaille sans relâche, avec une précision et une vitesse impossibles à atteindre manuellement.</p>
+                <img src="https://img.icons8.com/ios-filled/100/ffffff/diamond.png" alt="Argent">
+                <h3>Rentabilité pure</h3>
+                <p>Capturez chaque prospect. Encaissez vos acomptes en automatique 24h/24.</p>
             </div>
         </div>
     </div>
 
     <div class="section" id="cas-usages">
-        <h2>SYLEX : Conçu pour votre succès</h2>
-        <p>Découvrez comment SYLEX s'adapte à votre secteur pour des résultats immédiats.</p>
+        <h2>Ingénierie de précision</h2>
         <table class="cases-table">
             <thead>
                 <tr>
-                    <th>Votre profil</th>
-                    <th>SYLEX optimise :</th>
-                    <th>Vos bénéfices :</th>
+                    <th>Secteur</th>
+                    <th>Optimisation</th>
+                    <th>Impact</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td data-label="Votre profil">Prestataire de Services (Artisan, Consultant)</td>
-                    <td data-label="SYLEX optimise :">Qualification de leads, prise de RDV, encaissement d'acomptes.</td>
-                    <td data-label="Vos bénéfices :">Zéro RDV manqué. Sécurisation des revenus.</td>
+                    <td>**Prestation de services**</td>
+                    <td>Qualification & RDV</td>
+                    <td>**ROI immédiat**</td>
                 </tr>
                 <tr>
-                    <td data-label="Votre profil">Commerce / Restaurant</td>
-                    <td data-label="SYLEX optimise :">Système de commande en ligne, upselling automatique, gestion des stocks simplifiée.</td>
-                    <td data-label="Vos bénéfices :">Panier moyen +25%. Fidélisation client accrue.</td>
-                </tr>
-                <tr>
-                    <td data-label="Votre profil">Agence / Cabinet de conseil</td>
-                    <td data-label="SYLEX optimise :">Prospection ciblée (LinkedIn), gestion de la relation client (CRM), génération de leads qualifiés.</td>
-                    <td data-label="Vos bénéfices :">Flux constant de nouveaux prospects. Temps commercial optimisé.</td>
-                </tr>
-                <tr>
-                    <td data-label="Votre profil">Entrepreneur / Solo-preneur</td>
-                    <td data-label="SYLEX optimise :">Automatisation des tâches administratives, gestion de planning complexe, communication multicanal.</td>
-                    <td data-label="Vos bénéfices :">Liberté de focus. Croissance scalable sans équipe additionnelle.</td>
+                    <td>**Commerce & Restauration**</td>
+                    <td>Vente additionnelle IA</td>
+                    <td>**+25% Panier moyen**</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <div class="section" id="test-sylex">
-        <h2>Faites l'expérience SYLEX</h2>
-        <p>Découvrez par vous-même la puissance de l'IA.</p>
+    <div class="section" id="test-sylex" style="background: radial-gradient(circle at center, #001a33 0%, #000000 70%);">
+        <h2>Interface Sylex</h2>
         <iframe src="https://cloud.dify.ai/app/2d08892c-ff1a-4c2f-b413-56839ea73043/chatbot"></iframe>
     </div>
 
     <footer>
-        <p>&copy; 2024 Digital Agence Occitanie. Tous droits réservés.</p>
+        &copy; 2024 Digital Agence Occitanie.
     </footer>
 
 </body>
