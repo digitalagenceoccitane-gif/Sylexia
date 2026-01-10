@@ -57,7 +57,6 @@
         .lock-time { font-size: clamp(40px, 10vw, 48px); font-weight: 200; color: #fff; margin-top: 10px; }
         .lock-date { font-size: 14px; color: #fff; opacity: 0.8; }
         
-        /* NOUVEAUX STYLES ANIMATIONS & NOTIFS */
         .lock-logo-container { margin-top: 20px; perspective: 1000px; }
         .lock-logo-spinning { 
             width: 60px; height: 60px; 
@@ -142,8 +141,7 @@
                             </div>
                         </div>
 
-                        <div class="notif-area" id="notif-area">
-                            </div>
+                        <div class="notif-area" id="notif-area"></div>
 
                         <div class="slider-container" id="slider-track">
                             <div class="slider-text">GLISSER POUR OUVRIR</div>
@@ -187,31 +185,38 @@
         }
         setInterval(updateClock, 1000); updateClock();
 
-        // NOTIFICATIONS DYNAMIQUES
-        const notifData = [
-            { t: "STRIPE : PAIEMENT REÇU ✅", m: "Félicitations, +1 450,00 € encaissés." },
-            { t: "SYLEX IA 🤖", m: "32 leads qualifiés extraits cette nuit." },
-            { t: "CALENDLY 🗓️", m: "Nouvel audit ROI réservé à 14h00." }
+        // NOTIFICATIONS DYNAMIQUES LIVE (BOUCLE 5-10S)
+        const notifTemplates = [
+            { t: "STRIPE : PAIEMENT REÇU ✅", m: "Félicitations, +{amount} € encaissés." },
+            { t: "SYLEX IA 🤖", m: "{leads} nouveaux leads extraits cette nuit." },
+            { t: "CALENDLY 🗓️", m: "Nouvel audit ROI programmé : Audit." },
+            { t: "SYLEX IA ⚡", m: "Automatisation finie : {time}h économisées." }
         ];
 
-        function spawnNotifs() {
+        function createNotifElement(title, message) {
             const container = document.getElementById('notif-area');
-            notifData.forEach((n, i) => {
-                setTimeout(() => {
-                    const div = document.createElement('div');
-                    div.className = 'notif';
-                    div.innerHTML = `
-                        <div class="notif-icon">S</div>
-                        <div class="notif-content">
-                            <div class="notif-title">${n.t}</div>
-                            <div class="notif-text">${n.m}</div>
-                        </div>
-                    `;
-                    container.appendChild(div);
-                }, (i + 1) * 1200);
-            });
+            const div = document.createElement('div');
+            div.className = 'notif';
+            div.innerHTML = `
+                <div class="notif-icon">S</div>
+                <div class="notif-content">
+                    <div class="notif-title">${title}</div>
+                    <div class="notif-text">${message}</div>
+                </div>
+            `;
+            if (container.children.length >= 4) { container.removeChild(container.firstChild); }
+            container.appendChild(div);
         }
-        window.addEventListener('load', spawnNotifs);
+
+        function generateLiveNotif() {
+            const template = notifTemplates[Math.floor(Math.random() * notifTemplates.length)];
+            let message = template.m
+                .replace('{amount}', (Math.floor(Math.random() * 150) * 10 + 450))
+                .replace('{leads}', Math.floor(Math.random() * 20) + 5)
+                .replace('{time}', (Math.random() * 3 + 1).toFixed(1));
+            createNotifElement(template.t, message);
+            setTimeout(generateLiveNotif, Math.floor(Math.random() * 5000) + 5000);
+        }
 
         // SLIDER UNLOCK
         const handle = document.getElementById('slider-handle');
@@ -267,7 +272,15 @@
             }
             document.getElementById('res').innerText = Math.round(total).toLocaleString() + " €";
         }
-        window.onload = calc;
+        
+        window.onload = () => {
+            calc();
+            // Lancement notifications initiales puis boucle live
+            setTimeout(() => createNotifElement("STRIPE : PAIEMENT REÇU ✅", "Félicitations, +1 450,00 € encaissés."), 800);
+            setTimeout(() => createNotifElement("SYLEX IA 🤖", "32 leads qualifiés extraits cette nuit."), 1800);
+            setTimeout(() => createNotifElement("CALENDLY 🗓️", "Nouvel audit ROI réservé à 14h00."), 2800);
+            setTimeout(generateLiveNotif, 5000);
+        };
     </script>
 </body>
 </html>
