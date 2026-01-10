@@ -31,50 +31,52 @@
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; min-height: 100dvh; transition: background 0.5s ease; }
         .aura { position: fixed; inset: 0; background: radial-gradient(circle at center, rgba(0, 102, 255, 0.12) 0%, rgba(0, 0, 0, 0) 75%); z-index: 1; pointer-events: none; }
-        
         #confetti-canvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
 
         .nav-header { position: relative; width: 100%; padding: clamp(40px, 8dvh, 80px) 20px 20px; z-index: 1000; text-align: center; }
         .logo-text { font-size: clamp(3rem, 12vw, 8rem); font-weight: 900; letter-spacing: -4px; line-height: 0.8; background: linear-gradient(to right, #fff, var(--sylex-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; display: inline-block; }
         .confidential-tag { color: var(--accent); font-family: 'JetBrains Mono'; font-weight: bold; border: 2px solid var(--accent); display: inline-block; padding: 5px 15px; transform: rotate(-3deg); margin-top: 15px; font-size: 0.8rem; letter-spacing: 2px; }
 
-        .hero { position: relative; z-index: 10; padding: 0 5% 60px; }
-        .container { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 1200px; margin: 0 auto; gap: 40px; flex-wrap: wrap; }
-        
-        .iphone-frame { width: 100%; max-width: 360px; aspect-ratio: 9 / 18.5; background: #080808; border-radius: 55px; border: 3px solid #1a1a1a; position: relative; box-shadow: 0 40px 80px rgba(0,0,0,0.9); overflow: hidden; transform: translateZ(0); }
+        /* IPHONE & LOCKSCREEN */
+        .iphone-frame { width: 100%; max-width: 360px; aspect-ratio: 9 / 18.5; background: #080808; border-radius: 55px; border: 3px solid #1a1a1a; position: relative; box-shadow: 0 40px 80px rgba(0,0,0,0.9); margin: 0 auto; overflow: hidden; transform: translateZ(0); }
         .iphone-screen { position: absolute; inset: 12px; background: #000; border-radius: 42px; overflow: hidden; }
-        
         #lock-screen { position: absolute; inset: 0; background: #000; z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 40px 20px; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
         .lock-logo-spinning { width: 60px; height: 60px; background: linear-gradient(135deg, var(--sylex-blue), var(--sylex-cyan)); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.5rem; color: #fff; animation: rotateLogo 6s linear infinite; }
         @keyframes rotateLogo { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
 
-        .notif-area { width: 100%; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+        .notif-area { width: 100%; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; min-height: 240px; }
         .notif { background: rgba(35, 35, 35, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; animation: slideInNotif 0.4s ease-out forwards; }
-        
-        .slider-container { width: 80%; height: 50px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
-        .handle { position: absolute; left: 5px; width: 40px; height: 40px; background: #fff; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .notif-icon { width: 28px; height: 28px; background: var(--sylex-blue); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; flex-shrink: 0; }
+        @keyframes slideInNotif { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* UNLOCK SLIDER */
+        .slider-container { width: 80%; height: 50px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .slider-text { font-size: 9px; font-weight: 800; letter-spacing: 1px; color: #fff; opacity: 0.5; animation: blink 2s infinite; text-transform: uppercase; }
+        .handle { position: absolute; left: 5px; width: 40px; height: 40px; background: #fff; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 210; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        .handle::after { content: '>'; color: #000; font-weight: 900; }
+        @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+
+        /* CALCULATEUR */
         .section { position: relative; z-index: 10; padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
         .sim-container { max-width: 700px; margin: 0 auto; padding: 40px; background: var(--card-bg); border: 1px solid rgba(128,128,128,0.2); border-radius: 40px; text-align: center; }
-        .res-amount { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; color: var(--sylex-cyan); margin: 15px 0; font-family: 'JetBrains Mono'; letter-spacing: -2px; transition: 0.3s; }
+        .res-amount { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; color: var(--sylex-cyan); margin: 15px 0; font-family: 'JetBrains Mono'; letter-spacing: -2px; }
         
+        .sim-label { text-align: left; font-weight: bold; margin-top: 25px; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono'; font-size: 0.85rem; }
         .input-manual { background: rgba(128,128,128,0.1); border: 1px solid var(--sylex-blue); border-radius: 8px; color: var(--sylex-cyan); font-family: 'JetBrains Mono'; font-size: 1rem; width: 85px; text-align: right; padding: 6px 12px; outline: none; }
 
         input[type=range] { width: 100%; margin: 15px 0; accent-color: var(--sylex-blue); cursor: pointer; height: 32px; appearance: none; background: transparent; touch-action: none; }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; background: rgba(128,128,128,0.2); border-radius: 10px; }
         input[type=range]::-webkit-slider-thumb { appearance: none; height: 28px; width: 28px; border-radius: 50%; background: var(--sylex-blue); border: 3px solid #fff; margin-top: -10px; }
 
-        /* LEAD CAPTURE SYSTEM */
+        /* LEAD BOX */
         .lead-box { margin-top: 30px; padding: 25px; background: rgba(0, 102, 255, 0.05); border: 1px dashed var(--sylex-blue); border-radius: 24px; animation: fadeIn 0.5s ease; }
         .email-input-group { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
-        .email-field { flex: 2; min-width: 200px; padding: 15px 20px; border-radius: 100px; border: 1px solid rgba(128,128,128,0.3); background: var(--bg); color: var(--text); outline: none; font-size: 0.9rem; }
-        .email-submit { flex: 1; min-width: 150px; padding: 15px; border-radius: 100px; border: none; background: var(--sylex-blue); color: #fff; font-weight: 800; cursor: pointer; transition: 0.3s; }
-        .email-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 102, 255, 0.4); }
+        .email-field { flex: 2; min-width: 200px; padding: 15px 20px; border-radius: 100px; border: 1px solid rgba(128,128,128,0.3); background: var(--bg); color: var(--text); outline: none; }
+        .email-submit { flex: 1; min-width: 150px; padding: 15px; border-radius: 100px; border: none; background: var(--sylex-blue); color: #fff; font-weight: 800; cursor: pointer; }
 
         .btn-main { background: var(--text); color: var(--bg); padding: 18px 40px; border-radius: 100px; font-weight: 900; text-decoration: none; display: inline-block; transition: 0.3s; border: none; cursor: pointer; margin-top: 20px; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 900px) { .iphone-frame { max-width: 80dvw; margin: 0 auto; } }
     </style>
 </head>
 <body>
@@ -87,8 +89,8 @@
     </header>
     
     <section class="hero">
-        <div class="container">
-            <div class="text-side">
+        <div class="container" style="display:flex; flex-wrap:wrap; justify-content:center; gap:40px;">
+            <div class="text-side" style="flex:1; min-width:300px; text-align:left;">
                 <h1 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px;">Protocole <br><span style="color:var(--sylex-blue)">Extraction ROI.</span></h1>
                 <p style="font-size: 1rem; opacity: 0.7; margin-bottom: 30px; font-family: 'JetBrains Mono'; line-height: 1.6;">> Statut : Opérationnel<br>> Localisation : Occitanie<br>> Unité : V3.0 Secure</p>
                 <a href="#simulator" class="btn-main">ACCÉDER AUX CALCULS</a>
@@ -98,12 +100,13 @@
                 <div class="iphone-screen">
                     <div id="lock-screen">
                         <div style="text-align: center; width: 100%;">
-                            <div style="font-size: 40px; font-weight: 200; color: #fff;" id="lock-time">00:00</div>
+                            <div style="font-size: 44px; font-weight: 200; color: #fff; margin-top:10px;" id="lock-time">00:00</div>
                             <div style="font-size: 14px; color: #fff; opacity: 0.8;" id="lock-date">...</div>
                             <div class="lock-logo-spinning" style="margin: 20px auto;">S</div>
                         </div>
                         <div class="notif-area" id="notif-area"></div>
                         <div class="slider-container" id="slider-track">
+                            <div class="slider-text">GLISSER POUR OUVRIR</div>
                             <div class="handle" id="slider-handle"></div>
                         </div>
                     </div>
@@ -117,8 +120,8 @@
         <div class="sim-container">
             <h2 style="font-size: 1.2rem; margin-bottom: 20px; font-family: 'JetBrains Mono';">[ CALCULATEUR_ROI ]</h2>
             <div style="display: flex; background: rgba(128,128,128,0.1); border-radius: 100px; padding: 5px; margin-bottom: 30px;">
-                <button id="btn-team" class="switch-btn active" onclick="setMode('team')" style="flex:1; padding:12px; border-radius:100px; border:none; cursor:pointer; font-weight:800; font-size:0.75rem;">Équipe</button>
-                <button id="btn-solo" class="switch-btn" onclick="setMode('solo')" style="flex:1; padding:12px; border-radius:100px; border:none; cursor:pointer; font-weight:800; font-size:0.75rem;">Solo</button>
+                <button id="btn-team" class="switch-btn active" onclick="setMode('team')" style="flex:1; padding:12px; border-radius:100px; border:none; cursor:pointer; font-weight:800; background:var(--sylex-blue); color:#fff;">Équipe</button>
+                <button id="btn-solo" class="switch-btn" onclick="setMode('solo')" style="flex:1; padding:12px; border-radius:100px; border:none; cursor:pointer; font-weight:800; background:transparent; color:#666;">Solo</button>
             </div>
             
             <div class="sim-label">Gain de temps / jour : <span><input type="number" id="num-t" class="input-manual" value="2" step="0.5" oninput="syncRange('t', this.value)"> h</span></div>
@@ -139,12 +142,12 @@
                     <button class="email-submit" id="btn-submit-lead" onclick="submitLead()">RECEVOIR</button>
                 </div>
             </div>
-
             <button class="btn-main" style="width:100%; background:var(--sylex-blue); color:#fff; margin-top:20px;" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});">RÉSERVER MON AUDIT LIVE</button>
         </div>
     </section>
 
     <script>
+        // HORLOGE
         function updateClock() {
             const now = new Date();
             document.getElementById('lock-time').innerText = now.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'});
@@ -152,39 +155,59 @@
         }
         setInterval(updateClock, 1000); updateClock();
 
-        // UNLOCK
+        // NOTIFICATIONS DYNAMIQUES
+        const notifData = [
+            { t: "STRIPE", m: "Paiement reçu : +1 420 €" },
+            { t: "SYLEX IA", m: "84 leads extraits avec succès." },
+            { t: "CALENDLY", m: "Nouveau RDV stratégique demain." },
+            { t: "SYLEX IA", m: "Optimisation ROI terminée : +12%" }
+        ];
+
+        function pushNotif() {
+            const area = document.getElementById('notif-area');
+            const data = notifData[Math.floor(Math.random()*notifData.length)];
+            const d = document.createElement('div');
+            d.className = 'notif';
+            d.innerHTML = `<div class="notif-icon">S</div><div><div style="font-size:10px;font-weight:800;color:#fff">${data.t}</div><div style="font-size:9px;color:rgba(255,255,255,0.7)">${data.m}</div></div>`;
+            if (area.children.length >= 4) area.removeChild(area.firstChild);
+            area.appendChild(d);
+            setTimeout(pushNotif, Math.floor(Math.random()*4000)+3000);
+        }
+
+        // UNLOCK FLUIDE
         const handle = document.getElementById('slider-handle');
         const track = document.getElementById('slider-track');
         let isDragging = false;
-        handle.onmousedown = handle.ontouchstart = () => isDragging = true;
+        handle.onmousedown = handle.ontouchstart = (e) => { isDragging = true; e.preventDefault(); };
         document.onmousemove = document.ontouchmove = (e) => {
             if(!isDragging) return;
             let cx = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
             let r = track.getBoundingClientRect();
             let x = cx - r.left - 20;
-            if(x < 5) x = 5; if(x > r.width - 45) { x = r.width - 45; document.getElementById('lock-screen').style.transform = 'translateY(-105%)'; }
+            if(x < 5) x = 5; 
+            if(x > r.width - 45) { 
+                x = r.width - 45; 
+                document.getElementById('lock-screen').style.transform = 'translateY(-105%)';
+                isDragging = false;
+            }
             handle.style.left = x + 'px';
         };
-        document.onmouseup = document.ontouchend = () => { isDragging = false; if(parseInt(handle.style.left) < 160) handle.style.left = '5px'; };
+        document.onmouseup = document.ontouchend = () => { 
+            isDragging = false; 
+            if(parseInt(handle.style.left) < 160) handle.style.left = '5px'; 
+        };
 
-        // CONFETTI
-        let confettiActive = false;
-        const canvas = document.getElementById('confetti-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
+        // CALCULATEUR
         function syncNum(id, v) { document.getElementById(id).value = v; calc(); }
         function syncRange(id, v) { const el = document.getElementById(id); if(v > parseFloat(el.max)) el.max = v; el.value = v; calc(); }
 
         let mode = 'team';
         function setMode(m) {
             mode = m;
-            document.getElementById('btn-team').classList.add('active');
-            document.getElementById('btn-solo').classList.remove('active');
-            if(m === 'solo') {
-                document.getElementById('btn-solo').classList.add('active');
-                document.getElementById('btn-team').classList.remove('active');
-            }
+            document.getElementById('btn-team').style.background = m === 'team' ? 'var(--sylex-blue)' : 'transparent';
+            document.getElementById('btn-team').style.color = m === 'team' ? '#fff' : '#666';
+            document.getElementById('btn-solo').style.background = m === 'solo' ? 'var(--sylex-blue)' : 'transparent';
+            document.getElementById('btn-solo').style.color = m === 'solo' ? '#fff' : '#666';
             document.getElementById('lbl-hybrid').innerText = m === 'team' ? "Effectif" : "Frais prestataires / mois";
             document.getElementById('unit-h').innerText = m === 'team' ? "pers." : "€";
             calc();
@@ -195,57 +218,32 @@
             const p = parseFloat(document.getElementById('num-p').value) || 0;
             const h = parseFloat(document.getElementById('num-h').value) || 0;
             let total = mode === 'team' ? (t * 220 * p * h) : (t * 220 * p) + (h * 12);
+            document.getElementById('res').innerText = Math.round(total).toLocaleString('fr-FR') + " €";
             
-            const resEl = document.getElementById('res');
-            const leadText = document.getElementById('lead-text');
-            const btnSubmit = document.getElementById('btn-submit-lead');
-            resEl.innerText = Math.round(total).toLocaleString('fr-FR') + " €";
-
-            // LOGIQUE ADAPTATIVE DU BOUTON
-            if(total < 50000) {
-                leadText.innerText = "[ PROFIL : OPTIMISATION ] Recevoir mon plan d'action TPE/Solo";
-                btnSubmit.innerText = "RECEVOIR LE PLAN";
-                confettiActive = false;
-            } else if (total < 150000) {
-                leadText.innerText = "[ PROFIL : CROISSANCE ] Recevoir mon audit d'automatisation";
-                btnSubmit.innerText = "RECEVOIR L'AUDIT";
-                confettiActive = false;
-            } else {
-                leadText.innerText = "[ PROFIL : SCALE ] Recevoir mon protocole d'extraction ROI";
-                btnSubmit.innerText = "RECEVOIR LE PROTOCOLE";
-                if(!confettiActive) { confettiActive = true; startConfetti(); }
-            }
+            const lt = document.getElementById('lead-text');
+            const bs = document.getElementById('btn-submit-lead');
+            if(total < 50000) { lt.innerText = "[ TPE ] Recevoir mon plan d'action"; bs.innerText = "RECEVOIR"; }
+            else if(total < 150000) { lt.innerText = "[ CROISSANCE ] Recevoir l'audit"; bs.innerText = "RECEVOIR"; }
+            else { lt.innerText = "[ SCALE ] Recevoir le protocole ROI"; bs.innerText = "RECEVOIR"; if(!confettiActive) startConfetti(); }
         }
 
-        function submitLead() {
-            const email = document.getElementById('client-email').value;
-            if(email.includes('@')) {
-                alert("Protocole activé. Vous allez recevoir votre document Sylex IA.");
-            } else {
-                alert("Veuillez entrer un email valide pour recevoir l'extraction.");
-            }
-        }
-
-        function startConfetti() {
-            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            particles = [];
-            for(let i=0; i<50; i++) particles.push({x: Math.random()*canvas.width, y: canvas.height+10, size: Math.random()*5+5, color: '#0066ff', vel: Math.random()*8+4});
-            animate();
-        }
-
+        // CONFETTI
+        let confettiActive = false;
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function startConfetti() { confettiActive = true; canvas.width = window.innerWidth; canvas.height = window.innerHeight; animate(); }
         function animate() {
             if(!confettiActive && particles.length === 0) return;
             ctx.clearRect(0,0,canvas.width,canvas.height);
-            particles.forEach((p, i) => {
-                p.y -= p.vel; p.x += Math.sin(p.y/20);
-                ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, p.size, p.size);
-                if(p.y < -10) particles.splice(i, 1);
-            });
-            if(confettiActive && particles.length < 50) particles.push({x: Math.random()*canvas.width, y: canvas.height+10, size: Math.random()*5+5, color: '#00d9ff', vel: Math.random()*5+2});
+            if(confettiActive && particles.length < 40) particles.push({x: Math.random()*canvas.width, y: canvas.height+10, size: Math.random()*5+5, color: '#0066ff', vel: Math.random()*5+2});
+            particles.forEach((p, i) => { p.y -= p.vel; ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, p.size, p.size); if(p.y < -10) particles.splice(i,1); });
             requestAnimationFrame(animate);
         }
 
-        window.onload = () => calc();
+        function submitLead() { alert("Transmission en cours..."); }
+
+        window.onload = () => { calc(); pushNotif(); };
     </script>
 </body>
 </html>
