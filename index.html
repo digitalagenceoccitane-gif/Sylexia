@@ -190,10 +190,10 @@
                 roi_valeur: resultROI
             };
 
-            // Utilisation de 'Sylex' avec MAJUSCULE pour correspondre à ton service
+            // LE CORRECTIONS DU SERVICE ID : "Service id sylex"
             Promise.all([
-                emailjs.send('Sylex', 'template_ycveqh2', templateParams),
-                emailjs.send('Sylex', 'template_2q6k9bf', templateParams)
+                emailjs.send('Service id sylex', 'template_ycveqh2', templateParams),
+                emailjs.send('Service id sylex', 'template_2q6k9bf', templateParams)
             ])
             .then(function() {
                 alert("✅ Protocole transmis ! Vérifiez votre boîte mail.");
