@@ -190,22 +190,23 @@
                 roi_valeur: resultROI
             };
 
-            // 1. Envoi vers TA boite (Notification Lead)
-            emailjs.send('sylex', 'template_ycveqh2', templateParams);
-
-            // 2. Envoi vers le CLIENT (Son Protocole Auto)
-            emailjs.send('sylex', 'template_2q6k9bf', templateParams)
-                .then(function() {
-                    alert("✅ Protocole transmis ! Vérifiez votre boîte mail.");
-                    emailField.value = "";
-                    btn.innerText = "REÇU";
-                    btn.style.background = "#28a745";
-                }, function(error) {
-                    console.error('EmailJS Error:', error);
-                    alert("❌ Erreur d'envoi. Veuillez réessayer.");
-                    btn.innerText = "RECEVOIR";
-                    btn.disabled = false;
-                });
+            // Utilisation de 'Sylex' avec MAJUSCULE pour correspondre à ton service
+            Promise.all([
+                emailjs.send('Sylex', 'template_ycveqh2', templateParams),
+                emailjs.send('Sylex', 'template_2q6k9bf', templateParams)
+            ])
+            .then(function() {
+                alert("✅ Protocole transmis ! Vérifiez votre boîte mail.");
+                emailField.value = "";
+                btn.innerText = "REÇU";
+                btn.style.background = "#28a745";
+            })
+            .catch(function(error) {
+                console.error('EmailJS Error:', error);
+                alert("❌ Erreur de transmission. Vérifiez vos identifiants.");
+                btn.innerText = "RECEVOIR";
+                btn.disabled = false;
+            });
         }
 
         // --- CORE SYSTEM ---
