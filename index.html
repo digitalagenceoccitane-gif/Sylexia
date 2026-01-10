@@ -27,31 +27,17 @@
         }
 
         @media (prefers-color-scheme: light) {
-            :root {
-                --bg: #f5f5f7;
-                --card-bg: #ffffff;
-                --text: #000;
-            }
+            :root { --bg: #f5f5f7; --card-bg: #ffffff; --text: #000; }
             .logo-text { background: linear-gradient(to right, #000, var(--sylex-blue)) !important; -webkit-background-clip: text !important; }
             .notif { background: rgba(0, 0, 0, 0.05) !important; border: 1px solid rgba(0, 0, 0, 0.1) !important; }
-            .notif-title, .notif-text { color: #000 !important; }
             .iphone-frame { background: #e2e2e7; border-color: #d1d1d6; }
             .input-manual { background: rgba(0,0,0,0.05) !important; color: var(--sylex-blue) !important; }
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; 
-            overflow-x: hidden; min-height: 100dvh; transition: background 0.5s ease;
-        }
-        
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; min-height: 100dvh; transition: background 0.5s ease; }
         .aura { position: fixed; inset: 0; background: radial-gradient(circle at center, rgba(0, 102, 255, 0.12) 0%, rgba(0, 0, 0, 0) 75%); z-index: 1; pointer-events: none; }
-        
-        #confetti-canvas {
-            position: fixed; inset: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 1000;
-        }
+        #confetti-canvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
 
         .nav-header { position: relative; width: 100%; padding: clamp(40px, 8dvh, 80px) 20px 20px; z-index: 1000; text-align: center; }
         .logo-text { font-size: clamp(3rem, 12vw, 8rem); font-weight: 900; letter-spacing: -4px; line-height: 0.8; background: linear-gradient(to right, #fff, var(--sylex-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; display: inline-block; }
@@ -59,84 +45,57 @@
 
         .hero { position: relative; z-index: 10; padding: 0 5% 60px; }
         .container { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 1200px; margin: 0 auto; gap: 40px; flex-wrap: wrap; }
-        
-        .text-side { flex: 1; min-width: 300px; text-align: left; }
+        .text-side { flex: 1; min-width: 300px; }
         .text-side h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
         .text-side p { font-size: 1rem; opacity: 0.7; margin-bottom: 30px; font-family: 'JetBrains Mono'; line-height: 1.6; }
 
-        /* IPHONE FRAME SYSTEM */
-        .iphone-frame { 
-            width: 100%; max-width: 360px; aspect-ratio: 9 / 18.5; 
-            background: #080808; border-radius: 55px; border: 3px solid #1a1a1a; 
-            position: relative; box-shadow: 0 40px 80px rgba(0,0,0,0.9); flex-shrink: 0; z-index: 10; overflow: hidden;
-            transform: translateZ(0);
-        }
+        /* IPHONE FRAME */
+        .iphone-frame { width: 100%; max-width: 360px; aspect-ratio: 9 / 18.5; background: #080808; border-radius: 55px; border: 3px solid #1a1a1a; position: relative; box-shadow: 0 40px 80px rgba(0,0,0,0.9); overflow: hidden; transform: translateZ(0); }
         .iphone-screen { position: absolute; inset: 12px; background: #000; border-radius: 42px; overflow: hidden; }
         
-        #lock-screen {
-            position: absolute; inset: 0; background: #000; z-index: 200; 
-            display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 40px 20px;
-            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-        }
+        #lock-screen { position: absolute; inset: 0; background: #000; z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 40px 20px; transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1); }
         .lock-time { font-size: 48px; font-weight: 200; color: #fff; margin-top: 10px; }
-        .lock-date { font-size: 14px; color: #fff; opacity: 0.8; }
-        
-        .lock-logo-spinning { 
-            width: 60px; height: 60px; background: linear-gradient(135deg, var(--sylex-blue), var(--sylex-cyan)); 
-            border-radius: 15px; display: flex; align-items: center; justify-content: center;
-            font-weight: 900; font-size: 1.5rem; color: #fff; animation: rotateLogo 6s linear infinite;
-        }
+        .lock-logo-spinning { width: 60px; height: 60px; background: linear-gradient(135deg, var(--sylex-blue), var(--sylex-cyan)); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.5rem; color: #fff; animation: rotateLogo 6s linear infinite; }
         @keyframes rotateLogo { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
 
         .notif-area { width: 100%; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; min-height: 240px; }
-        .notif { 
-            background: rgba(35, 35, 35, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 10px 12px; 
-            display: flex; align-items: center; gap: 10px; min-height: 52px; animation: slideInNotif 0.4s ease-out forwards;
-        }
+        .notif { background: rgba(35, 35, 35, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; min-height: 52px; animation: slideInNotif 0.4s ease-out forwards; }
         .notif-icon { width: 28px; height: 28px; background: var(--sylex-blue); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; }
         @keyframes slideInNotif { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* SLIDER SYSTEM */
-        .slider-container {
-            width: 85%; height: 55px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 100px; position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 25px;
-        }
+        .slider-container { width: 85%; height: 55px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; }
         .slider-text { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: #fff; opacity: 0.5; animation: blink 2s infinite; text-transform: uppercase; pointer-events: none; }
-        .handle {
-            position: absolute; left: 5px; width: 45px; height: 45px; background: #fff;
-            border-radius: 50%; cursor: grab; display: flex; align-items: center; justify-content: center; z-index: 210;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3); touch-action: none;
-        }
-        .handle:active { cursor: grabbing; }
+        .handle { position: absolute; left: 5px; width: 45px; height: 45px; background: #fff; border-radius: 50%; cursor: grab; display: flex; align-items: center; justify-content: center; z-index: 210; box-shadow: 0 4px 10px rgba(0,0,0,0.3); touch-action: none; }
         .handle::after { content: '>'; color: #000; font-weight: 900; font-size: 18px; }
-        @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.7; } }
 
-        /* CALCULATOR */
+        /* CALCULATOR DESIGN */
         .section { position: relative; z-index: 10; padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
-        .sim-container { max-width: 700px; margin: 0 auto; padding: 40px; background: var(--card-bg); border: 1px solid rgba(128,128,128,0.2); border-radius: 40px; text-align: center; }
-        .res-amount { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; color: var(--sylex-cyan); margin: 15px 0; font-family: 'JetBrains Mono'; letter-spacing: -2px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .res-amount.pop { transform: scale(1.05); color: #fff; text-shadow: 0 0 20px var(--sylex-blue); }
+        .sim-container { max-width: 700px; margin: 0 auto; padding: 40px; background: var(--card-bg); border: 1px solid rgba(128,128,128,0.2); border-radius: 40px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .res-amount { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; color: var(--sylex-cyan); margin: 15px 0; font-family: 'JetBrains Mono'; letter-spacing: -2px; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .res-amount.pop { transform: scale(1.05); color: #fff; text-shadow: 0 0 25px var(--sylex-blue); }
         
         .switch-container { display: flex; background: rgba(128,128,128,0.1); border-radius: 100px; padding: 5px; margin-bottom: 30px; }
         .switch-btn { flex: 1; padding: 12px; border-radius: 100px; border: none; cursor: pointer; font-weight: 800; transition: 0.3s; font-size: 0.75rem; color: #666; background: transparent; }
         .switch-btn.active { background: var(--sylex-blue); color: #fff; }
         
         .sim-label { text-align: left; font-weight: bold; margin-top: 25px; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono'; font-size: 0.85rem; }
-        .input-manual { background: rgba(128,128,128,0.1); border: 1px solid var(--sylex-blue); border-radius: 8px; color: var(--sylex-cyan); font-family: 'JetBrains Mono'; font-size: 1rem; width: 85px; text-align: right; padding: 6px 12px; outline: none; }
+        .input-manual { background: rgba(128,128,128,0.1); border: 1px solid var(--sylex-blue); border-radius: 8px; color: var(--sylex-cyan); font-family: 'JetBrains Mono'; font-size: 1rem; width: 85px; text-align: right; padding: 6px 12px; outline: none; transition: 0.2s; }
+        .input-manual:focus { border-color: var(--sylex-cyan); background: rgba(0, 217, 255, 0.05); }
 
         input[type=range] { width: 100%; margin: 15px 0; accent-color: var(--sylex-blue); cursor: pointer; height: 32px; appearance: none; background: transparent; touch-action: none; }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; background: rgba(128,128,128,0.2); border-radius: 10px; }
-        input[type=range]::-webkit-slider-thumb { appearance: none; height: 28px; width: 28px; border-radius: 50%; background: var(--sylex-blue); border: 3px solid #fff; margin-top: -10px; }
+        input[type=range]::-webkit-slider-thumb { appearance: none; height: 28px; width: 28px; border-radius: 50%; background: var(--sylex-blue); border: 3px solid #fff; margin-top: -10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
 
-        /* LEAD BOX */
-        .lead-box { margin-top: 30px; padding: 25px; background: rgba(0, 102, 255, 0.05); border: 1px dashed var(--sylex-blue); border-radius: 24px; animation: fadeIn 0.5s ease; }
+        .lead-box { margin-top: 30px; padding: 25px; background: rgba(0, 102, 255, 0.05); border: 1px dashed var(--sylex-blue); border-radius: 24px; animation: fadeIn 0.5s ease; transition: 0.3s; }
         .email-input-group { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
         .email-field { flex: 2; min-width: 200px; padding: 15px 20px; border-radius: 100px; border: 1px solid rgba(128,128,128,0.3); background: var(--bg); color: var(--text); outline: none; font-size: 0.9rem; }
         .email-submit { flex: 1; min-width: 150px; padding: 15px; border-radius: 100px; border: none; background: var(--sylex-blue); color: #fff; font-weight: 800; cursor: pointer; transition: 0.3s; }
+        .email-submit:hover { background: var(--sylex-cyan); transform: translateY(-2px); }
 
-        .btn-main { background: var(--text); color: var(--bg); padding: 18px 40px; border-radius: 100px; font-weight: 900; text-decoration: none; display: inline-block; transition: 0.3s; border: none; cursor: pointer; margin-top: 20px; }
+        .btn-main { background: var(--text); color: var(--bg); padding: 18px 40px; border-radius: 100px; font-weight: 900; text-decoration: none; display: inline-block; transition: 0.3s; border: none; cursor: pointer; margin-top: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .btn-main:hover { transform: scale(1.02); opacity: 0.9; }
 
+        @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.7; } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @media (max-width: 900px) { .text-side { text-align: center; margin-bottom: 40px; } }
     </style>
@@ -154,7 +113,7 @@
         <div class="container">
             <div class="text-side">
                 <h1>Protocole <br><span style="color:var(--sylex-blue)">Extraction ROI.</span></h1>
-                <p>> Statut : Opérationnel<br>> Localisation : Occitanie<br>> Unité : V3.0 Secure</p>
+                <p>> Statut : Opérationnel<br>> Localisation : Occitanie<br>> Unité : V3.1 Master</p>
                 <a href="#simulator" class="btn-main">ACCÉDER AUX CALCULS</a>
             </div>
             
@@ -163,7 +122,7 @@
                     <div id="lock-screen">
                         <div style="text-align: center; width: 100%;">
                             <div class="lock-time" id="lock-time">00:00</div>
-                            <div class="lock-date" id="lock-date">Chargement...</div>
+                            <div id="lock-date" style="font-size: 14px; color: #fff; opacity: 0.8;">...</div>
                             <div class="lock-logo-spinning" style="margin: 20px auto;">S</div>
                         </div>
                         <div class="notif-area" id="notif-area"></div>
@@ -172,7 +131,9 @@
                             <div class="handle" id="slider-handle"></div>
                         </div>
                     </div>
-                    <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe" style="width:100%; height:100%; border:none;"></iframe>
+                    <div style="width:100%; height:100%; -webkit-overflow-scrolling: touch; overflow-y: scroll;">
+                        <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe" style="width:100%; height:100%; border:none;"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
@@ -180,16 +141,19 @@
 
     <section id="simulator" class="section">
         <div class="sim-container">
-            <h2 style="font-size: 1.2rem; margin-bottom: 20px; font-family: 'JetBrains Mono';">[ CALCULATEUR_ROI ]</h2>
+            <h2 style="font-size: 0.9rem; margin-bottom: 30px; font-family: 'JetBrains Mono'; letter-spacing: 3px; color: var(--sylex-blue); text-transform: uppercase; font-weight: 700;">
+                Estimation de l'extraction ROI
+            </h2>
+            
             <div class="switch-container">
                 <button id="btn-team" class="switch-btn active" onclick="setMode('team')">Équipe</button>
                 <button id="btn-solo" class="switch-btn" onclick="setMode('solo')">Solo</button>
             </div>
             
-            <div class="sim-label">Gain de temps / jour : <span><input type="number" id="num-t" class="input-manual" value="2" step="0.5" oninput="syncRange('t', this.value)"> h</span></div>
+            <div class="sim-label">Temps récupéré / jour : <span><input type="number" id="num-t" class="input-manual" value="2" step="0.5" oninput="syncRange('t', this.value)"> h</span></div>
             <input type="range" id="t" min="0.5" max="8" step="0.5" value="2" oninput="syncNum('num-t', this.value)">
             
-            <div class="sim-label">TJM / Coût horaire : <span><input type="number" id="num-p" class="input-manual" value="120" oninput="syncRange('p', this.value)"> €</span></div>
+            <div class="sim-label">TJM moyen : <span><input type="number" id="num-p" class="input-manual" value="120" oninput="syncRange('p', this.value)"> €</span></div>
             <input type="range" id="p" min="30" max="1000" step="10" value="120" oninput="syncNum('num-p', this.value)">
             
             <div class="sim-label"><span id="lbl-hybrid">Effectif</span> : <span><input type="number" id="num-h" class="input-manual" value="1" oninput="syncRange('h', this.value)"> <span id="unit-h">pers.</span></span></div>
@@ -210,7 +174,7 @@
     </section>
 
     <script>
-        // HORLOGE
+        // HORLOGE & DATE
         function updateClock() {
             const now = new Date();
             document.getElementById('lock-time').innerText = now.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'});
@@ -218,7 +182,7 @@
         }
         setInterval(updateClock, 1000); updateClock();
 
-        // NOTIFICATIONS
+        // GESTIONNAIRE DE NOTIFICATIONS (Optimisé)
         const notifs = [
             {t:"STRIPE", m:"Paiement reçu : +2 100 €"},
             {t:"SYLEX IA", m:"Extraction de 142 leads terminée."},
@@ -233,11 +197,11 @@
             d.innerHTML = `<div class="notif-icon">S</div><div><div style="font-size:10px;font-weight:800;color:#fff">${n.t}</div><div style="font-size:9px;color:rgba(255,255,255,0.7)">${n.m}</div></div>`;
             if(area.children.length >= 4) area.removeChild(area.firstChild);
             area.appendChild(d);
-            setTimeout(pushNotif, Math.random()*3000 + 3000);
+            setTimeout(pushNotif, 4000);
         }
         pushNotif();
 
-        // IPHONE UNLOCK SLIDER (RETOUR ÉLASTIQUE)
+        // SLIDER IPHONE MASTER
         const handle = document.getElementById('slider-handle');
         const track = document.getElementById('slider-track');
         let isDragging = false;
@@ -253,7 +217,7 @@
             if(!isDragging) return;
             const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
             let x = clientX - startX;
-            const limit = track.offsetWidth - handle.offsetWidth - 10;
+            const limit = track.offsetWidth - handle.offsetWidth - 5;
             if(x < 5) x = 5;
             if(x >= limit) {
                 x = limit;
@@ -270,7 +234,7 @@
             handle.style.left = "5px";
         };
 
-        // CALCULATEUR
+        // CALCULATEUR ROI (LOGIQUE HYBRIDE)
         function syncNum(id, v) { document.getElementById(id).value = v; calc(); }
         function syncRange(id, v) { const el = document.getElementById(id); if(v > parseFloat(el.max)) el.max = v; el.value = v; calc(); }
 
@@ -279,20 +243,19 @@
             mode = m;
             document.getElementById('btn-team').classList.toggle('active', m === 'team');
             document.getElementById('btn-solo').classList.toggle('active', m === 'solo');
-            document.getElementById('lbl-hybrid').innerText = m === 'team' ? "Taille de l'équipe" : "Coût prestataires / mois";
+            document.getElementById('lbl-hybrid').innerText = m === 'team' ? "Effectif" : "Coût prestataires / mois";
             document.getElementById('unit-h').innerText = m === 'team' ? "pers." : "€";
             calc();
         }
 
         function calc() {
-            const t = parseFloat(document.getElementById('num-t').value) || 0;
-            const p = parseFloat(document.getElementById('num-p').value) || 0;
-            const h = parseFloat(document.getElementById('num-h').value) || 0;
+            const t = Math.max(0, parseFloat(document.getElementById('num-t').value) || 0);
+            const p = Math.max(0, parseFloat(document.getElementById('num-p').value) || 0);
+            const h = Math.max(0, parseFloat(document.getElementById('num-h').value) || 0);
             let total = mode === 'team' ? (t * 220 * p * h) : (t * 220 * p) + (h * 12);
             
             const resEl = document.getElementById('res');
             resEl.innerText = Math.round(total).toLocaleString('fr-FR') + " €";
-
             const lt = document.getElementById('lead-text');
             const bs = document.getElementById('btn-submit-lead');
 
@@ -312,34 +275,38 @@
             }
         }
 
-        // CONFETTI SYSTEM
+        // MOTEUR DE CONFETTIS (Optimisé & Auto-Stop)
         let confettiActive = false;
         const canvas = document.getElementById('confetti-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
         function startConfetti() {
+            if(confettiActive) return;
             confettiActive = true;
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             animate();
         }
         function animate() {
-            if(!confettiActive && particles.length === 0) return;
+            if(!confettiActive && particles.length === 0) {
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                return;
+            }
             ctx.clearRect(0,0,canvas.width,canvas.height);
-            if(confettiActive && particles.length < 50) {
+            if(confettiActive && particles.length < 60) {
                 particles.push({x: Math.random()*canvas.width, y: canvas.height+10, size: Math.random()*5+5, color: Math.random()>0.5 ? '#0066ff' : '#00d9ff', vel: Math.random()*6+3});
             }
             particles.forEach((p, i) => {
-                p.y -= p.vel; p.x += Math.sin(p.y/20);
+                p.y -= p.vel; p.x += Math.sin(p.y/30);
                 ctx.fillStyle = p.color;
                 ctx.fillRect(p.x, p.y, p.size, p.size);
-                if(p.y < -10) particles.splice(i, 1);
+                if(p.y < -20) particles.splice(i, 1);
             });
             requestAnimationFrame(animate);
         }
 
-        function submitLead() { alert("Transmission du protocole en cours..."); }
-        window.onload = calc;
+        function submitLead() { alert("Transmission du protocole crypté en cours..."); }
+        window.onload = () => { calc(); };
     </script>
 </body>
 </html>
