@@ -13,9 +13,9 @@
     <meta name="theme-color" content="#000000">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
     
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
     <style>
         :root { 
             --sylex-blue: #0066ff; 
@@ -49,7 +49,6 @@
         .text-side h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
         .text-side p { font-size: 1rem; opacity: 0.7; margin-bottom: 30px; font-family: 'JetBrains Mono'; line-height: 1.6; }
 
-        /* IPHONE FRAME */
         .iphone-frame { width: 100%; max-width: 360px; aspect-ratio: 9 / 18.5; background: #080808; border-radius: 55px; border: 3px solid #1a1a1a; position: relative; box-shadow: 0 40px 80px rgba(0,0,0,0.9); overflow: hidden; transform: translateZ(0); }
         .iphone-screen { position: absolute; inset: 12px; background: #000; border-radius: 42px; overflow: hidden; }
         
@@ -68,35 +67,30 @@
         .handle { position: absolute; left: 5px; width: 45px; height: 45px; background: #fff; border-radius: 50%; cursor: grab; display: flex; align-items: center; justify-content: center; z-index: 210; box-shadow: 0 4px 10px rgba(0,0,0,0.3); touch-action: none; }
         .handle::after { content: '>'; color: #000; font-weight: 900; font-size: 18px; }
 
-        /* CALCULATOR DESIGN */
         .section { position: relative; z-index: 10; padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
-        .sim-container { max-width: 700px; margin: 0 auto; padding: 40px; background: var(--card-bg); border: 1px solid rgba(128,128,128,0.2); border-radius: 40px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .res-amount { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; color: var(--sylex-cyan); margin: 15px 0; font-family: 'JetBrains Mono'; letter-spacing: -2px; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .res-amount.pop { transform: scale(1.05); color: #fff; text-shadow: 0 0 25px var(--sylex-blue); }
+        .sim-container { max-width: 700px; margin: 0 auto; padding: 40px; background: var(--card-bg); border: 1px solid rgba(128,128,128,0.2); border-radius: 40px; text-align: center; }
+        .res-amount { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; color: var(--sylex-cyan); margin: 15px 0; font-family: 'JetBrains Mono'; letter-spacing: -2px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .res-amount.pop { transform: scale(1.05); color: #fff; text-shadow: 0 0 20px var(--sylex-blue); }
         
         .switch-container { display: flex; background: rgba(128,128,128,0.1); border-radius: 100px; padding: 5px; margin-bottom: 30px; }
         .switch-btn { flex: 1; padding: 12px; border-radius: 100px; border: none; cursor: pointer; font-weight: 800; transition: 0.3s; font-size: 0.75rem; color: #666; background: transparent; }
         .switch-btn.active { background: var(--sylex-blue); color: #fff; }
         
         .sim-label { text-align: left; font-weight: bold; margin-top: 25px; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono'; font-size: 0.85rem; }
-        .input-manual { background: rgba(128,128,128,0.1); border: 1px solid var(--sylex-blue); border-radius: 8px; color: var(--sylex-cyan); font-family: 'JetBrains Mono'; font-size: 1rem; width: 85px; text-align: right; padding: 6px 12px; outline: none; transition: 0.2s; }
-        .input-manual:focus { border-color: var(--sylex-cyan); background: rgba(0, 217, 255, 0.05); }
+        .input-manual { background: rgba(128,128,128,0.1); border: 1px solid var(--sylex-blue); border-radius: 8px; color: var(--sylex-cyan); font-family: 'JetBrains Mono'; font-size: 1rem; width: 85px; text-align: right; padding: 6px 12px; outline: none; }
 
         input[type=range] { width: 100%; margin: 15px 0; accent-color: var(--sylex-blue); cursor: pointer; height: 32px; appearance: none; background: transparent; touch-action: none; }
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; background: rgba(128,128,128,0.2); border-radius: 10px; }
-        input[type=range]::-webkit-slider-thumb { appearance: none; height: 28px; width: 28px; border-radius: 50%; background: var(--sylex-blue); border: 3px solid #fff; margin-top: -10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        input[type=range]::-webkit-slider-thumb { appearance: none; height: 28px; width: 28px; border-radius: 50%; background: var(--sylex-blue); border: 3px solid #fff; margin-top: -10px; }
 
-        .lead-box { margin-top: 30px; padding: 25px; background: rgba(0, 102, 255, 0.05); border: 1px dashed var(--sylex-blue); border-radius: 24px; animation: fadeIn 0.5s ease; transition: 0.3s; }
+        .lead-box { margin-top: 30px; padding: 25px; background: rgba(0, 102, 255, 0.05); border: 1px dashed var(--sylex-blue); border-radius: 24px; }
         .email-input-group { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
-        .email-field { flex: 2; min-width: 200px; padding: 15px 20px; border-radius: 100px; border: 1px solid rgba(128,128,128,0.3); background: var(--bg); color: var(--text); outline: none; font-size: 0.9rem; }
+        .email-field { flex: 2; min-width: 200px; padding: 15px 20px; border-radius: 100px; border: 1px solid rgba(128,128,128,0.3); background: var(--bg); color: var(--text); outline: none; }
         .email-submit { flex: 1; min-width: 150px; padding: 15px; border-radius: 100px; border: none; background: var(--sylex-blue); color: #fff; font-weight: 800; cursor: pointer; transition: 0.3s; }
-        .email-submit:hover { background: var(--sylex-cyan); transform: translateY(-2px); }
 
-        .btn-main { background: var(--text); color: var(--bg); padding: 18px 40px; border-radius: 100px; font-weight: 900; text-decoration: none; display: inline-block; transition: 0.3s; border: none; cursor: pointer; margin-top: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .btn-main:hover { transform: scale(1.02); opacity: 0.9; }
+        .btn-main { background: var(--text); color: var(--bg); padding: 18px 40px; border-radius: 100px; font-weight: 900; text-decoration: none; display: inline-block; transition: 0.3s; border: none; cursor: pointer; margin-top: 20px; }
 
         @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.7; } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @media (max-width: 900px) { .text-side { text-align: center; margin-bottom: 40px; } }
     </style>
 </head>
@@ -113,7 +107,7 @@
         <div class="container">
             <div class="text-side">
                 <h1>Protocole <br><span style="color:var(--sylex-blue)">Extraction ROI.</span></h1>
-                <p>> Statut : Opérationnel<br>> Localisation : Occitanie<br>> Unité : V3.1 Master</p>
+                <p>> Statut : Opérationnel<br>> Unité : V3.1 Master</p>
                 <a href="#simulator" class="btn-main">ACCÉDER AUX CALCULS</a>
             </div>
             
@@ -122,7 +116,7 @@
                     <div id="lock-screen">
                         <div style="text-align: center; width: 100%;">
                             <div class="lock-time" id="lock-time">00:00</div>
-                            <div id="lock-date" style="font-size: 14px; color: #fff; opacity: 0.8;">...</div>
+                            <div id="lock-date" style="font-size: 14px; color: #fff; opacity: 0.8;">Chargement...</div>
                             <div class="lock-logo-spinning" style="margin: 20px auto;">S</div>
                         </div>
                         <div class="notif-area" id="notif-area"></div>
@@ -131,9 +125,7 @@
                             <div class="handle" id="slider-handle"></div>
                         </div>
                     </div>
-                    <div style="width:100%; height:100%; -webkit-overflow-scrolling: touch; overflow-y: scroll;">
-                        <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe" style="width:100%; height:100%; border:none;"></iframe>
-                    </div>
+                    <iframe src="https://udify.app/chatbot/zpg2cTtKhnsKK5xe" style="width:100%; height:100%; border:none;"></iframe>
                 </div>
             </div>
         </div>
@@ -174,7 +166,46 @@
     </section>
 
     <script>
-        // HORLOGE & DATE
+        // CONFIGURATION EMAILJS MISE À JOUR
+        (function(){
+            emailjs.init("tZs8MGlTnT5BhrENl");
+        })();
+
+        function submitLead() {
+            const emailField = document.getElementById('client-email');
+            const email = emailField.value;
+            const resultROI = document.getElementById('res').innerText;
+            const btn = document.getElementById('btn-submit-lead');
+
+            if(!email || !email.includes('@')) { 
+                alert("Veuillez entrer une adresse email valide."); 
+                return; 
+            }
+
+            btn.innerText = "ENVOI...";
+            btn.disabled = true;
+
+            const templateParams = {
+                email: email,
+                roi_valeur: resultROI // Variable pour ton template EmailJS
+            };
+
+            // Utilisation de ton nouveau Service ID "sylex"
+            emailjs.send('sylex', 'template_ycveqh2', templateParams)
+                .then(function() {
+                    alert("✅ Protocole transmis !");
+                    emailField.value = "";
+                    btn.innerText = "REÇU";
+                    btn.style.background = "#28a745";
+                }, function(error) {
+                    console.error('EmailJS Error:', error);
+                    alert("❌ Erreur d'envoi. Vérifiez votre config Service ID.");
+                    btn.innerText = "RECEVOIR";
+                    btn.disabled = false;
+                });
+        }
+
+        // --- CORE SYSTEM ---
         function updateClock() {
             const now = new Date();
             document.getElementById('lock-time').innerText = now.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'});
@@ -182,12 +213,11 @@
         }
         setInterval(updateClock, 1000); updateClock();
 
-        // GESTIONNAIRE DE NOTIFICATIONS (Optimisé)
         const notifs = [
             {t:"STRIPE", m:"Paiement reçu : +2 100 €"},
             {t:"SYLEX IA", m:"Extraction de 142 leads terminée."},
             {t:"CALENDLY", m:"Nouveau RDV stratégique à 10h30."},
-            {t:"SYLEX IA", m:"Gain d'efficacité détecté : +22%"}
+            {t:"SYLEX IA", m:"Gain d'efficiency détecté : +22%"}
         ];
         function pushNotif() {
             const area = document.getElementById('notif-area');
@@ -201,7 +231,6 @@
         }
         pushNotif();
 
-        // SLIDER IPHONE MASTER
         const handle = document.getElementById('slider-handle');
         const track = document.getElementById('slider-track');
         let isDragging = false;
@@ -234,7 +263,6 @@
             handle.style.left = "5px";
         };
 
-        // CALCULATEUR ROI (LOGIQUE HYBRIDE)
         function syncNum(id, v) { document.getElementById(id).value = v; calc(); }
         function syncRange(id, v) { const el = document.getElementById(id); if(v > parseFloat(el.max)) el.max = v; el.value = v; calc(); }
 
@@ -249,64 +277,54 @@
         }
 
         function calc() {
-            const t = Math.max(0, parseFloat(document.getElementById('num-t').value) || 0);
-            const p = Math.max(0, parseFloat(document.getElementById('num-p').value) || 0);
-            const h = Math.max(0, parseFloat(document.getElementById('num-h').value) || 0);
+            const t = parseFloat(document.getElementById('num-t').value) || 0;
+            const p = parseFloat(document.getElementById('num-p').value) || 0;
+            const h = parseFloat(document.getElementById('num-h').value) || 0;
             let total = mode === 'team' ? (t * 220 * p * h) : (t * 220 * p) + (h * 12);
             
             const resEl = document.getElementById('res');
             resEl.innerText = Math.round(total).toLocaleString('fr-FR') + " €";
             const lt = document.getElementById('lead-text');
-            const bs = document.getElementById('btn-submit-lead');
 
             if(total < 50000) {
                 lt.innerText = "PROTOCOLE D'OPTIMISATION INDIVIDUELLE";
-                bs.innerText = "RECEVOIR";
                 confettiActive = false;
             } else if (total < 150000) {
                 lt.innerText = "STRATÉGIE D'AUTOMATISATION DES FLUX";
-                bs.innerText = "TÉLÉCHARGER";
                 confettiActive = false;
             } else {
                 lt.innerText = "PROTOCOLE D'EXTRACTION ROI MASSIVE";
-                bs.innerText = "DÉVERROUILLER";
                 resEl.classList.add('pop');
                 if(!confettiActive) startConfetti();
             }
         }
 
-        // MOTEUR DE CONFETTIS (Optimisé & Auto-Stop)
         let confettiActive = false;
         const canvas = document.getElementById('confetti-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
         function startConfetti() {
-            if(confettiActive) return;
             confettiActive = true;
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             animate();
         }
         function animate() {
-            if(!confettiActive && particles.length === 0) {
-                ctx.clearRect(0,0,canvas.width,canvas.height);
-                return;
-            }
+            if(!confettiActive && particles.length === 0) return;
             ctx.clearRect(0,0,canvas.width,canvas.height);
-            if(confettiActive && particles.length < 60) {
+            if(confettiActive && particles.length < 50) {
                 particles.push({x: Math.random()*canvas.width, y: canvas.height+10, size: Math.random()*5+5, color: Math.random()>0.5 ? '#0066ff' : '#00d9ff', vel: Math.random()*6+3});
             }
             particles.forEach((p, i) => {
-                p.y -= p.vel; p.x += Math.sin(p.y/30);
+                p.y -= p.vel; p.x += Math.sin(p.y/20);
                 ctx.fillStyle = p.color;
                 ctx.fillRect(p.x, p.y, p.size, p.size);
-                if(p.y < -20) particles.splice(i, 1);
+                if(p.y < -10) particles.splice(i, 1);
             });
             requestAnimationFrame(animate);
         }
 
-        function submitLead() { alert("Transmission du protocole crypté en cours..."); }
-        window.onload = () => { calc(); };
+        window.onload = calc;
     </script>
 </body>
 </html>
