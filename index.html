@@ -51,12 +51,37 @@
         
         #lock-screen {
             position: absolute; inset: 0; background: #000; z-index: 200; 
-            display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 50px 20px;
+            display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 40px 20px;
             transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .lock-time { font-size: clamp(40px, 10vw, 48px); font-weight: 200; color: #fff; margin-top: 20px; }
+        .lock-time { font-size: clamp(40px, 10vw, 48px); font-weight: 200; color: #fff; margin-top: 10px; }
         .lock-date { font-size: 14px; color: #fff; opacity: 0.8; }
         
+        /* NOUVEAUX STYLES ANIMATIONS & NOTIFS */
+        .lock-logo-container { margin-top: 20px; perspective: 1000px; }
+        .lock-logo-spinning { 
+            width: 60px; height: 60px; 
+            background: linear-gradient(135deg, var(--sylex-blue), var(--sylex-cyan)); 
+            border-radius: 15px; display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 1.5rem; color: #fff;
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
+            animation: rotateLogo 6s linear infinite;
+        }
+        @keyframes rotateLogo { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+
+        .notif-area { width: 100%; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+        .notif { 
+            background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px;
+            padding: 10px 12px; display: flex; align-items: center; gap: 10px;
+            animation: slideInNotif 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.2) both;
+        }
+        .notif-icon { width: 28px; height: 28px; background: var(--sylex-blue); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+        .notif-content { flex: 1; overflow: hidden; }
+        .notif-title { font-size: 10px; font-weight: 800; color: #fff; margin-bottom: 1px; }
+        .notif-text { font-size: 9px; color: rgba(255,255,255,0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        @keyframes slideInNotif { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
         .slider-container {
             width: 80%; max-width: 240px; height: 50px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
             border-radius: 100px; position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
@@ -109,10 +134,17 @@
             <div class="iphone-frame">
                 <div class="iphone-screen">
                     <div id="lock-screen">
-                        <div style="text-align: center;">
+                        <div style="text-align: center; width: 100%;">
                             <div class="lock-time" id="lock-time">00:00</div>
                             <div class="lock-date" id="lock-date">Chargement...</div>
+                            <div class="lock-logo-container">
+                                <div class="lock-logo-spinning" style="margin: 0 auto;">S</div>
+                            </div>
                         </div>
+
+                        <div class="notif-area" id="notif-area">
+                            </div>
+
                         <div class="slider-container" id="slider-track">
                             <div class="slider-text">GLISSER POUR OUVRIR</div>
                             <div class="handle" id="slider-handle"></div>
@@ -154,6 +186,32 @@
             document.getElementById('lock-date').innerText = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
         }
         setInterval(updateClock, 1000); updateClock();
+
+        // NOTIFICATIONS DYNAMIQUES
+        const notifData = [
+            { t: "STRIPE : PAIEMENT REÇU ✅", m: "Félicitations, +1 450,00 € encaissés." },
+            { t: "SYLEX IA 🤖", m: "32 leads qualifiés extraits cette nuit." },
+            { t: "CALENDLY 🗓️", m: "Nouvel audit ROI réservé à 14h00." }
+        ];
+
+        function spawnNotifs() {
+            const container = document.getElementById('notif-area');
+            notifData.forEach((n, i) => {
+                setTimeout(() => {
+                    const div = document.createElement('div');
+                    div.className = 'notif';
+                    div.innerHTML = `
+                        <div class="notif-icon">S</div>
+                        <div class="notif-content">
+                            <div class="notif-title">${n.t}</div>
+                            <div class="notif-text">${n.m}</div>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                }, (i + 1) * 1200);
+            });
+        }
+        window.addEventListener('load', spawnNotifs);
 
         // SLIDER UNLOCK
         const handle = document.getElementById('slider-handle');
