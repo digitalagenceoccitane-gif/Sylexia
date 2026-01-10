@@ -46,7 +46,7 @@
             width: 100%; max-width: 360px; aspect-ratio: 9 / 18.5; 
             background: #080808; border-radius: clamp(30px, 8vw, 55px); border: 3px solid #1a1a1a; 
             position: relative; box-shadow: 0 40px 80px rgba(0,0,0,0.9); flex-shrink: 0; z-index: 10; overflow: hidden;
-            transform: translateZ(0); /* Accélération GPU Android */
+            transform: translateZ(0);
         }
         .iphone-screen { position: absolute; inset: clamp(8px, 2vw, 12px); background: #000; border-radius: clamp(25px, 6vw, 42px); overflow: hidden; }
         
@@ -71,7 +71,7 @@
 
         .notif-area { width: 100%; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; min-height: 240px; }
         .notif { 
-            background: rgba(35, 35, 35, 0.7); /* Fallback pour Android */
+            background: rgba(35, 35, 35, 0.7); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1); 
@@ -119,8 +119,22 @@
         .switch-btn { flex: 1; padding: 12px; border-radius: 100px; border: none; cursor: pointer; font-weight: 800; transition: 0.3s; font-size: 0.75rem; color: #666; background: transparent; }
         .switch-btn.active { background: var(--sylex-blue); color: #fff; }
         
-        .sim-label { text-align: left; font-weight: bold; margin-top: 20px; display: flex; justify-content: space-between; font-family: 'JetBrains Mono'; font-size: 0.9rem; }
-        .sim-label span { color: var(--sylex-blue); }
+        .sim-label { text-align: left; font-weight: bold; margin-top: 20px; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono'; font-size: 0.9rem; }
+        
+        /* CHAMPS DE SAISIE PERSONNALISÉS */
+        .input-manual {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--sylex-blue);
+            border-radius: 8px;
+            color: var(--sylex-cyan);
+            font-family: 'JetBrains Mono';
+            font-size: 1rem;
+            width: 80px;
+            text-align: right;
+            padding: 5px 10px;
+            outline: none;
+        }
+
         input[type=range] { width: 100%; margin: 15px 0; accent-color: var(--sylex-blue); cursor: pointer; }
         
         .btn-main { background: #fff; color: #000; padding: 18px 40px; border-radius: 100px; font-weight: 900; text-decoration: none; display: inline-block; transition: 0.3s; border: none; cursor: pointer; margin-top: 20px; }
@@ -178,17 +192,27 @@
                 <button id="btn-solo" class="switch-btn" onclick="setMode('solo')">Solo</button>
             </div>
             
-            <div class="sim-label">Gain de temps / jour : <span id="v1">2h</span></div>
-            <input type="range" id="t" min="1" max="8" step="0.5" value="2" oninput="calc()">
+            <div class="sim-label">
+                Gain de temps / jour : 
+                <span><input type="number" id="num-t" class="input-manual" value="2" oninput="syncRange('t', this.value)"> h</span>
+            </div>
+            <input type="range" id="t" min="1" max="8" step="0.5" value="2" oninput="syncNum('num-t', this.value)">
             
-            <div class="sim-label">Tarif horaire (€) : <span id="v2">120€</span></div>
+            <div class="sim-label">
+                Tarif horaire (€) : 
+                <span><input type="number" id="num-p" class="input-manual" value="120" oninput="syncRange('p', this.value)"> €</span>
+            </div>
             <input type="range" id="p" min="40" max="500" step="10" value="120" oninput="calc()">
             
-            <div class="sim-label"><span id="lbl-hybrid">Effectif</span> : <span id="v3">1</span></div>
+            <div class="sim-label">
+                <span id="lbl-hybrid">Effectif</span> : 
+                <span><input type="number" id="num-h" class="input-manual" value="1" oninput="syncRange('h', this.value)"> <span id="unit-h">pers.</span></span>
+            </div>
             <input type="range" id="h" min="1" max="30" step="1" value="1" oninput="calc()">
             
             <div class="res-amount" id="res">0 €</div>
-            <button class="btn-main" style="width:100%; background:var(--sylex-blue); color:#fff;" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});">RÉSERVER MON AUDIT</button>
+            <p style="font-family:'JetBrains Mono'; font-size:0.7rem; opacity:0.5; margin-bottom:20px;">* Économie estimée par an (22 jours ouvrés / mois)</p>
+            <button class="btn-main" style="width:100%; background:var(--sylex-blue); color:#fff;" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});">RÉSERVER MON AUDIT PERSONNALISÉ</button>
         </div>
     </section>
 
@@ -211,23 +235,14 @@
             const container = document.getElementById('notif-area');
             const div = document.createElement('div');
             div.className = 'notif';
-            div.innerHTML = `
-                <div class="notif-icon">S</div>
-                <div class="notif-content">
-                    <div class="notif-title">${title}</div>
-                    <div class="notif-text">${message}</div>
-                </div>
-            `;
+            div.innerHTML = `<div class="notif-icon">S</div><div class="notif-content"><div class="notif-title">${title}</div><div class="notif-text">${message}</div></div>`;
             if (container.children.length >= 4) { container.removeChild(container.firstChild); }
             container.appendChild(div);
         }
 
         function generateLiveNotif() {
             const template = notifTemplates[Math.floor(Math.random() * notifTemplates.length)];
-            let message = template.m
-                .replace('{amount}', (Math.floor(Math.random() * 150) * 10 + 450))
-                .replace('{leads}', Math.floor(Math.random() * 20) + 5)
-                .replace('{time}', (Math.random() * 3 + 1).toFixed(1));
+            let message = template.m.replace('{amount}', (Math.floor(Math.random() * 150) * 10 + 450)).replace('{leads}', Math.floor(Math.random() * 20) + 5).replace('{time}', (Math.random() * 3 + 1).toFixed(1));
             createNotifElement(template.t, message);
             setTimeout(generateLiveNotif, Math.floor(Math.random() * 5000) + 5000);
         }
@@ -252,35 +267,50 @@
         document.addEventListener('mouseup', endDrag); document.addEventListener('touchend', endDrag);
         function unlock() { lockScreen.style.transform = 'translateY(-105%)'; setTimeout(() => { lockScreen.style.display = 'none'; }, 700); }
 
+        // LOGIQUE SYNCHRONISATION SAISIE & SLIDER
+        function syncNum(numId, val) {
+            document.getElementById(numId).value = val;
+            calc();
+        }
+        function syncRange(rangeId, val) {
+            document.getElementById(rangeId).value = val;
+            calc();
+        }
+
         let mode = 'team';
         function setMode(m) {
             mode = m;
             document.getElementById('btn-team').classList.toggle('active', m === 'team');
             document.getElementById('btn-solo').classList.toggle('active', m === 'solo');
             const lbl = document.getElementById('lbl-hybrid');
+            const unit = document.getElementById('unit-h');
             const slider = document.getElementById('h');
+            const num = document.getElementById('num-h');
             if (m === 'team') {
-                lbl.innerText = "Effectif";
-                slider.min = 1; slider.max = 30; slider.step = 1; slider.value = 1;
+                lbl.innerText = "Effectif"; unit.innerText = "pers.";
+                slider.min = 1; slider.max = 30; slider.step = 1; slider.value = 1; num.value = 1;
             } else {
-                lbl.innerText = "Frais prestataires / mois";
-                slider.min = 0; slider.max = 5000; slider.step = 100; slider.value = 0;
+                lbl.innerText = "Frais prestataires / mois"; unit.innerText = "€";
+                slider.min = 0; slider.max = 10000; slider.step = 100; slider.value = 0; num.value = 0;
             }
             calc();
         }
+
         function calc() {
-            const t = parseFloat(document.getElementById('t').value);
-            const p = parseFloat(document.getElementById('p').value);
-            const h = parseFloat(document.getElementById('h').value);
-            document.getElementById('v1').innerText = t + "h";
-            document.getElementById('v2').innerText = p + "€";
+            const t = parseFloat(document.getElementById('num-t').value) || 0;
+            const p = parseFloat(document.getElementById('num-p').value) || 0;
+            const h = parseFloat(document.getElementById('num-h').value) || 0;
+            
+            // On s'assure que les sliders suivent même si on tape au clavier
+            document.getElementById('t').value = t;
+            document.getElementById('p').value = p;
+            document.getElementById('h').value = h;
+
             let total = 0;
             if (mode === 'team') {
-                document.getElementById('v3').innerText = h + " pers.";
-                total = t * 22 * p * h;
+                total = t * 22 * p * h * 12; // Gain Annuel
             } else {
-                document.getElementById('v3').innerText = h + "€";
-                total = (t * 22 * p) + h;
+                total = ((t * 22 * p) + h) * 12; // Gain Annuel
             }
             document.getElementById('res').innerText = Math.round(total).toLocaleString() + " €";
         }
