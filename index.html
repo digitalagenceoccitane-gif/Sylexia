@@ -25,102 +25,86 @@
             color: #fff; 
             font-family: 'Inter', sans-serif; 
             overflow-x: hidden;
-            overscroll-behavior: none; /* Empêche le rebond élastique sur iOS */
+            min-height: 100vh;
+            min-height: 100dvh; /* S'adapte dynamiquement à Safari */
         }
         
-        /* AURA OPTIMISÉE */
         .aura { 
             position: fixed; 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            width: 100vw; 
-            height: 100vh; 
-            background: radial-gradient(circle at center, rgba(0, 102, 255, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(0, 102, 255, 0.12) 0%, rgba(0, 0, 0, 0) 75%);
             z-index: 1; 
             pointer-events: none; 
         }
         
-        .nav-header { position: relative; width: 100%; padding: 80px 20px 40px; z-index: 1000; text-align: center; }
-        .logo-text { font-size: clamp(4rem, 15vw, 10rem); font-weight: 900; letter-spacing: -6px; line-height: 0.8; background: linear-gradient(to right, #fff, var(--sylex-blue), var(--sylex-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; display: inline-block; }
-        .confidential-tag { color: var(--accent); font-family: 'JetBrains Mono'; font-weight: bold; border: 2px solid var(--accent); display: inline-block; padding: 5px 15px; transform: rotate(-5deg); margin-top: 20px; font-size: 0.9rem; letter-spacing: 2px; }
+        .nav-header { position: relative; width: 100%; padding: 60px 20px 20px; z-index: 1000; text-align: center; }
+        .logo-text { font-size: clamp(3rem, 12vw, 8rem); font-weight: 900; letter-spacing: -4px; line-height: 0.8; background: linear-gradient(to right, #fff, var(--sylex-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; display: inline-block; }
+        .confidential-tag { color: var(--accent); font-family: 'JetBrains Mono'; font-weight: bold; border: 2px solid var(--accent); display: inline-block; padding: 5px 15px; transform: rotate(-3deg); margin-top: 15px; font-size: 0.8rem; letter-spacing: 2px; }
 
-        .hero { position: relative; z-index: 10; padding: 20px 5% 80px; }
-        .container { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; margin: 0 auto; gap: 60px; }
-        .text-side { flex: 1; text-align: left; }
-        .text-side h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 25px; }
-        .text-side p { font-size: 1.4rem; opacity: 0.8; margin-bottom: 40px; line-height: 1.5; font-family: 'JetBrains Mono'; font-size: 1.1rem; }
+        .hero { position: relative; z-index: 10; padding: 0 5% 60px; }
+        .container { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 1200px; margin: 0 auto; gap: 40px; flex-wrap: wrap; }
+        
+        .text-side { flex: 1; min-width: 300px; text-align: left; }
+        .text-side h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+        .text-side p { font-size: 1rem; opacity: 0.7; margin-bottom: 30px; font-family: 'JetBrains Mono'; line-height: 1.6; }
 
-        /* IPHONE SYLEX EDITION */
+        /* IPHONE FLUIDE */
         .iphone-frame { 
-            width: 360px; 
-            height: 720px; 
+            width: 100%;
+            max-width: 360px; 
+            aspect-ratio: 9 / 18.5; /* Ratio iPhone moderne */
             background: #080808; 
-            border-radius: 55px; 
+            border-radius: clamp(30px, 8vw, 55px); 
             border: 3px solid #1a1a1a; 
             position: relative; 
-            box-shadow: 0 50px 100px rgba(0,0,0,0.9); 
+            box-shadow: 0 40px 80px rgba(0,0,0,0.9); 
             flex-shrink: 0; 
             z-index: 10;
+            overflow: hidden;
         }
-        .iphone-screen { position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; background: #000; border-radius: 42px; overflow: hidden; }
+        .iphone-screen { position: absolute; inset: 10px; background: #000; border-radius: clamp(25px, 6vw, 42px); overflow: hidden; }
         
-        /* LOCK SCREEN OVERLAY */
+        /* LOCK SCREEN AMÉLIORÉ */
         #lock-screen {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
-            z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 60px 20px;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: absolute; inset: 0;
+            background: #000;
+            z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 50px 20px;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .lock-time { font-size: 50px; font-weight: 200; color: #fff; text-align: center; }
-        .lock-date { font-size: 14px; margin-top: -10px; color: #fff; }
+        .lock-time { font-size: 48px; font-weight: 200; color: #fff; margin-top: 20px; }
+        .lock-date { font-size: 14px; color: #fff; opacity: 0.8; }
         
         .slider-container {
-            width: 240px; height: 50px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
-            border-radius: 25px; position: relative; display: flex; align-items: center; justify-content: center;
+            width: 220px; height: 50px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 100px; position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
         }
-        .slider-text { font-size: 10px; font-weight: bold; letter-spacing: 1px; color: #fff; opacity: 0.6; animation: blink 2s infinite; text-transform: uppercase; }
+        .slider-text { font-size: 9px; font-weight: 800; letter-spacing: 1px; color: #fff; opacity: 0.5; animation: blink 2s infinite; text-transform: uppercase; }
         .handle {
             position: absolute; left: 5px; width: 40px; height: 40px; background: #fff;
             border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 210;
+            box-shadow: 0 0 15px rgba(255,255,255,0.2); z-index: 210;
         }
         .handle::after { content: '>'; color: #000; font-weight: 900; }
 
-        @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
+        @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
 
-        iframe { width: 100%; height: 100%; border: none; background: #fff; padding-top: env(safe-area-inset-top); }
+        iframe { width: 100%; height: 100%; border: none; background: #fff; }
 
-        /* SECTIONS SUPPLÉMENTAIRES */
-        .section { position: relative; z-index: 10; padding: 100px 5%; max-width: 1200px; margin: 0 auto; }
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 50px; }
-        .card { padding: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; transition: 0.3s; }
-        .card:hover { border-color: var(--sylex-blue); background: rgba(0,102,255,0.05); }
-        .card h3 { color: var(--sylex-blue); margin-bottom: 15px; font-size: 1.6rem; }
-        
-        /* SIMULATEUR COMPLET */
-        .sim-container { max-width: 700px; margin: 60px auto; padding: 60px; background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 45px; text-align: center; }
-        .res-amount { font-size: 5rem; font-weight: 900; color: var(--sylex-cyan); margin: 20px 0; letter-spacing: -2px; font-family: 'JetBrains Mono'; }
-        input[type=range] { width: 100%; margin: 20px 0; accent-color: var(--sylex-blue); cursor: pointer; }
-        .btn-main { background: #fff; color: #000; padding: 22px 45px; border-radius: 100px; font-weight: 900; text-decoration: none; display: inline-block; transition: 0.3s; border: none; cursor: pointer; font-size: 1.1rem; }
-
-        /* MODIFICATION CRUCIALE POUR LE RENDU MOBILE PWA */
+        /* RESPONSIVE TEMPS RÉEL */
         @media (max-width: 900px) {
-            .nav-header, .hero .text-side, .section { display: none; } /* On cache le décor */
-            .hero { padding: 0; }
-            .container { padding: 0; margin: 0; height: 100vh; }
-            .iphone-frame { 
-                width: 100vw; 
-                height: 100vh; 
-                border-radius: 0; 
-                border: none; 
-                position: fixed; 
-                top: 0; 
-                left: 0; 
-            }
-            .iphone-screen { top: 0; left: 0; right: 0; bottom: 0; border-radius: 0; }
-            #lock-screen { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+            .nav-header { padding: 40px 20px 20px; }
+            .text-side { text-align: center; order: 2; }
+            .iphone-frame { max-width: 85vw; margin: 0 auto; order: 1; }
+            .hero { padding-bottom: 40px; }
         }
+
+        /* SECTIONS */
+        .section { position: relative; z-index: 10; padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { padding: 30px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 25px; }
+        .card h3 { color: var(--sylex-blue); margin-bottom: 10px; }
+
+        .btn-main { background: #fff; color: #000; padding: 18px 40px; border-radius: 100px; font-weight: 900; text-decoration: none; display: inline-block; transition: 0.3s; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -135,23 +119,23 @@
         <div class="container">
             <div class="text-side">
                 <h1>Protocole <br><span style="color:var(--sylex-blue)">Extraction ROI.</span></h1>
-                <p>> Statut : En attente d'identification...<br>> Localisation : Région Occitanie</p>
-                <a href="#simulator" class="btn-main">ACCÉDER AUX CALCULS</a>
+                <p>> Statut : Opérationnel<br>> Localisation : Occitanie<br>> Unité : V3.0 Secure</p>
+                <a href="#simulator" class="btn-main">ACCÉDER AU TERMINAL</a>
             </div>
             
             <div class="iphone-frame">
                 <div class="iphone-screen">
                     <div id="lock-screen">
-                        <div class="lock-header">
+                        <div style="text-align: center;">
                             <div class="lock-time" id="lock-time">00:00</div>
                             <div class="lock-date" id="lock-date">Chargement...</div>
                         </div>
                         <div style="text-align: center;">
-                            <p style="font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #fff; opacity: 0.7;">Alerte Système</p>
-                            <p style="font-size: 14px; font-weight: bold; color: #fff;">Rapport SYLEX prêt</p>
+                            <p style="font-size: 9px; text-transform: uppercase; letter-spacing: 2px; color: var(--sylex-cyan); font-weight: bold;">Accès Sécurisé</p>
+                            <p style="font-size: 13px; color: #fff; margin-top: 5px;">Déverrouiller pour auditer</p>
                         </div>
                         <div class="slider-container" id="slider-track">
-                            <div class="slider-text">GLISSER POUR DÉVERROUILLER</div>
+                            <div class="slider-text">GLISSER POUR OUVRIR</div>
                             <div class="handle" id="slider-handle"></div>
                         </div>
                     </div>
@@ -162,10 +146,15 @@
     </section>
 
     <section id="simulator" class="section">
-        <div class="sim-container">
-            <h2 style="font-size: 2.2rem; margin-bottom: 20px; font-family: 'JetBrains Mono';">[ CALCULATEUR_PROFIT ]</h2>
-            <div class="res-amount" id="res">0 €</div>
-            <button class="btn-main" style="width:100%; background:var(--sylex-blue); color:#fff;" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});">RÉSERVER MON AUDIT</button>
+        <div class="grid">
+            <div class="card">
+                <h3>Automation</h3>
+                <p>Libérez votre temps en automatisant les processus critiques.</p>
+            </div>
+            <div class="card">
+                <h3>Lead Gen</h3>
+                <p>Capturez et qualifiez vos leads avec une précision militaire.</p>
+            </div>
         </div>
     </section>
 
@@ -194,7 +183,7 @@
             if (x > rect.width - 45) { x = rect.width - 45; unlock(); }
             handle.style.left = x + 'px';
         }
-        function endDrag() { isDragging = false; if (parseInt(handle.style.left) < 180) handle.style.left = '5px'; }
+        function endDrag() { isDragging = false; if (parseInt(handle.style.left) < 160) handle.style.left = '5px'; }
 
         handle.addEventListener('mousedown', startDrag);
         handle.addEventListener('touchstart', startDrag);
@@ -204,8 +193,8 @@
         document.addEventListener('touchend', endDrag);
 
         function unlock() {
-            lockScreen.style.transform = 'translateY(-100%)';
-            setTimeout(() => { lockScreen.style.display = 'none'; }, 600);
+            lockScreen.style.transform = 'translateY(-105%)';
+            setTimeout(() => { lockScreen.style.display = 'none'; }, 700);
         }
     </script>
 </body>
