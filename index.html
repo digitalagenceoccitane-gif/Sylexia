@@ -21,23 +21,17 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
-            background: var(--bg); 
-            color: #fff; 
-            font-family: 'Inter', sans-serif; 
-            overflow-x: hidden;
-            min-height: 100vh;
-            min-height: 100dvh; /* S'adapte dynamiquement à Safari */
+            background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; 
+            overflow-x: hidden; min-height: 100dvh;
         }
         
         .aura { 
-            position: fixed; 
-            inset: 0;
+            position: fixed; inset: 0;
             background: radial-gradient(circle at center, rgba(0, 102, 255, 0.12) 0%, rgba(0, 0, 0, 0) 75%);
-            z-index: 1; 
-            pointer-events: none; 
+            z-index: 1; pointer-events: none; 
         }
         
-        .nav-header { position: relative; width: 100%; padding: 60px 20px 20px; z-index: 1000; text-align: center; }
+        .nav-header { position: relative; width: 100%; padding: clamp(40px, 8dvh, 80px) 20px 20px; z-index: 1000; text-align: center; }
         .logo-text { font-size: clamp(3rem, 12vw, 8rem); font-weight: 900; letter-spacing: -4px; line-height: 0.8; background: linear-gradient(to right, #fff, var(--sylex-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; display: inline-block; }
         .confidential-tag { color: var(--accent); font-family: 'JetBrains Mono'; font-weight: bold; border: 2px solid var(--accent); display: inline-block; padding: 5px 15px; transform: rotate(-3deg); margin-top: 15px; font-size: 0.8rem; letter-spacing: 2px; }
 
@@ -48,68 +42,57 @@
         .text-side h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
         .text-side p { font-size: 1rem; opacity: 0.7; margin-bottom: 30px; font-family: 'JetBrains Mono'; line-height: 1.6; }
 
-        /* IPHONE FLUIDE */
         .iphone-frame { 
-            width: 100%;
-            max-width: 360px; 
-            aspect-ratio: 9 / 18.5; /* Ratio iPhone moderne */
-            background: #080808; 
-            border-radius: clamp(30px, 8vw, 55px); 
-            border: 3px solid #1a1a1a; 
-            position: relative; 
-            box-shadow: 0 40px 80px rgba(0,0,0,0.9); 
-            flex-shrink: 0; 
-            z-index: 10;
-            overflow: hidden;
+            width: 100%; max-width: 360px; aspect-ratio: 9 / 18.5; 
+            background: #080808; border-radius: clamp(30px, 8vw, 55px); border: 3px solid #1a1a1a; 
+            position: relative; box-shadow: 0 40px 80px rgba(0,0,0,0.9); flex-shrink: 0; z-index: 10; overflow: hidden;
         }
-        .iphone-screen { position: absolute; inset: 10px; background: #000; border-radius: clamp(25px, 6vw, 42px); overflow: hidden; }
+        .iphone-screen { position: absolute; inset: clamp(8px, 2vw, 12px); background: #000; border-radius: clamp(25px, 6vw, 42px); overflow: hidden; }
         
-        /* LOCK SCREEN AMÉLIORÉ */
         #lock-screen {
-            position: absolute; inset: 0;
-            background: #000;
-            z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 50px 20px;
+            position: absolute; inset: 0; background: #000; z-index: 200; 
+            display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 50px 20px;
             transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .lock-time { font-size: 48px; font-weight: 200; color: #fff; margin-top: 20px; }
+        .lock-time { font-size: clamp(40px, 10vw, 48px); font-weight: 200; color: #fff; margin-top: 20px; }
         .lock-date { font-size: 14px; color: #fff; opacity: 0.8; }
         
         .slider-container {
-            width: 220px; height: 50px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+            width: 80%; max-width: 240px; height: 50px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
             border-radius: 100px; position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
         }
         .slider-text { font-size: 9px; font-weight: 800; letter-spacing: 1px; color: #fff; opacity: 0.5; animation: blink 2s infinite; text-transform: uppercase; }
         .handle {
             position: absolute; left: 5px; width: 40px; height: 40px; background: #fff;
-            border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 15px rgba(255,255,255,0.2); z-index: 210;
+            border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 210;
         }
         .handle::after { content: '>'; color: #000; font-weight: 900; }
-
         @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
 
-        iframe { width: 100%; height: 100%; border: none; background: #fff; }
+        iframe { width: 100%; height: 100%; border: none; }
 
-        /* RESPONSIVE TEMPS RÉEL */
-        @media (max-width: 900px) {
-            .nav-header { padding: 40px 20px 20px; }
-            .text-side { text-align: center; order: 2; }
-            .iphone-frame { max-width: 85vw; margin: 0 auto; order: 1; }
-            .hero { padding-bottom: 40px; }
-        }
-
-        /* SECTIONS */
         .section { position: relative; z-index: 10; padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { padding: 30px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 25px; }
-        .card h3 { color: var(--sylex-blue); margin-bottom: 10px; }
+        .sim-container { max-width: 700px; margin: 0 auto; padding: 40px; background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 40px; text-align: center; }
+        .res-amount { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; color: var(--sylex-cyan); margin: 20px 0; font-family: 'JetBrains Mono'; letter-spacing: -2px; }
+        
+        .switch-container { display: flex; background: #1a1a1a; border-radius: 100px; padding: 5px; margin-bottom: 30px; }
+        .switch-btn { flex: 1; padding: 12px; border-radius: 100px; border: none; cursor: pointer; font-weight: 800; transition: 0.3s; font-size: 0.75rem; color: #666; background: transparent; }
+        .switch-btn.active { background: var(--sylex-blue); color: #fff; }
+        
+        .sim-label { text-align: left; font-weight: bold; margin-top: 20px; display: flex; justify-content: space-between; font-family: 'JetBrains Mono'; font-size: 0.9rem; }
+        .sim-label span { color: var(--sylex-blue); }
+        input[type=range] { width: 100%; margin: 15px 0; accent-color: var(--sylex-blue); cursor: pointer; }
+        
+        .btn-main { background: #fff; color: #000; padding: 18px 40px; border-radius: 100px; font-weight: 900; text-decoration: none; display: inline-block; transition: 0.3s; border: none; cursor: pointer; margin-top: 20px; }
 
-        .btn-main { background: #fff; color: #000; padding: 18px 40px; border-radius: 100px; font-weight: 900; text-decoration: none; display: inline-block; transition: 0.3s; border: none; cursor: pointer; }
+        @media (max-width: 900px) {
+            .text-side { text-align: center; order: 2; }
+            .iphone-frame { max-width: 85dvw; margin: 0 auto; order: 1; }
+        }
     </style>
 </head>
 <body>
     <div class="aura"></div>
-    
     <header class="nav-header">
         <div class="logo-text">SYLEX</div><br>
         <div class="confidential-tag">CLASSIFIÉ : TOP SECRET</div>
@@ -120,7 +103,7 @@
             <div class="text-side">
                 <h1>Protocole <br><span style="color:var(--sylex-blue)">Extraction ROI.</span></h1>
                 <p>> Statut : Opérationnel<br>> Localisation : Occitanie<br>> Unité : V3.0 Secure</p>
-                <a href="#simulator" class="btn-main">ACCÉDER AU TERMINAL</a>
+                <a href="#simulator" class="btn-main">ACCÉDER AUX CALCULS</a>
             </div>
             
             <div class="iphone-frame">
@@ -129,10 +112,6 @@
                         <div style="text-align: center;">
                             <div class="lock-time" id="lock-time">00:00</div>
                             <div class="lock-date" id="lock-date">Chargement...</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <p style="font-size: 9px; text-transform: uppercase; letter-spacing: 2px; color: var(--sylex-cyan); font-weight: bold;">Accès Sécurisé</p>
-                            <p style="font-size: 13px; color: #fff; margin-top: 5px;">Déverrouiller pour auditer</p>
                         </div>
                         <div class="slider-container" id="slider-track">
                             <div class="slider-text">GLISSER POUR OUVRIR</div>
@@ -146,34 +125,42 @@
     </section>
 
     <section id="simulator" class="section">
-        <div class="grid">
-            <div class="card">
-                <h3>Automation</h3>
-                <p>Libérez votre temps en automatisant les processus critiques.</p>
+        <div class="sim-container">
+            <h2 style="font-size: 1.5rem; margin-bottom: 20px; font-family: 'JetBrains Mono';">[ CALCULATEUR_ROI ]</h2>
+            <div class="switch-container">
+                <button id="btn-team" class="switch-btn active" onclick="setMode('team')">Équipe</button>
+                <button id="btn-solo" class="switch-btn" onclick="setMode('solo')">Solo</button>
             </div>
-            <div class="card">
-                <h3>Lead Gen</h3>
-                <p>Capturez et qualifiez vos leads avec une précision militaire.</p>
-            </div>
+            
+            <div class="sim-label">Gain de temps / jour : <span id="v1">2h</span></div>
+            <input type="range" id="t" min="1" max="8" step="0.5" value="2" oninput="calc()">
+            
+            <div class="sim-label">Tarif horaire (€) : <span id="v2">120€</span></div>
+            <input type="range" id="p" min="40" max="500" step="10" value="120" oninput="calc()">
+            
+            <div class="sim-label"><span id="lbl-hybrid">Effectif</span> : <span id="v3">1</span></div>
+            <input type="range" id="h" min="1" max="30" step="1" value="1" oninput="calc()">
+            
+            <div class="res-amount" id="res">0 €</div>
+            <button class="btn-main" style="width:100%; background:var(--sylex-blue); color:#fff;" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});">RÉSERVER MON AUDIT</button>
         </div>
     </section>
 
     <script>
+        // HORLOGE
         function updateClock() {
             const now = new Date();
             document.getElementById('lock-time').innerText = now.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'});
-            const options = { weekday: 'long', day: 'numeric', month: 'long' };
-            document.getElementById('lock-date').innerText = now.toLocaleDateString('fr-FR', options);
+            document.getElementById('lock-date').innerText = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
         }
-        setInterval(updateClock, 1000);
-        updateClock();
+        setInterval(updateClock, 1000); updateClock();
 
+        // SLIDER UNLOCK
         const handle = document.getElementById('slider-handle');
         const track = document.getElementById('slider-track');
         const lockScreen = document.getElementById('lock-screen');
         let isDragging = false;
-
-        function startDrag(e) { isDragging = true; }
+        function startDrag() { isDragging = true; }
         function drag(e) {
             if (!isDragging) return;
             let clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
@@ -184,18 +171,45 @@
             handle.style.left = x + 'px';
         }
         function endDrag() { isDragging = false; if (parseInt(handle.style.left) < 160) handle.style.left = '5px'; }
+        handle.addEventListener('mousedown', startDrag); handle.addEventListener('touchstart', startDrag);
+        document.addEventListener('mousemove', drag); document.addEventListener('touchmove', drag);
+        document.addEventListener('mouseup', endDrag); document.addEventListener('touchend', endDrag);
+        function unlock() { lockScreen.style.transform = 'translateY(-105%)'; setTimeout(() => { lockScreen.style.display = 'none'; }, 700); }
 
-        handle.addEventListener('mousedown', startDrag);
-        handle.addEventListener('touchstart', startDrag);
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('touchmove', drag);
-        document.addEventListener('mouseup', endDrag);
-        document.addEventListener('touchend', endDrag);
-
-        function unlock() {
-            lockScreen.style.transform = 'translateY(-105%)';
-            setTimeout(() => { lockScreen.style.display = 'none'; }, 700);
+        // CALCULATEUR LOGIQUE COMPLETE
+        let mode = 'team';
+        function setMode(m) {
+            mode = m;
+            document.getElementById('btn-team').classList.toggle('active', m === 'team');
+            document.getElementById('btn-solo').classList.toggle('active', m === 'solo');
+            const lbl = document.getElementById('lbl-hybrid');
+            const slider = document.getElementById('h');
+            if (m === 'team') {
+                lbl.innerText = "Effectif";
+                slider.min = 1; slider.max = 30; slider.step = 1; slider.value = 1;
+            } else {
+                lbl.innerText = "Frais prestataires / mois";
+                slider.min = 0; slider.max = 5000; slider.step = 100; slider.value = 0;
+            }
+            calc();
         }
+        function calc() {
+            const t = parseFloat(document.getElementById('t').value);
+            const p = parseFloat(document.getElementById('p').value);
+            const h = parseFloat(document.getElementById('h').value);
+            document.getElementById('v1').innerText = t + "h";
+            document.getElementById('v2').innerText = p + "€";
+            let total = 0;
+            if (mode === 'team') {
+                document.getElementById('v3').innerText = h + " pers.";
+                total = t * 22 * p * h;
+            } else {
+                document.getElementById('v3').innerText = h + "€";
+                total = (t * 22 * p) + h;
+            }
+            document.getElementById('res').innerText = Math.round(total).toLocaleString() + " €";
+        }
+        window.onload = calc;
     </script>
 </body>
 </html>
