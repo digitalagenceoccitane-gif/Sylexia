@@ -161,12 +161,12 @@
                 </div>
             </div>
 
-            <button class="btn-main" style="width:100%; background:var(--sylex-blue); color:#fff; margin-top:20px;" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});">RÉSERVER MON AUDIT LIVE</button>
+            <button class="btn-main" style="width:100%; background:var(--sylex-blue); color:#fff; margin-top:20px;" onclick="window.open('https://calendly.com/digitalagenceoccitane/30min', '_blank')">RÉSERVER MON AUDIT LIVE</button>
         </div>
     </section>
 
     <script>
-        // CONFIGURATION EMAILJS MISE À JOUR
+        // CONFIGURATION EMAILJS
         (function(){
             emailjs.init("tZs8MGlTnT5BhrENl");
         })();
@@ -187,19 +187,22 @@
 
             const templateParams = {
                 email: email,
-                roi_valeur: resultROI // Variable pour ton template EmailJS
+                roi_valeur: resultROI
             };
 
-            // Utilisation de ton nouveau Service ID "sylex"
-            emailjs.send('sylex', 'template_ycveqh2', templateParams)
+            // 1. Envoi vers TA boite (Notification Lead)
+            emailjs.send('sylex', 'template_ycveqh2', templateParams);
+
+            // 2. Envoi vers le CLIENT (Son Protocole Auto)
+            emailjs.send('sylex', 'template_2q6k9bf', templateParams)
                 .then(function() {
-                    alert("✅ Protocole transmis !");
+                    alert("✅ Protocole transmis ! Vérifiez votre boîte mail.");
                     emailField.value = "";
                     btn.innerText = "REÇU";
                     btn.style.background = "#28a745";
                 }, function(error) {
                     console.error('EmailJS Error:', error);
-                    alert("❌ Erreur d'envoi. Vérifiez votre config Service ID.");
+                    alert("❌ Erreur d'envoi. Veuillez réessayer.");
                     btn.innerText = "RECEVOIR";
                     btn.disabled = false;
                 });
