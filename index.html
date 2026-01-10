@@ -18,7 +18,7 @@
     
     <style>
         :root { --sylex-blue: #0066ff; --sylex-cyan: #00d9ff; --accent: #ff3b30; --bg: #000; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body { 
             background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; 
@@ -46,6 +46,7 @@
             width: 100%; max-width: 360px; aspect-ratio: 9 / 18.5; 
             background: #080808; border-radius: clamp(30px, 8vw, 55px); border: 3px solid #1a1a1a; 
             position: relative; box-shadow: 0 40px 80px rgba(0,0,0,0.9); flex-shrink: 0; z-index: 10; overflow: hidden;
+            transform: translateZ(0); /* Accélération GPU Android */
         }
         .iphone-screen { position: absolute; inset: clamp(8px, 2vw, 12px); background: #000; border-radius: clamp(25px, 6vw, 42px); overflow: hidden; }
         
@@ -68,18 +69,33 @@
         }
         @keyframes rotateLogo { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
 
-        .notif-area { width: 100%; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+        .notif-area { width: 100%; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; min-height: 240px; }
         .notif { 
-            background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px;
-            padding: 10px 12px; display: flex; align-items: center; gap: 10px;
-            animation: slideInNotif 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.2) both;
+            background: rgba(35, 35, 35, 0.7); /* Fallback pour Android */
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 16px;
+            padding: 10px 12px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+            min-height: 52px;
+            max-height: 52px;
+            animation: slideInNotif 0.4s ease-out forwards;
+            will-change: transform, opacity;
+            overflow: hidden;
+            transform: translateZ(0);
         }
         .notif-icon { width: 28px; height: 28px; background: var(--sylex-blue); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
         .notif-content { flex: 1; overflow: hidden; }
         .notif-title { font-size: 10px; font-weight: 800; color: #fff; margin-bottom: 1px; }
         .notif-text { font-size: 9px; color: rgba(255,255,255,0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        @keyframes slideInNotif { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        @keyframes slideInNotif { 
+            from { opacity: 0; transform: translateY(10px) translateZ(0); } 
+            to { opacity: 1; transform: translateY(0) translateZ(0); } 
+        }
 
         .slider-container {
             width: 80%; max-width: 240px; height: 50px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
@@ -177,7 +193,6 @@
     </section>
 
     <script>
-        // HORLOGE
         function updateClock() {
             const now = new Date();
             document.getElementById('lock-time').innerText = now.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'});
@@ -185,7 +200,6 @@
         }
         setInterval(updateClock, 1000); updateClock();
 
-        // NOTIFICATIONS DYNAMIQUES LIVE (BOUCLE 5-10S)
         const notifTemplates = [
             { t: "STRIPE : PAIEMENT REÇU ✅", m: "Félicitations, +{amount} € encaissés." },
             { t: "SYLEX IA 🤖", m: "{leads} nouveaux leads extraits cette nuit." },
@@ -218,7 +232,6 @@
             setTimeout(generateLiveNotif, Math.floor(Math.random() * 5000) + 5000);
         }
 
-        // SLIDER UNLOCK
         const handle = document.getElementById('slider-handle');
         const track = document.getElementById('slider-track');
         const lockScreen = document.getElementById('lock-screen');
@@ -239,7 +252,6 @@
         document.addEventListener('mouseup', endDrag); document.addEventListener('touchend', endDrag);
         function unlock() { lockScreen.style.transform = 'translateY(-105%)'; setTimeout(() => { lockScreen.style.display = 'none'; }, 700); }
 
-        // CALCULATEUR LOGIQUE COMPLETE
         let mode = 'team';
         function setMode(m) {
             mode = m;
@@ -275,7 +287,6 @@
         
         window.onload = () => {
             calc();
-            // Lancement notifications initiales puis boucle live
             setTimeout(() => createNotifElement("STRIPE : PAIEMENT REÇU ✅", "Félicitations, +1 450,00 € encaissés."), 800);
             setTimeout(() => createNotifElement("SYLEX IA 🤖", "32 leads qualifiés extraits cette nuit."), 1800);
             setTimeout(() => createNotifElement("CALENDLY 🗓️", "Nouvel audit ROI réservé à 14h00."), 2800);
