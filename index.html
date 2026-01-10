@@ -2,22 +2,44 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>SYLEX IA | DOSSIER CONFIDENTIEL</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
     <link rel="manifest" href="manifest.json">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="apple-touch-icon" href="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SYLEX">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg">
+    <meta name="theme-color" content="#000000">
 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+    
     <style>
         :root { --sylex-blue: #0066ff; --sylex-cyan: #00d9ff; --accent: #ff3b30; --bg: #000; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         
-        .aura { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 140vw; height: 140vh; background: url('https://i.ibb.co/4n4vpP0r/IMG-5824.jpg') no-repeat center; background-size: contain; filter: blur(100px) brightness(0.3); opacity: 0.3; z-index: 1; pointer-events: none; }
+        body { 
+            background: var(--bg); 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden;
+            overscroll-behavior: none; /* Empêche le rebond élastique sur iOS */
+        }
+        
+        /* AURA OPTIMISÉE */
+        .aura { 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            width: 100vw; 
+            height: 100vh; 
+            background: radial-gradient(circle at center, rgba(0, 102, 255, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: 1; 
+            pointer-events: none; 
+        }
         
         .nav-header { position: relative; width: 100%; padding: 80px 20px 40px; z-index: 1000; text-align: center; }
         .logo-text { font-size: clamp(4rem, 15vw, 10rem); font-weight: 900; letter-spacing: -6px; line-height: 0.8; background: linear-gradient(to right, #fff, var(--sylex-blue), var(--sylex-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; display: inline-block; }
@@ -28,22 +50,25 @@
         .text-side { flex: 1; text-align: left; }
         .text-side h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 25px; }
         .text-side p { font-size: 1.4rem; opacity: 0.8; margin-bottom: 40px; line-height: 1.5; font-family: 'JetBrains Mono'; font-size: 1.1rem; }
-    <link rel="manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="SYLEX">
-    <link rel="apple-touch-icon" href="https://i.ibb.co/4n4vpP0r/IMG-5824.jpg">
-    <meta name="theme-color" content="#000000">
-</head>
 
         /* IPHONE SYLEX EDITION */
-        .iphone-frame { width: 360px; height: 720px; background: #080808; border-radius: 55px; border: 3px solid #1a1a1a; position: relative; box-shadow: 0 50px 100px rgba(0,0,0,0.9); flex-shrink: 0; }
+        .iphone-frame { 
+            width: 360px; 
+            height: 720px; 
+            background: #080808; 
+            border-radius: 55px; 
+            border: 3px solid #1a1a1a; 
+            position: relative; 
+            box-shadow: 0 50px 100px rgba(0,0,0,0.9); 
+            flex-shrink: 0; 
+            z-index: 10;
+        }
         .iphone-screen { position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px; background: #000; border-radius: 42px; overflow: hidden; }
         
         /* LOCK SCREEN OVERLAY */
         #lock-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop') center/cover;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
             z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 60px 20px;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -64,9 +89,9 @@
 
         @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
 
-        iframe { width: 100%; height: 100%; border: none; background: #fff; padding-top: 20px; }
+        iframe { width: 100%; height: 100%; border: none; background: #fff; padding-top: env(safe-area-inset-top); }
 
-        /* SECTIONS SUPPLÉMENTAIRES RÉINTÉGRÉES */
+        /* SECTIONS SUPPLÉMENTAIRES */
         .section { position: relative; z-index: 10; padding: 100px 5%; max-width: 1200px; margin: 0 auto; }
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 50px; }
         .card { padding: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; transition: 0.3s; }
@@ -77,18 +102,30 @@
         .sim-container { max-width: 700px; margin: 60px auto; padding: 60px; background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 45px; text-align: center; }
         .res-amount { font-size: 5rem; font-weight: 900; color: var(--sylex-cyan); margin: 20px 0; letter-spacing: -2px; font-family: 'JetBrains Mono'; }
         input[type=range] { width: 100%; margin: 20px 0; accent-color: var(--sylex-blue); cursor: pointer; }
-        .sim-label { text-align: left; font-weight: bold; margin-top: 20px; display: flex; justify-content: space-between; font-family: 'JetBrains Mono'; }
-        .sim-label span { color: var(--sylex-blue); }
-        .switch-container { display: flex; background: #1a1a1a; border-radius: 100px; padding: 5px; margin-bottom: 30px; }
-        .switch-btn { flex: 1; padding: 12px; border-radius: 100px; border: none; cursor: pointer; font-weight: 800; transition: 0.3s; font-size: 0.75rem; text-transform: uppercase; color: #666; background: transparent; }
-        .switch-btn.active { background: var(--sylex-blue); color: #fff; }
         .btn-main { background: #fff; color: #000; padding: 22px 45px; border-radius: 100px; font-weight: 900; text-decoration: none; display: inline-block; transition: 0.3s; border: none; cursor: pointer; font-size: 1.1rem; }
-        
-        @media (max-width: 900px) { .container { flex-direction: column; text-align: center; } .grid { grid-template-columns: 1fr; } .iphone-frame { width: 320px; height: 640px; margin: 0 auto; } .logo-text { font-size: 5rem; } }
+
+        /* MODIFICATION CRUCIALE POUR LE RENDU MOBILE PWA */
+        @media (max-width: 900px) {
+            .nav-header, .hero .text-side, .section { display: none; } /* On cache le décor */
+            .hero { padding: 0; }
+            .container { padding: 0; margin: 0; height: 100vh; }
+            .iphone-frame { 
+                width: 100vw; 
+                height: 100vh; 
+                border-radius: 0; 
+                border: none; 
+                position: fixed; 
+                top: 0; 
+                left: 0; 
+            }
+            .iphone-screen { top: 0; left: 0; right: 0; bottom: 0; border-radius: 0; }
+            #lock-screen { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+        }
     </style>
 </head>
 <body>
     <div class="aura"></div>
+    
     <header class="nav-header">
         <div class="logo-text">SYLEX</div><br>
         <div class="confidential-tag">CLASSIFIÉ : TOP SECRET</div>
@@ -98,7 +135,7 @@
         <div class="container">
             <div class="text-side">
                 <h1>Protocole <br><span style="color:var(--sylex-blue)">Extraction ROI.</span></h1>
-                <p>> Statut : En attente d'identification...<br>> Localisation : Région Occitanie<br>> Cible : Optimisation Business 2026</p>
+                <p>> Statut : En attente d'identification...<br>> Localisation : Région Occitanie</p>
                 <a href="#simulator" class="btn-main">ACCÉDER AUX CALCULS</a>
             </div>
             
@@ -107,7 +144,7 @@
                     <div id="lock-screen">
                         <div class="lock-header">
                             <div class="lock-time" id="lock-time">00:00</div>
-                            <div class="lock-date" id="lock-date">Vendredi 9 Janvier</div>
+                            <div class="lock-date" id="lock-date">Chargement...</div>
                         </div>
                         <div style="text-align: center;">
                             <p style="font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #fff; opacity: 0.7;">Alerte Système</p>
@@ -124,44 +161,15 @@
         </div>
     </section>
 
-    <section class="section">
-        <div class="grid">
-            <div class="card">
-                <h3>01. Automatisation</h3>
-                <p>Supprimez les tâches répétitives. Gagnez jusqu'à 15h par semaine sur vos processus opérationnels.</p>
-            </div>
-            <div class="card">
-                <h3>02. Lead Gen</h3>
-                <p>Un tunnel de capture intelligent (comme celui-ci) qui qualifie vos prospects 24h/24.</p>
-            </div>
-            <div class="card">
-                <h3>03. Scalabilité</h3>
-                <p>Déployez une infrastructure IA capable de soutenir une croissance à 3 chiffres sans embaucher.</p>
-            </div>
-        </div>
-    </section>
-
     <section id="simulator" class="section">
         <div class="sim-container">
-            <h2 style="font-size: 2.2rem; margin-bottom: 20px; font-family: 'JetBrains Mono';">[ CALCULATEUR_PROFIT_V1 ]</h2>
-            <div class="switch-container">
-                <button id="btn-team" class="switch-btn active" onclick="setMode('team')">Équipe</button>
-                <button id="btn-solo" class="switch-btn" onclick="setMode('solo')">Indépendant</button>
-            </div>
-            <div class="sim-label">Temps gagné / jour : <span id="v1">2h</span></div>
-            <input type="range" id="t" min="1" max="8" step="0.5" value="2" oninput="calc()">
-            <div class="sim-label">Tarif horaire (€) : <span id="v2">120€</span></div>
-            <input type="range" id="p" min="40" max="500" step="10" value="120" oninput="calc()">
-            <div class="sim-label"><span id="lbl-hybrid">Effectif</span> : <span id="v3">1</span></div>
-            <input type="range" id="h" min="1" max="30" step="1" value="1" oninput="calc()">
-            <div class="res-amount" id="res">-- €</div>
-            <p style="margin-bottom:30px; opacity:0.5; font-family: 'JetBrains Mono';">Économie mensuelle estimée après levée de bride SYLEX.</p>
-            <button class="btn-main" style="width:100%; background:var(--sylex-blue); color:#fff;" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});">RÉSERVER MON AUDIT SÉCURISÉ</button>
+            <h2 style="font-size: 2.2rem; margin-bottom: 20px; font-family: 'JetBrains Mono';">[ CALCULATEUR_PROFIT ]</h2>
+            <div class="res-amount" id="res">0 €</div>
+            <button class="btn-main" style="width:100%; background:var(--sylex-blue); color:#fff;" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/digitalagenceoccitane/30min'});">RÉSERVER MON AUDIT</button>
         </div>
     </section>
 
     <script>
-        // HORLOGE & DATE
         function updateClock() {
             const now = new Date();
             document.getElementById('lock-time').innerText = now.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'});
@@ -171,83 +179,34 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // SLIDER UNLOCK
         const handle = document.getElementById('slider-handle');
         const track = document.getElementById('slider-track');
         const lockScreen = document.getElementById('lock-screen');
         let isDragging = false;
 
-        handle.addEventListener('mousedown', startDrag);
-        handle.addEventListener('touchstart', startDrag);
-
-        function startDrag(e) {
-            isDragging = true;
-            document.addEventListener('mousemove', drag);
-            document.addEventListener('touchmove', drag);
-            document.addEventListener('mouseup', endDrag);
-            document.addEventListener('touchend', endDrag);
-        }
-
+        function startDrag(e) { isDragging = true; }
         function drag(e) {
             if (!isDragging) return;
             let clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
             let rect = track.getBoundingClientRect();
             let x = clientX - rect.left - 20;
             if (x < 5) x = 5;
-            if (x > rect.width - 45) {
-                x = rect.width - 45;
-                unlock();
-            }
+            if (x > rect.width - 45) { x = rect.width - 45; unlock(); }
             handle.style.left = x + 'px';
         }
+        function endDrag() { isDragging = false; if (parseInt(handle.style.left) < 180) handle.style.left = '5px'; }
 
-        function endDrag() {
-            if (!isDragging) return;
-            isDragging = false;
-            if (parseInt(handle.style.left) < 180) {
-                handle.style.left = '5px';
-            }
-        }
+        handle.addEventListener('mousedown', startDrag);
+        handle.addEventListener('touchstart', startDrag);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', drag);
+        document.addEventListener('mouseup', endDrag);
+        document.addEventListener('touchend', endDrag);
 
         function unlock() {
             lockScreen.style.transform = 'translateY(-100%)';
             setTimeout(() => { lockScreen.style.display = 'none'; }, 600);
         }
-
-        // CALCULATEUR LOGIC
-        let mode = 'team';
-        function setMode(m) {
-            mode = m;
-            document.getElementById('btn-team').classList.toggle('active', m === 'team');
-            document.getElementById('btn-solo').classList.toggle('active', m === 'solo');
-            const lbl = document.getElementById('lbl-hybrid');
-            const slider = document.getElementById('h');
-            if (m === 'team') {
-                lbl.innerText = "Effectif (Collaborateurs)";
-                slider.min = 1; slider.max = 30; slider.step = 1; slider.value = 1;
-            } else {
-                lbl.innerText = "Frais prestataires / mois";
-                slider.min = 0; slider.max = 5000; slider.step = 100; slider.value = 0;
-            }
-            calc();
-        }
-        function calc() {
-            const t = parseFloat(document.getElementById('t').value);
-            const p = parseFloat(document.getElementById('p').value);
-            const h = parseFloat(document.getElementById('h').value);
-            document.getElementById('v1').innerText = t + "h";
-            document.getElementById('v2').innerText = p + "€";
-            let total = 0;
-            if (mode === 'team') {
-                document.getElementById('v3').innerText = h + " pers.";
-                total = t * 22 * p * h;
-            } else {
-                document.getElementById('v3').innerText = h + "€";
-                total = (t * 22 * p) + h;
-            }
-            document.getElementById('res').innerText = Math.round(total).toLocaleString() + " €";
-        }
-        window.onload = calc;
     </script>
 </body>
 </html>
